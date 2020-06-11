@@ -10,6 +10,8 @@ const Home = ({ data }) => {
 
   const [corporations, setCorporations] = useState(data.allAirtable.nodes);
   const [filteredCorporations, setFilteredCorporations] = useState(data.allAirtable.nodes);
+  const [localeList, setLocaleList] = useState(data.allAirtableCountryIncomes.edges.map(node => node.node.data))
+  const [activeLocale, setActiveLocale] = useState({});
 
   // Search Field
   const [searchValue, setSearchValue] = useState('');
@@ -18,6 +20,12 @@ const Home = ({ data }) => {
     setSearchValue(e.target.value);
     setFilteredCorporations(corporations.filter(corporation => corporation.data.Name.toLowerCase().includes(e.target.value.toLowerCase())))
   }
+
+  useEffect(() => {
+    // get user country, sort through locales + income to adjust
+    const locale = navigator.language || navigator.browserLanguage || ( navigator.languages || [ "en" ] )[0];
+    locale ? setActiveLocale(localeList.filter(l => l.Languages.split(",").includes(locale))[0]) : setActiveLocale(localeList.filter(l => l.Languages.split(",").includes('en-US'))[0]);
+  }, [data])
 
   return (
     <DarkMode>
@@ -45,7 +53,7 @@ const Home = ({ data }) => {
         >
           {filteredCorporations.map(corporation => {
             if (corporation.data.Donation__thousands_ && corporation.data.Gross_Profit__millions_) {
-              return <DonationCard imageURL={corporation.data.Logo && corporation.data.Logo[0].url} name={corporation.data.Name} percent={corporation.data.Percent_Profits} amount={corporation.data.Donation__thousands_} donationCurrency={corporation.data.Currency} profits={corporation.data.Gross_Profit__millions_}/>
+              return <DonationCard locale={activeLocale} imageURL={corporation.data.Logo && corporation.data.Logo[0].url} name={corporation.data.Name} percent={corporation.data.Percent_Profits} amount={corporation.data.Donation__thousands_} donationCurrency={corporation.data.Currency} profits={corporation.data.Gross_Profit__millions_}/>
             }
           })}
         </Box>
@@ -75,6 +83,19 @@ export const query = graphql`
             url
           }
           Percent_Profits
+        }
+      }
+    }
+
+    allAirtableCountryIncomes(filter: {data: {}}) {
+      edges {
+        node {
+          data {
+            Languages
+            Location
+            Median_Household_Income
+            Currency
+          }
         }
       }
     }

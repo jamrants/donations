@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Image, Text, PseudoBox } from '@chakra-ui/core';
 
-const DonationCard = ({ imageURL, name, amount, donationCurrency, profits, percent, incomeAdjustFactor }) => {
+const DonationCard = ({ imageURL, name, amount, donationCurrency, profits, percent, locale }) => {
   amount = parseInt(amount);
   profits = parseFloat(profits)
   return (
@@ -92,7 +92,7 @@ const DonationCard = ({ imageURL, name, amount, donationCurrency, profits, perce
             fontSize={['20px', null, '24px', '28px', '32px']}
             lineHeight={['20px', null, '24px', '28px', '32px']}          
           >
-            $1.23
+            {(locale.Median_Household_Income * percent).toLocaleString(locale, { style: 'currency', currency: locale.Currency})}
           </Text>
           <Text
             color='smoke'
