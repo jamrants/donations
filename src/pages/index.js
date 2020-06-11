@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+
 import { graphql } from "gatsby"
 import Layout from "../components/Layout"
 import { Box, Text, DarkMode } from "@chakra-ui/core"
@@ -8,6 +9,23 @@ import DonationCard from "../components/donationCard"
 
 const Home = ({ data }) => {
   const [corporations, setCorporations] = useState(data.allAirtable.nodes)
+  const [filteredCorporations, setFilteredCorporations] = useState(
+    data.allAirtable.nodes
+  )
+
+  // Search Field
+  const [searchValue, setSearchValue] = useState("")
+
+  const searchFieldOnChange = e => {
+    setSearchValue(e.target.value)
+    setFilteredCorporations(
+      corporations.filter(corporation =>
+        corporation.data.Name.toLowerCase().includes(
+          e.target.value.toLowerCase()
+        )
+      )
+    )
+  }
 
   return (
     <DarkMode>
@@ -31,7 +49,11 @@ const Home = ({ data }) => {
             >
               Find a Corporation
             </Text>
-            <SearchField placeholder="Amazon" />
+            <SearchField
+              placeholder="Amazon"
+              value={searchValue}
+              onChange={searchFieldOnChange}
+            />
           </Box>
         </Box>
         <Box
@@ -41,16 +63,13 @@ const Home = ({ data }) => {
           gridColumnGap={["20px", "20px", "32px", "40px", "48px"]}
           gridRowGap={["20px", "20px", "32px  ", "40px", "48px"]}
         >
-          {corporations.map(corporation => {
+          {filteredCorporations.map(corporation => {
             if (
               corporation.data.Donation__thousands_ &&
               corporation.data.Gross_Profit__millions_
             ) {
               return (
                 <DonationCard
-                  // imageURL={
-                  //   corporation.data.Logo && corporation.data.Logo[0].url
-                  // }
                   image={corporation.data.Logo.localFiles[0].childImageSharp.fixed}
                   name={corporation.data.Name}
                   percent={corporation.data.Percent_Profits}

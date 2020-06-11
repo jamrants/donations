@@ -65,7 +65,7 @@ const DonationCard = ({
             fontSize={["20px", null, "24px", "28px", "32px"]}
             lineHeight={["20px", null, "24px", "28px", "32px"]}
           >
-            {percent.toFixed(3)}%
+            {(percent * 100).toFixed(3)}%
           </Text>
           <Text
             color="smoke"
