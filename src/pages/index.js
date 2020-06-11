@@ -112,7 +112,7 @@ export const query = graphql`
             localFiles {
               childImageSharp {
                 fixed(width: 80) {
-                  ...GatsbyImageSharpFixed
+                  ...GatsbyImageSharpFixed_withWebp
                 }
               }
             }
