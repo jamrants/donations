@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+
 import { graphql } from "gatsby"
 import Layout from "../components/Layout"
 import { Box, Text, DarkMode } from "@chakra-ui/core"
@@ -69,8 +70,8 @@ const Home = ({ data }) => {
             ) {
               return (
                 <DonationCard
-                  imageURL={
-                    corporation.data.Logo && corporation.data.Logo[0].url
+                  image={
+                    corporation.data.Logo.localFiles[0].childImageSharp.fixed
                   }
                   name={corporation.data.Name}
                   percent={corporation.data.Percent_Profits}
@@ -108,7 +109,13 @@ export const query = graphql`
           Sources
           Donation_Recipients
           Logo {
-            url
+            localFiles {
+              childImageSharp {
+                fixed(width: 80) {
+                  ...GatsbyImageSharpFixed_withWebp
+                }
+              }
+            }
           }
           Percent_Profits
         }

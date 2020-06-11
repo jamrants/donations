@@ -1,8 +1,10 @@
 import React from "react"
 import { Box, Image, Text, PseudoBox } from "@chakra-ui/core"
+import { graphql } from "gatsby"
+import Img from "gatsby-image"
 
 const DonationCard = ({
-  imageURL,
+  image,
   name,
   amount,
   donationCurrency,
@@ -24,13 +26,7 @@ const DonationCard = ({
       key={name + "Donation Stats"}
     >
       <Box display="flex" flexDirection="row" alignItems="center">
-        <Image
-          src={imageURL}
-          rounded="full"
-          w={["50px", null, "60px", "70px", "80px"]}
-          h={["50px", null, "60px", "70px", "80px"]}
-          objectFit="cover"
-        />
+        <Img fixed={image} rounded="full" />
         <Box ml={("8px", null, null, null, "16px")}>
           <Text
             mb={["2px", null, null, "4px", "8px"]}
