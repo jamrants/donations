@@ -11,7 +11,7 @@ const Header = () => (
     fontSize="16px"
     color='primary.green'
   >
-    <Box fontWeight='black'>
+    <Box fontWeight='black' as='a' href='/'>
       Donations Exposed
     </Box>
     <Box>
