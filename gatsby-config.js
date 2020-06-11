@@ -5,17 +5,19 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     title: "Donations Exposed",
-    description: "Corporations have made headlines with big pledges recently — how much would they be to the average person?"
+    description:
+      "Corporations have made headlines with big pledges recently — how much would they be to the average person?",
   },
   plugins: [
     {
-      resolve: 'gatsby-source-airtable',
+      resolve: `gatsby-source-airtable`,
       options: {
         apiKey: process.env.AIRTABLE_KEY,
         tables: [
           {
             baseId: process.env.BASE_ID,
-            tableName: `Corporations`
+            tableName: `Corporations`,
+            mapping: { Logo: `fileNode` },
           },
           {
             baseId: process.env.BASE_ID,
@@ -27,20 +29,22 @@ module.exports = {
       }
     },
     {
-      resolve: 'gatsby-plugin-chakra-ui',
+      resolve: `gatsby-plugin-chakra-ui`,
       options: {
         isResettingCSS: true,
         isUsingColorMode: false,
-      }
+      },
     },
     {
-      resolve: 'gatsby-plugin-web-font-loader',
+      resolve: `gatsby-plugin-web-font-loader`,
       options: {
         custom: {
-          families: ['Metropolis'],
-          urls: ['/fonts/fonts.css'],
-        }
-      }
-    }
+          families: [`Metropolis`],
+          urls: [`/fonts/fonts.css`],
+        },
+      },
+    },
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
   ],
 }
