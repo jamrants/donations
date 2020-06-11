@@ -4,7 +4,7 @@ import Layout from '../components/Layout';
 
 const Home = ({data}) => {
   return (
-    <Layout>
+    <Layout title='Donations Exposed' subtitle='Corporations have made headlines with big pledges recently — how much would they be to the average person?'>
       Home Page
     </Layout>
   )

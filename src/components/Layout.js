@@ -1,15 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@chakra-ui/core';
+import { Box, PseudoBox } from '@chakra-ui/core';
 import { IsDesktop } from '../utils/mediaQueries';
 import Header from './Header';
+import Hero from './Hero';
 
-const Layout = ({ children }) => (
+const Layout = ({ children, title, subtitle }) => (
   <Box
-    mx={IsDesktop() ? '20%' : '24px'}
+    backgroundColor='dark'
+    minHeight='100vh'
   >
-    <Header />
-    { children }
+    <Hero 
+      title={title} 
+      subtitle={subtitle}
+      padding={IsDesktop() ? '20%' : '24px'}
+    />
+    <PseudoBox px={IsDesktop() ? '20%' : '24px'}>
+      { children }
+    </PseudoBox>
   </Box>
 )
 
