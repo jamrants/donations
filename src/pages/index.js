@@ -8,11 +8,14 @@ import "../components/Search/search.css"
 import DonationCard from "../components/donationCard"
 
 const Home = ({ data }) => {
-
-  const [corporations, setCorporations] = useState(data.allAirtable.nodes);
-  const [filteredCorporations, setFilteredCorporations] = useState(data.allAirtable.nodes);
-  const [localeList, setLocaleList] = useState(data.allAirtableCountryIncomes.edges.map(node => node.node.data))
-  const [activeLocale, setActiveLocale] = useState({});
+  const [corporations, setCorporations] = useState(data.allAirtable.nodes)
+  const [filteredCorporations, setFilteredCorporations] = useState(
+    data.allAirtable.nodes
+  )
+  const [localeList, setLocaleList] = useState(
+    data.allAirtableCountryIncomes.edges.map(node => node.node.data)
+  )
+  const [activeLocale, setActiveLocale] = useState({})
 
   // Search Field
   const [searchValue, setSearchValue] = useState("")
@@ -30,8 +33,17 @@ const Home = ({ data }) => {
 
   useEffect(() => {
     // get user country, sort through locales + income to adjust
-    const locale = navigator.language || navigator.browserLanguage || ( navigator.languages || [ "en" ] )[0];
-    locale ? setActiveLocale(localeList.filter(l => l.Locales.split(",").includes(locale))[0]) : setActiveLocale(localeList.filter(l => l.Locales.split(",").includes('en-US'))[0]);
+    const locale =
+      navigator.language ||
+      navigator.browserLanguage ||
+      (navigator.languages || ["en"])[0]
+    locale
+      ? setActiveLocale(
+          localeList.filter(l => l.Locales.split(",").includes(locale))[0]
+        )
+      : setActiveLocale(
+          localeList.filter(l => l.Locales.split(",").includes("en-US"))[0]
+        )
   }, [data])
 
   return (
@@ -70,7 +82,7 @@ const Home = ({ data }) => {
           gridColumnGap={["20px", "20px", "32px", "40px", "48px"]}
           gridRowGap={["20px", "20px", "32px  ", "40px", "48px"]}
         >
-          {activeLocale.Currency ? 
+          {activeLocale.Currency ? (
             filteredCorporations.map(corporation => {
               if (
                 corporation.data.Donation__thousands_ &&
@@ -90,19 +102,19 @@ const Home = ({ data }) => {
                   />
                 )
               }
-            })         
-            :
+            })
+          ) : (
             <>
-              <Skeleton h="220px" borderRadius="10px"/>
-              <Skeleton h="220px" borderRadius="10px"/>
-              <Skeleton h="220px" borderRadius="10px"/>
-              <Skeleton h="220px" borderRadius="10px"/>
-              <Skeleton h="220px" borderRadius="10px"/>
-              <Skeleton h="220px" borderRadius="10px"/>
-              <Skeleton h="220px" borderRadius="10px"/>
-              <Skeleton h="220px" borderRadius="10px"/>
-            </>   
-          }
+              <Skeleton h="220px" borderRadius="10px" />
+              <Skeleton h="220px" borderRadius="10px" />
+              <Skeleton h="220px" borderRadius="10px" />
+              <Skeleton h="220px" borderRadius="10px" />
+              <Skeleton h="220px" borderRadius="10px" />
+              <Skeleton h="220px" borderRadius="10px" />
+              <Skeleton h="220px" borderRadius="10px" />
+              <Skeleton h="220px" borderRadius="10px" />
+            </>
+          )}
         </Box>
       </Layout>
     </DarkMode>
@@ -143,7 +155,7 @@ export const query = graphql`
       }
     }
 
-    allAirtableCountryIncomes(filter: {data: {}}) {
+    allAirtableCountryIncomes(filter: { data: {} }) {
       edges {
         node {
           data {
