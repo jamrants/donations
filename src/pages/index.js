@@ -22,22 +22,26 @@ const Home = ({ data }) => {
               Find a Corporation
             </Text>
             <SearchField placeholder="Amazon" />
-            {data.allAirtable.nodes.map(corporation => console.log(corporation))}
           </Box>
         </Box>
         <Box 
           pb='64px'
           display='grid'
           gridTemplateColumns={['1fr', '1fr', '1fr', '1fr 1fr']}
-          gridColumnGap={['16px', null, '32px', '40px', '48px']}
-          gridRowGap={['16px', null, '32px  ', '40px', '48px']}
+          gridColumnGap={['20px', '20px', '32px', '40px', '48px']}
+          gridRowGap={['20px', '20px', '32px  ', '40px', '48px']}
         >
+          {data.allAirtable.nodes.map(corporation => {
+            if (corporation.data.Donation__thousands_ && corporation.data.Gross_Profit__millions_) {
+              return <DonationCard imageURL={corporation.data.Logo && corporation.data.Logo[0].url} name={corporation.data.Name} amount={corporation.data.Donation__thousands_} donationCurrency={corporation.data.Currency} profits={corporation.data.Gross_Profit__millions_}/>
+            }
+          })}
+          {/* <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
           <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
           <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
           <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
           <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
-          <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
-          <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
+          <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/> */}
         </Box>
       </Layout>
     </DarkMode>
@@ -46,7 +50,7 @@ const Home = ({ data }) => {
 
 export const query = graphql`
   query corporationsQuery {
-    allAirtable(filter: {table: {eq: "Corporations"}}, sort: {fields: data___Name, order: ASC}) {
+    allAirtable(filter: {table: {eq: "Corporations"}}, sort: {fields: data___Donation__thousands_, order: DESC}) {
       nodes {
         data {
           Currency
@@ -61,6 +65,9 @@ export const query = graphql`
           Profit_Year
           Sources
           Donation_Recipients
+          Logo {
+            url
+          }
         }
       }
     }

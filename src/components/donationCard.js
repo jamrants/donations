@@ -2,6 +2,9 @@ import React from 'react';
 import { Box, Image, Text, PseudoBox } from '@chakra-ui/core';
 
 const DonationCard = ({ imageURL, name, amount, donationCurrency, profits, incomeAdjustFactor }) => {
+  console.log(amount)
+  amount = parseInt(amount);
+  profits = parseFloat(profits)
   return (
     <PseudoBox
       padding={['12px', null, '16px', '24px', '30px']}
@@ -25,6 +28,8 @@ const DonationCard = ({ imageURL, name, amount, donationCurrency, profits, incom
             fontWeight='900'
             fontSize={['20px', null, '24px', '28px', '32px']}
             lineHeight={['20px', null, '24px', '28px', '32px']}
+            isTruncated
+            maxWidth={['300px', null, null, null, '390px']}
           >
             {name}
           </Text>
@@ -53,10 +58,10 @@ const DonationCard = ({ imageURL, name, amount, donationCurrency, profits, incom
       </Box>
       <Box
         display='flex'
-        flexDirection={['column', 'row']}
+        flexDirection='row'
         mt={['24px', null, null, null, '32px']}
       >
-        <Box mr={['16px','28px', null, null, '32px']}>
+        <Box mr={['32px','32px', null, '24px', '32px']}>
           <Text
             fontWeight='900'
             fontSize={['20px', null, '24px', '28px', '32px']}
