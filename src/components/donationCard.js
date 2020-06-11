@@ -92,7 +92,8 @@ const DonationCard = ({ imageURL, name, amount, donationCurrency, profits, perce
             fontSize={['20px', null, '24px', '28px', '32px']}
             lineHeight={['20px', null, '24px', '28px', '32px']}          
           >
-            {(locale.Median_Household_Income * percent).toLocaleString(locale, { style: 'currency', currency: locale.Currency})}
+            {console.log(locale.Currency)}
+            {(locale.Median_Household_Income * percent).toLocaleString(locale, { style: 'currency', currency: (locale.Currency ? locale.Currency : 'USD')})}
           </Text>
           <Text
             color='smoke'
