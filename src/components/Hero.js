@@ -17,14 +17,14 @@ const Hero = ({ padding, title, subtitle }) => {
       >
         <Text
           color='primary.green'
-          fontSize={['48px', '56px', '64px', '76px', '96px']}
+          fontSize={['48px', '56px', '64px', '74px', '96px']}
           fontWeight='900'
         >
           {title}
         </Text>
         <Text
           color='snow'
-          fontSize={['20px', '24px', '28px', '32px', '36px']}
+          fontSize={['20px', '24px', '28px', '31px', '38px']}
         >
           {subtitle}
         </Text>
