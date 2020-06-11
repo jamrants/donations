@@ -18,6 +18,7 @@ const Footer = ({ padding }) => (
       fontSize='16px'
       fontWeight='700'
       as='a'
+      target="_blank"
       href='https://blmsites.carrd.co/'
     >
       Get Informed about BLM →
@@ -30,6 +31,7 @@ const Footer = ({ padding }) => (
         fontSize='16px'
         fontWeight='700'
         as='a'
+        target="_blank"
         href='https://instagram.com/davidli3100'
       >
         David Li
@@ -40,6 +42,7 @@ const Footer = ({ padding }) => (
         fontSize='16px'
         fontWeight='700'
         as='a'
+        target="_blank"
         href='https://github.com/jhthenerd'
       >
         Jason Huang
@@ -50,6 +53,7 @@ const Footer = ({ padding }) => (
         fontSize='16px'
         fontWeight='700'
         as='a'
+        target="_blank"
         href='https://instagram.com/james.ahyong'
       >
         James Ah Yong
@@ -64,6 +68,7 @@ const Footer = ({ padding }) => (
         fontSize='16px'
         fontWeight='700'
         as='a'
+        target="_blank"
         href='https://GunFunded.com'
       >
         GunFunded.com
@@ -74,13 +79,14 @@ const Footer = ({ padding }) => (
         fontSize='16px'
         fontWeight='700'
         as='a'
+        target="_blank"
         href='https://lachlanjc.me/'
       >
         @lachlanjc
       </PseudoBox>
       {'.'}
     </Text>
-    <Text mt='16px' fontWeight='700' as='a' href='https://github.com/jamrants/donations' color='primary.green'>
+    <Text mt='16px' fontWeight='700' as='a' target="_blank" href='https://github.com/jamrants/donations' color='primary.green'>
       Open Source on Github
     </Text>
   </Box>
