@@ -10,7 +10,7 @@ const DonationCard = ({
   donationCurrency,
   profits,
   percent,
-  incomeAdjustFactor,
+  locale,
 }) => {
   amount = parseInt(amount)
   profits = parseFloat(profits)
@@ -26,7 +26,7 @@ const DonationCard = ({
       key={name + "Donation Stats"}
     >
       <Box display="flex" flexDirection="row" alignItems="center">
-        <Img fixed={image} rounded="full" />
+        <Img fixed={image} />
         <Box ml={("8px", null, null, null, "16px")}>
           <Text
             mb={["2px", null, null, "4px", "8px"]}
@@ -85,7 +85,11 @@ const DonationCard = ({
             fontSize={["20px", null, "24px", "28px", "32px"]}
             lineHeight={["20px", null, "24px", "28px", "32px"]}
           >
-            $1.23
+            {console.log(locale.Currency)}
+            {(locale.Median_Household_Income * percent).toLocaleString(locale, {
+              style: "currency",
+              currency: locale.Currency ? locale.Currency : "USD",
+            })}
           </Text>
           <Text
             color="smoke"

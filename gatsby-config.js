@@ -19,6 +19,12 @@ module.exports = {
             tableName: `Corporations`,
             mapping: { Logo: `fileNode` },
           },
+          {
+            baseId: process.env.BASE_ID,
+            tableName: `CountryIncomes`,
+            queryName: "CountryIncomes",
+            separateNodeType: true,
+          },
         ],
       },
     },

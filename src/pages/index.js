@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 
 import { graphql } from "gatsby"
 import Layout from "../components/Layout"
-import { Box, Text, DarkMode } from "@chakra-ui/core"
+import { Box, Text, DarkMode, Skeleton } from "@chakra-ui/core"
 import SearchField from "../components/Search/Search"
 import "../components/Search/search.css"
 import DonationCard from "../components/donationCard"
@@ -12,6 +12,10 @@ const Home = ({ data }) => {
   const [filteredCorporations, setFilteredCorporations] = useState(
     data.allAirtable.nodes
   )
+  const [localeList, setLocaleList] = useState(
+    data.allAirtableCountryIncomes.edges.map(node => node.node.data)
+  )
+  const [activeLocale, setActiveLocale] = useState({})
 
   // Search Field
   const [searchValue, setSearchValue] = useState("")
@@ -26,6 +30,21 @@ const Home = ({ data }) => {
       )
     )
   }
+
+  useEffect(() => {
+    // get user country, sort through locales + income to adjust
+    const locale =
+      navigator.language ||
+      navigator.browserLanguage ||
+      (navigator.languages || ["en"])[0]
+    locale
+      ? setActiveLocale(
+          localeList.filter(l => l.Locales.split(",").includes(locale))[0]
+        )
+      : setActiveLocale(
+          localeList.filter(l => l.Locales.split(",").includes("en-US"))[0]
+        )
+  }, [data])
 
   return (
     <DarkMode>
@@ -63,25 +82,39 @@ const Home = ({ data }) => {
           gridColumnGap={["20px", "20px", "32px", "40px", "48px"]}
           gridRowGap={["20px", "20px", "32px  ", "40px", "48px"]}
         >
-          {filteredCorporations.map(corporation => {
-            if (
-              corporation.data.Donation__thousands_ &&
-              corporation.data.Gross_Profit__millions_
-            ) {
-              return (
-                <DonationCard
-                  image={
-                    corporation.data.Logo.localFiles[0].childImageSharp.fixed
-                  }
-                  name={corporation.data.Name}
-                  percent={corporation.data.Percent_Profits}
-                  amount={corporation.data.Donation__thousands_}
-                  donationCurrency={corporation.data.Currency}
-                  profits={corporation.data.Gross_Profit__millions_}
-                />
-              )
-            }
-          })}
+          {activeLocale.Currency ? (
+            filteredCorporations.map(corporation => {
+              if (
+                corporation.data.Donation__thousands_ &&
+                corporation.data.Gross_Profit__millions_
+              ) {
+                return (
+                  <DonationCard
+                    locale={activeLocale}
+                    image={
+                      corporation.data.Logo.localFiles[0].childImageSharp.fixed
+                    }
+                    name={corporation.data.Name}
+                    percent={corporation.data.Percent_Profits}
+                    amount={corporation.data.Donation__thousands_}
+                    donationCurrency={corporation.data.Currency}
+                    profits={corporation.data.Gross_Profit__millions_}
+                  />
+                )
+              }
+            })
+          ) : (
+            <>
+              <Skeleton h="220px" borderRadius="10px" />
+              <Skeleton h="220px" borderRadius="10px" />
+              <Skeleton h="220px" borderRadius="10px" />
+              <Skeleton h="220px" borderRadius="10px" />
+              <Skeleton h="220px" borderRadius="10px" />
+              <Skeleton h="220px" borderRadius="10px" />
+              <Skeleton h="220px" borderRadius="10px" />
+              <Skeleton h="220px" borderRadius="10px" />
+            </>
+          )}
         </Box>
       </Layout>
     </DarkMode>
@@ -118,6 +151,20 @@ export const query = graphql`
             }
           }
           Percent_Profits
+        }
+      }
+    }
+
+    allAirtableCountryIncomes(filter: { data: {} }) {
+      edges {
+        node {
+          data {
+            Location
+            Median_Household_Income
+            Language
+            Currency
+            Locales
+          }
         }
       }
     }
