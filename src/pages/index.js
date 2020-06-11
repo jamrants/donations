@@ -70,7 +70,9 @@ const Home = ({ data }) => {
             ) {
               return (
                 <DonationCard
-                  image={corporation.data.Logo.localFiles[0].childImageSharp.fixed}
+                  image={
+                    corporation.data.Logo.localFiles[0].childImageSharp.fixed
+                  }
                   name={corporation.data.Name}
                   percent={corporation.data.Percent_Profits}
                   amount={corporation.data.Donation__thousands_}
