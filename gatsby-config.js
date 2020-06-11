@@ -3,6 +3,10 @@ require("dotenv").config({
 })
 
 module.exports = {
+  siteMetadata: {
+    title: "Donations Exposed",
+    description: "Corporations have made headlines with big pledges recently — how much would they be to the average person?"
+  },
   plugins: [
     {
       resolve: 'gatsby-source-airtable',
