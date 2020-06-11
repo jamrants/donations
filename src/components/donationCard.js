@@ -3,8 +3,16 @@ import { Box, Image, Text, PseudoBox } from "@chakra-ui/core"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 
-const DonationCard = ({ image, name, amount, donationCurrency, profits, percent, locale }) => {
-  amount = parseInt(amount);
+const DonationCard = ({
+  image,
+  name,
+  amount,
+  donationCurrency,
+  profits,
+  percent,
+  locale,
+}) => {
+  amount = parseInt(amount)
   profits = parseFloat(profits)
   return (
     <PseudoBox
@@ -78,7 +86,10 @@ const DonationCard = ({ image, name, amount, donationCurrency, profits, percent,
             lineHeight={["20px", null, "24px", "28px", "32px"]}
           >
             {console.log(locale.Currency)}
-            {(locale.Median_Household_Income * percent).toLocaleString(locale, { style: 'currency', currency: (locale.Currency ? locale.Currency : 'USD')})}
+            {(locale.Median_Household_Income * percent).toLocaleString(locale, {
+              style: "currency",
+              currency: locale.Currency ? locale.Currency : "USD",
+            })}
           </Text>
           <Text
             color="smoke"

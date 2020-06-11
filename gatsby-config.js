@@ -22,11 +22,11 @@ module.exports = {
           {
             baseId: process.env.BASE_ID,
             tableName: `CountryIncomes`,
-            queryName: 'CountryIncomes',
+            queryName: "CountryIncomes",
             separateNodeType: true,
           },
-        ]
-      }
+        ],
+      },
     },
     {
       resolve: `gatsby-plugin-chakra-ui`,
