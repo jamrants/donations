@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/Layout';
 import { Box, Text, DarkMode } from '@chakra-ui/core';
@@ -7,6 +7,9 @@ import '../components/Search/search.css';
 import DonationCard from '../components/donationCard';
 
 const Home = ({ data }) => {
+
+  const [corporations, setCorporations] = useState(data.allAirtable.nodes);
+
   return (
     <DarkMode>
       <Layout title='Donations Exposed' subtitle='Corporations have made headlines with big pledges recently — how much would they be to the average person?'>
@@ -14,7 +17,7 @@ const Home = ({ data }) => {
           <Box
             textAlign='center'
             display='flex'
-            flexDirection='column'
+            flexDirection='column'  
             alignItems='center'
             justifyContent='center'
           >
@@ -31,17 +34,11 @@ const Home = ({ data }) => {
           gridColumnGap={['20px', '20px', '32px', '40px', '48px']}
           gridRowGap={['20px', '20px', '32px  ', '40px', '48px']}
         >
-          {data.allAirtable.nodes.map(corporation => {
+          {corporations .map(corporation => {
             if (corporation.data.Donation__thousands_ && corporation.data.Gross_Profit__millions_) {
-              return <DonationCard imageURL={corporation.data.Logo && corporation.data.Logo[0].url} name={corporation.data.Name} amount={corporation.data.Donation__thousands_} donationCurrency={corporation.data.Currency} profits={corporation.data.Gross_Profit__millions_}/>
+              return <DonationCard imageURL={corporation.data.Logo && corporation.data.Logo[0].url} name={corporation.data.Name} percent={corporation.data.Percent_Profits} amount={corporation.data.Donation__thousands_} donationCurrency={corporation.data.Currency} profits={corporation.data.Gross_Profit__millions_}/>
             }
           })}
-          {/* <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
-          <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
-          <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
-          <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
-          <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
-          <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/> */}
         </Box>
       </Layout>
     </DarkMode>
@@ -68,6 +65,7 @@ export const query = graphql`
           Logo {
             url
           }
+          Percent_Profits
         }
       }
     }

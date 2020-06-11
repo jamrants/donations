@@ -1,8 +1,7 @@
 import React from 'react';
 import { Box, Image, Text, PseudoBox } from '@chakra-ui/core';
 
-const DonationCard = ({ imageURL, name, amount, donationCurrency, profits, incomeAdjustFactor }) => {
-  console.log(amount)
+const DonationCard = ({ imageURL, name, amount, donationCurrency, profits, percent, incomeAdjustFactor }) => {
   amount = parseInt(amount);
   profits = parseFloat(profits)
   return (
@@ -14,6 +13,7 @@ const DonationCard = ({ imageURL, name, amount, donationCurrency, profits, incom
       boxShadow='rgba(0, 0, 0, 0.125) 0px 4px 8px;'
       transition='all .2s ease-in-out'
       _hover={{ transform: 'scale(1.05)' }}
+      key={name + 'Donation Stats'}
     >
       <Box
         display='flex'
@@ -67,7 +67,7 @@ const DonationCard = ({ imageURL, name, amount, donationCurrency, profits, incom
             fontSize={['20px', null, '24px', '28px', '32px']}
             lineHeight={['20px', null, '24px', '28px', '32px']}            
           >
-            {(((amount * 1000) / (profits * 1000000)) * 100).toFixed(3)}%
+            {percent.toFixed(3)}%
           </Text>
           <Text
             color='smoke'
