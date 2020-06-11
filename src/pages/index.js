@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import { Box, Text, DarkMode } from '@chakra-ui/core';
 import SearchField from '../components/Search/Search';
 import '../components/Search/search.css';
+import DonationCard from '../components/donationCard';
 
 const Home = ({ data }) => {
   return (
@@ -17,11 +18,26 @@ const Home = ({ data }) => {
             alignItems='center'
             justifyContent='center'
           >
-            <Text color='primary.red' mb={['16px', null, null, null, '24px']} fontWeight='900' fontSize={['24px', '26px', '28px', '30px', '32px']}>
+            <Text color='primary.red' mb={['16px', null, null, null, '24px']} fontWeight='900' fontSize={['24px', '26px', '28px',  '30px', '32px']}>
               Find a Corporation
             </Text>
             <SearchField placeholder="Amazon" />
+            {data.allAirtable.nodes.map(corporation => console.log(corporation))}
           </Box>
+        </Box>
+        <Box 
+          pb='64px'
+          display='grid'
+          gridTemplateColumns={['1fr', '1fr', '1fr', '1fr 1fr']}
+          gridColumnGap={['16px', null, '32px', '40px', '48px']}
+          gridRowGap={['16px', null, '32px  ', '40px', '48px']}
+        >
+          <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
+          <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
+          <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
+          <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
+          <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
+          <DonationCard imageURL='https://venturebeat.com/wp-content/uploads/2014/07/airbnb-logo-red.jpg?fit=800%2C450&strip=all' name='Airbnb' amount={500} donationCurrency='USD' profits={3200}/>
         </Box>
       </Layout>
     </DarkMode>

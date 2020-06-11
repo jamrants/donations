@@ -13,9 +13,9 @@ const Layout = ({ children, title, subtitle }) => (
     <Hero 
       title={title} 
       subtitle={subtitle}
-      padding={IsDesktop() ? '20%' : '24px'}
+      padding={['24px', null, null, '17%', '20%']}
     />
-    <PseudoBox px={IsDesktop() ? '20%' : '24px'}>
+    <PseudoBox px={['24px', null, null, '17%', '20%']}>
       { children }
     </PseudoBox>
   </Box>
