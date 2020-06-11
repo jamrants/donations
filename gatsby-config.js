@@ -19,6 +19,22 @@ module.exports = {
           },
         ]
       }
+    },
+    {
+      resolve: 'gatsby-plugin-chakra-ui',
+      options: {
+        isResettingCSS: true,
+        isUsingColorMode: false,
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-web-font-loader',
+      options: {
+        custom: {
+          families: ['Metropolis'],
+          urls: ['/fonts/fonts.css'],
+        }
+      }
     }
   ],
 }
