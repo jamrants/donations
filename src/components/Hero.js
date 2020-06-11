@@ -19,6 +19,8 @@ const Hero = ({ padding, title, subtitle }) => {
           color='primary.green'
           fontSize={['48px', '56px', '64px', '74px', '96px']}
           fontWeight='900'
+          lineHeight={['50px', '58px', 'normal']}
+          mb={['8px', null, 0]}
         >
           {title}
         </Text>

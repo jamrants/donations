@@ -4,6 +4,7 @@ import { Box, PseudoBox } from '@chakra-ui/core';
 import { IsDesktop } from '../utils/mediaQueries';
 import Header from './Header';
 import Hero from './Hero';
+import Footer from './Footer';
 
 const Layout = ({ children, title, subtitle }) => (
   <Box
@@ -18,6 +19,7 @@ const Layout = ({ children, title, subtitle }) => (
     <PseudoBox px={['24px', null, null, '17%', '20%']}>
       { children }
     </PseudoBox>
+    <Footer padding={['24px', null, null, '17%', '20%']}/>
   </Box>
 )
 
