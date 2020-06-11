@@ -1,8 +1,13 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import Layout from '../components/Layout';
 
 const Home = ({data}) => {
-  return <div>Hello world!</div>
+  return (
+    <Layout>
+      Home Page
+    </Layout>
+  )
 }
 
 export const query = graphql`
