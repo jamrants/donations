@@ -70,6 +70,7 @@ const Home = ({ data }) => {
 
   // set sortbyfield and text
   const setSortBy = field => {
+    setItemsPerPage(20)
     if (field === "Name") {
       setSortByField("data." + field)
       setSortByText("Name")
