@@ -34,7 +34,7 @@ const DonationCard = ({
           alignItems="center"
           justifyContent="center"
         >
-          <Img fixed={image} className="card-image" />
+          <Img fluid={image} className="card-image" />
         </PseudoBox>
         <Box ml={("8px", null, null, null, "16px")}>
           <Text

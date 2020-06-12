@@ -190,7 +190,7 @@ const Home = ({ data }) => {
                         locale={activeLocale}
                         image={
                           corporation.data.Logo.localFiles[0].childImageSharp
-                            .fixed
+                            .fluid
                         }
                         name={corporation.data.Name}
                         percent={corporation.data.Percent_Profits}
@@ -307,8 +307,9 @@ export const query = graphql`
           Logo {
             localFiles {
               childImageSharp {
-                fixed(width: 80) {
-                  ...GatsbyImageSharpFixed_withWebp
+                fluid(maxWidth: 80) {
+                  ...GatsbyImageSharpFluid
+                  ...GatsbyImageSharpFluidLimitPresentationSize
                 }
               }
             }
