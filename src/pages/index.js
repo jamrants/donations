@@ -96,7 +96,7 @@ const Home = ({ data }) => {
         title="Donations Exposed"
         subtitle="Corporations have made headlines with big pledges recently — how much would they be to the average person?"
       >
-        <Box py="64px">
+        <Box pt="64px" pb={["24px", null, "32px", "48px", "64px"]}>
           <Box
             textAlign="center"
             display="flex"
