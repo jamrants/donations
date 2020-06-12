@@ -4,7 +4,11 @@ import Header from "./Header"
 
 const Hero = ({ padding, title, subtitle }) => {
   return (
-    <PseudoBox className="padding-normal" px={padding} backgroundColor="darkless">
+    <PseudoBox
+      className="padding-normal"
+      px={padding}
+      backgroundColor="darkless"
+    >
       <Header />
       <Box px="5%" textAlign="center" pt="48px" pb="72px">
         <Text
