@@ -93,8 +93,7 @@ const Footer = ({ padding }) => (
         color="primary.green"
       >
         Open Source on Github.
-      </Text>
-      {" "}
+      </Text>{" "}
       <Text
         fontWeight="700"
         as="a"
