@@ -153,6 +153,11 @@ const About = () => {
               <H2>Are we missing a donation? Let us know</H2>
             </Link>
           </Box>
+          <Box as="section" mb="32px">
+            <Link href="mailto:jamrants@retrocraft.ca">
+              <H2>Want to talk? Email us: jamrants@retrocraft.ca</H2>
+            </Link>
+          </Box>
           <Box as="section">
             <Link href="https://airtable.com/shrb6pZwkGX6rLIQa">
               <H2>View all the raw data here</H2>

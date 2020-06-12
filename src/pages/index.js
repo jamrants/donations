@@ -22,7 +22,6 @@ import DataSort from "react-data-sort"
 import SEO from "../components/seo"
 
 const Home = ({ data }) => {
-  const [corporations, setCorporations] = useState(data.allAirtable.nodes)
   const [filteredCorporations, setFilteredCorporations] = useState(
     data.allAirtable.nodes
   )
@@ -71,6 +70,7 @@ const Home = ({ data }) => {
 
   // set sortbyfield and text
   const setSortBy = field => {
+    setItemsPerPage(20)
     if (field === "Name") {
       setSortByField("data." + field)
       setSortByText("Name")
