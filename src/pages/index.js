@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react"
 
 import { graphql } from "gatsby"
 import Layout from "../components/Layout"
-import { Box, Text, DarkMode, Skeleton, Icon, MenuButton, Menu, MenuList, MenuItem } from "@chakra-ui/core"
+import { Box, Text, DarkMode, Skeleton, Icon, MenuButton, Menu, MenuList, MenuItem, PseudoBox } from "@chakra-ui/core"
 import SearchField from "../components/Search/Search"
 import "../components/Search/search.css"
 import DonationCard from "../components/donationCard"
 import CustomButton from "../components/Button"
+import DataSort from "react-data-sort"
 
 const Home = ({ data }) => {
   const [corporations, setCorporations] = useState(data.allAirtable.nodes)
@@ -22,18 +23,14 @@ const Home = ({ data }) => {
   const [searchValue, setSearchValue] = useState("")
 
   // Sorting states
-  const [sortBy, setSortBy] = useState("Amount Donated")
-  const [sortType, setSortType] = useState("DESC")
+  const [sortByText, setSortByText] = useState("Amount Donated")
+  const [sortByField, setSortByField] = useState("Donation__thousands_")
+  const [sortType, setSortType] = useState("desc")
+  const [activePage, setActivePage] = useState(0)
+  const [itemsPerPage, setItemsPerPage] = useState(20)
 
   const searchFieldOnChange = e => {
     setSearchValue(e.target.value)
-    setFilteredCorporations(
-      corporations.filter(corporation =>
-        corporation.data.Name.toLowerCase().includes(
-          e.target.value.toLowerCase()
-        )
-      )
-    )
   }
 
   useEffect(() => {
@@ -51,34 +48,29 @@ const Home = ({ data }) => {
 
   // sorting functions
   const toggleSortType = () => {
-    if (sortType === "ASC") setSortType("DESC")
-    if (sortType === "DESC") setSortType("ASC")
-    sort(sortBy)
+    setSortType(sortType === "asc" ? "desc" : "asc")
   }
 
-  const sort = (field) => {
+  // set sortbyfield and text
+  const setSortBy = (field) => {
     if (field === "Name") {
-      setSortBy("Name")
-    } else if (field === "Percent_Profits" || field === "% Profit Donated") {
-      field = "Percent_Profits"
-      setSortBy("% Profit Donated")
-    } else {
-      field = "Donation__thousands_"
-      setSortBy("Amount Donated")
+      setSortByField("data." + field)
+      setSortByText("Name")
     }
 
-    console.log(field)
-    filteredCorporations.sort((x,y) => {
-      var a = x
-      var b = y
-      if (a.data[field] < b.data[field]) {
-        return sortType === "ASC" ? -1 : 1
-      }
-      if (a.data[field] > b.data[field]) {
-        return sortType === "ASC" ? 1 : -1
-      }
-      return 0 
-    })
+    if (field === "Percent_Profits") {
+      setSortByField("data." + field)
+      setSortByText("% Profit Donated")
+    }
+
+    if (field === "Donation__thousands_") {
+      setSortByField("data." + field)
+      setSortByText("Amount Donated")
+    }
+  }
+
+  const loadMoreItems = () => {
+    setItemsPerPage(itemsPerPage + 20)
   }
 
   return (
@@ -112,7 +104,7 @@ const Home = ({ data }) => {
               <Menu>
                 <MenuButton mr="16px">
                   <CustomButton>
-                    Sort by {sortBy} <Icon w="12px" ml="8px" name="chevron_down"/>
+                    Sort by {sortByText} <Icon w="12px" ml="8px" name="chevron_down"/>
                   </CustomButton> 
                 </MenuButton>
                 <MenuList 
@@ -121,45 +113,58 @@ const Home = ({ data }) => {
                   backgroundColor="dark"
                   color="snow"
                 >
-                  <MenuItem onClick={() => {sort("Name")}}>Name</MenuItem>
-                  <MenuItem onClick={() => {sort("Percent_Profits")}}>% Profit Donated</MenuItem>
-                  <MenuItem onClick={() => {sort("Donation__thousands_")}}>Amount Donated</MenuItem>
+                  <MenuItem onClick={() => {setSortBy("Name")}}>Name</MenuItem>
+                  <MenuItem onClick={() => {setSortBy("Percent_Profits")}}>% Profit Donated</MenuItem>
+                  <MenuItem onClick={() => {setSortBy("Donation__thousands_")}}>Amount Donated</MenuItem>
                 </MenuList>
               </Menu>
               <CustomButton onClick={toggleSortType}>
-                <Icon h="16px" name={sortType === "ASC" ? 'up_arrow' : 'down_arrow'}/>
+                <Icon h="16px" name={sortType === "asc" ? 'up_arrow' : 'down_arrow'}/>
               </CustomButton>
             </Box>
           </Box>
         </Box>
         <Box
-          pb="64px"
+          pb="40px"
           display="grid"
           gridTemplateColumns={["1fr", "1fr", "1fr", "1fr 1fr"]}
           gridColumnGap={["20px", "20px", "32px", "40px", "48px"]}
           gridRowGap={["20px", "20px", "32px  ", "40px", "48px"]}
         >
           {activeLocale.Currency ? (
-            filteredCorporations.map(corporation => {
-              if (
-                corporation.data.Donation__thousands_ &&
-                corporation.data.Gross_Profit__millions_
-              ) {
+            <DataSort
+              data={filteredCorporations}
+              sortBy={sortByField}
+              direction={sortType}
+              searchQuery={searchValue}
+              itemsPerPage={itemsPerPage}
+              paginate
+              searchInKeys={["data.Name"]}
+              render={({data, pages}) => {
                 return (
-                  <DonationCard
-                    locale={activeLocale}
-                    image={
-                      corporation.data.Logo.localFiles[0].childImageSharp.fixed
+                  data.map(corporation => {
+                    if (
+                      corporation.data.Donation__thousands_ &&
+                      corporation.data.Gross_Profit__millions_
+                    ) {
+                      return (
+                        <DonationCard
+                          locale={activeLocale}
+                          image={
+                            corporation.data.Logo.localFiles[0].childImageSharp.fixed
+                          }
+                          name={corporation.data.Name}
+                          percent={corporation.data.Percent_Profits}
+                          amount={corporation.data.Donation__thousands_}
+                          donationCurrency={corporation.data.Currency}
+                          profits={corporation.data.Gross_Profit__millions_}
+                        />
+                      )
                     }
-                    name={corporation.data.Name}
-                    percent={corporation.data.Percent_Profits}
-                    amount={corporation.data.Donation__thousands_}
-                    donationCurrency={corporation.data.Currency}
-                    profits={corporation.data.Gross_Profit__millions_}
-                  />
+                  })
                 )
-              }
-            })
+              }}
+              />
           ) : (
             <>
               <Skeleton colorStart="darkless" colorEnd="slate" h="220px" borderRadius="10px" />
@@ -173,6 +178,17 @@ const Home = ({ data }) => {
             </>
           )}
         </Box>
+        <PseudoBox
+          width="100%"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          marginBottom="64px"
+        >
+          <CustomButton onClick={loadMoreItems}>
+            {itemsPerPage >= filteredCorporations.length ? "No Donations Left" : "Load More"}
+          </CustomButton>
+        </PseudoBox>
       </Layout>
     </DarkMode>
   )
@@ -182,7 +198,7 @@ export const query = graphql`
   query corporationsQuery {
     allAirtable(
       filter: { table: { eq: "Corporations" } data: {Donation__thousands_: {gt: 0}, Gross_Profit__millions_: {gt: 0}} }
-      sort: { fields: data___Donation__thousands_, order: DESC }
+      sort: { fields: data___Donation__thousands_, order: ASC }
     ) {
       nodes {
         data {
