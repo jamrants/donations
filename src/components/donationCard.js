@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, Image, Text, PseudoBox } from "@chakra-ui/core"
+import { Box, Image, Text, PseudoBox, Tooltip } from "@chakra-ui/core"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 
@@ -54,9 +54,12 @@ const DonationCard = ({
             fontSize={["16px", null, "20px", "22px", "24px"]}
             lineHeight={["16px", null, "20px", "22px", "24px"]}
           >
-            <PseudoBox as="span" borderBottom="1px solid #6C6C72">
-              ${(amount * 1000).toLocaleString("en-us")}
-            </PseudoBox>{" "}
+            <Tooltip label="Lorem ipsum" placement="bottom" backgroundColor="dark" color="smoke" px="16px" py="8px" borderRadius="6px" fontSize="16px">
+              <PseudoBox as="span" borderBottom="1px solid #6C6C72">
+                ${(amount * 1000).toLocaleString("en-us")}
+              </PseudoBox>
+            </Tooltip>
+            {" "}
             <Box as="span" fontSize={["12px", null, "14px", "15px", "16px"]}>
               {donationCurrency}
             </Box>

@@ -73,6 +73,7 @@ const Home = ({ data }) => {
               value={searchValue}
               onChange={searchFieldOnChange}
             />
+            
           </Box>
         </Box>
         <Box
