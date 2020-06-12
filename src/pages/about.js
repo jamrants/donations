@@ -1,6 +1,7 @@
 import React from "react"
 import { DarkMode, Box, Text, List, ListItem } from "@chakra-ui/core"
 import Layout from "../components/Layout"
+import SEO from "../components/seo"
 
 const H1 = ({ children }) => (
   <Text
@@ -52,6 +53,7 @@ const About = () => {
         title="About"
         subtitle="Why we built this, methodology, and sources"
       >
+        <SEO title="About" description="Why we built this, methodology, and sources"/>
         <Box color="snow" py="64px">
           <Box as="section" mb="32px">
             <H1>Why?</H1>
