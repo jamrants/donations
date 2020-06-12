@@ -18,6 +18,6 @@ export const getLocation = async () => {
   const data = await res.json()
   const country = data.address.country_code
   let postal = data.address.postcode
-  if (country === 'ca') postal = postal.substring(0, 3)
+  if (country === "ca") postal = postal.substring(0, 3)
   return { country, postal }
 }
