@@ -70,11 +70,9 @@ const Home = ({ data }) => {
     }
 
     console.log(field)
-
     filteredCorporations.sort((x,y) => {
       var a = x
       var b = y
-      console.log(a,b)
       if (a.data[field] < b.data[field]) {
         return sortType === "ASC" ? -1 : 1
       }
