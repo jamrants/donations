@@ -22,7 +22,6 @@ import DataSort from "react-data-sort"
 import SEO from "../components/seo"
 
 const Home = ({ data }) => {
-  const [corporations, setCorporations] = useState(data.allAirtable.nodes)
   const [filteredCorporations, setFilteredCorporations] = useState(
     data.allAirtable.nodes
   )
