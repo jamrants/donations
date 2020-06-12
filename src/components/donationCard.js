@@ -1,5 +1,14 @@
 import React from "react"
-import { Box, Image, Text, PseudoBox, Tooltip, Popover, PopoverTrigger, PopoverContent } from "@chakra-ui/core"
+import {
+  Box,
+  Image,
+  Text,
+  PseudoBox,
+  Tooltip,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@chakra-ui/core"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 
@@ -58,41 +67,57 @@ const DonationCard = ({
             fontSize={["14px", "16px", "20px", "22px", "24px"]}
             lineHeight={["16px", null, "20px", "22px", "24px"]}
           >
-          <Popover trigger="hover" placement="bottom">
-            <PopoverTrigger>
-              <PseudoBox as="span" borderBottom="1px solid #6C6C72">
-                ${(amount * 1000).toLocaleString("en-us")}
-              </PseudoBox>
-            </PopoverTrigger>
-            <PopoverContent
-              border="none" 
-              backgroundColor="dark"
-              color="smoke"
-              width="fit-content"
-              px="16px"
-              py="8px"
-              borderRadius="6px"
-              fontSize={["14px", null, null, "16px"]}
-            >
-              <Box>
-                {donationNote ? 
-                  <Text>
-                    {donationNote}
-                  </Text>
-                  :
-                  <></>
-                }
-                {
-                  donationSources.split("\n").length > 1 ?
-                  donationSources.split("\n").map((source, index) => (
-                    <><Text textDecoration="underline" mt="4px" as="a" href={source.includes("http") ? source : "https://" + source} target="_blank">Source {index+1}</Text><br/></>
-                  ))
-                  :
-                  <Text textDecoration="underline" mt="4px" as="a" href={"https://" + donationSources} target="_blank">Source</Text>
-                }
-              </Box>
-            </PopoverContent>
-          </Popover>
+            <Popover trigger="hover" placement="bottom">
+              <PopoverTrigger>
+                <PseudoBox as="span" borderBottom="1px solid #6C6C72">
+                  ${(amount * 1000).toLocaleString("en-us")}
+                </PseudoBox>
+              </PopoverTrigger>
+              <PopoverContent
+                border="none"
+                backgroundColor="dark"
+                color="smoke"
+                width="fit-content"
+                px="16px"
+                py="8px"
+                borderRadius="6px"
+                fontSize={["14px", null, null, "16px"]}
+              >
+                <Box>
+                  {donationNote ? <Text>{donationNote}</Text> : <></>}
+                  {donationSources.split("\n").length > 1 ? (
+                    donationSources.split("\n").map((source, index) => (
+                      <>
+                        <Text
+                          textDecoration="underline"
+                          mt="4px"
+                          as="a"
+                          href={
+                            source.includes("http")
+                              ? source
+                              : "https://" + source
+                          }
+                          target="_blank"
+                        >
+                          Source {index + 1}
+                        </Text>
+                        <br />
+                      </>
+                    ))
+                  ) : (
+                    <Text
+                      textDecoration="underline"
+                      mt="4px"
+                      as="a"
+                      href={"https://" + donationSources}
+                      target="_blank"
+                    >
+                      Source
+                    </Text>
+                  )}
+                </Box>
+              </PopoverContent>
+            </Popover>
             <Box as="span" fontSize={["12px", null, "14px", "15px", "16px"]}>
               {" " + donationCurrency}
             </Box>
@@ -125,7 +150,7 @@ const DonationCard = ({
                 </PseudoBox>
               </PopoverTrigger>
               <PopoverContent
-                border="none" 
+                border="none"
                 backgroundColor="dark"
                 color="smoke"
                 width="fit-content"
@@ -135,21 +160,37 @@ const DonationCard = ({
                 fontSize={["14px", null, null, "16px"]}
               >
                 <Box>
-                  {profitNote ? 
-                    <Text>
-                      {profitNote}
-                    </Text>
-                    :
-                    <></>
-                  }
-                  {
-                    profitSources.split("\n").length > 1 ?
+                  {profitNote ? <Text>{profitNote}</Text> : <></>}
+                  {profitSources.split("\n").length > 1 ? (
                     profitSources.split("\n").map((source, index) => (
-                      <><Text textDecoration="underline" mt="4px" as="a" href={source.includes("http") ? source : "https://" + source} target="_blank">Source {index+1}</Text><br/></>
+                      <>
+                        <Text
+                          textDecoration="underline"
+                          mt="4px"
+                          as="a"
+                          href={
+                            source.includes("http")
+                              ? source
+                              : "https://" + source
+                          }
+                          target="_blank"
+                        >
+                          Source {index + 1}
+                        </Text>
+                        <br />
+                      </>
                     ))
-                    :
-                    <Text textDecoration="underline" mt="4px" as="a" href={"https://" + profitSources} target="_blank">Source</Text>
-                  }
+                  ) : (
+                    <Text
+                      textDecoration="underline"
+                      mt="4px"
+                      as="a"
+                      href={"https://" + profitSources}
+                      target="_blank"
+                    >
+                      Source
+                    </Text>
+                  )}
                 </Box>
               </PopoverContent>
             </Popover>
@@ -174,13 +215,15 @@ const DonationCard = ({
           >
             adjusted to{" "}
             <Tooltip
-              label={<Box>
-                {locale.Location} Median Household Income <br/>
-                {locale.Median_Household_Income.toLocaleString(locale, {
-                style: "currency",
-                currency: locale.Currency ? locale.Currency : "USD"
-                })}
-              </Box>}
+              label={
+                <Box>
+                  {locale.Location} Median Household Income <br />
+                  {locale.Median_Household_Income.toLocaleString(locale, {
+                    style: "currency",
+                    currency: locale.Currency ? locale.Currency : "USD",
+                  })}
+                </Box>
+              }
               placement="bottom"
               backgroundColor="dark"
               color="smoke"
@@ -188,7 +231,7 @@ const DonationCard = ({
               py="8px"
               borderRadius="6px"
               fontSize={["14px", null, null, "16px"]}
-              >
+            >
               <PseudoBox as="span" borderBottom="1px solid #6C6C72">
                 avg. income
               </PseudoBox>
