@@ -81,9 +81,9 @@ Here's a blank template to get started:
 
 ### Built With
 
-- [Gatsby]()
-- [Airtable]()
-- [Netlify]()
+- [Gatsby](https://www.gatsbyjs.org/)
+- [Airtable](https://airtable.com/)
+- [Netlify](https://www.netlify.com/)
 
 <!-- GETTING STARTED -->
 
@@ -101,6 +101,12 @@ This is an example of how to list things you need to use the software and how to
 npm install npm@latest -g
 ```
 
+- Gatsby CLI
+
+```sh
+npm install gatsby-cli -g
+```
+
 ### Installation
 
 1. Clone the repo
@@ -109,19 +115,13 @@ npm install npm@latest -g
 git clone https://github.com/jamrants/donations.git
 ```
 
-2. Install Gatsby CLI
-
-```sh
-npm install gatsby-cli -g
-```
-
-3. Install NPM packages
+2. Install NPM packages
 
 ```sh
 npm install
 ```
 
-4. Run Gatsby
+3. Run Gatsby
 
 ```sh
 gatsby develop
