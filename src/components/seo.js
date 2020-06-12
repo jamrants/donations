@@ -59,7 +59,12 @@ function SEO({ description, lang, meta, title }) {
         },
       ].concat(meta)}
     >
-      <script async defer data-domain="donations.exposed" src="https://plausible.io/js/plausible.js"></script>
+      <script
+        async
+        defer
+        data-domain="donations.exposed"
+        src="https://plausible.io/js/plausible.js"
+      ></script>
     </Helmet>
   )
 }

@@ -21,11 +21,11 @@ const Layout = ({ children, title, subtitle }) => (
       subtitle={subtitle}
       padding={["24px", null, null, "17%", "20%"]}
     />
-    {title === "Donations Exposed" ? 
-    <PseudoBox className="content-container">{children}</PseudoBox>
-    :
-    <PseudoBox px={["24px", null, null, "17%", "20%"]}>{children}</PseudoBox>
-    }
+    {title === "Donations Exposed" ? (
+      <PseudoBox className="content-container">{children}</PseudoBox>
+    ) : (
+      <PseudoBox px={["24px", null, null, "17%", "20%"]}>{children}</PseudoBox>
+    )}
     <Footer padding={["24px", null, null, "17%", "20%"]} />
   </Box>
 )
