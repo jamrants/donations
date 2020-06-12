@@ -26,7 +26,7 @@ const DonationCard = ({
       key={name + "Donation Stats"}
     >
       <Box display="flex" flexDirection="row" alignItems="center">
-        <Img fixed={image} />
+        <Img fixed={image} className="card-image"/>
         <Box ml={("8px", null, null, null, "16px")}>
           <Text
             mb={["2px", null, null, "4px", "8px"]}
