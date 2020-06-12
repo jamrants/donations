@@ -1,3 +1,30 @@
 .search-field::placeholder {
   color: #3C4858 !important;
 }
+
+.card-image {
+  border-radius: 200px;
+  width: 45px !important;
+  height: 45px !important;
+}
+
+@media screen and (min-width: 48em) {
+  .card-image {
+    width: 60px !important;
+    height: 60px !important;
+  }
+}
+
+@media screen and (min-width: 62em) {
+  .card-image {
+    width: 70px !important;
+    height: 70px !important;
+  }
+}
+
+@media screen and (min-width: 107em) {
+  .card-image {
+    width: 80px !important;
+    height: 80px !important;
+  }
+}
