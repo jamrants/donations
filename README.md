@@ -165,7 +165,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-<!-- Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email -->
+[@jamrants](https://instagram.com/jamrants) - jamrants@retrocraft.ca
 
 Project Link: [https://github.com/jamrants/donations](https://github.com/jamrants/donations)
 
