@@ -35,9 +35,9 @@ const Home = ({ data }) => {
   const [searchValue, setSearchValue] = useState("")
 
   // Sorting states
-  const [sortByText, setSortByText] = useState("Amount Donated")
-  const [sortByField, setSortByField] = useState("Donation__thousands_")
-  const [sortType, setSortType] = useState("desc")
+  const [sortByText, setSortByText] = useState("% Profit Donated")
+  const [sortByField, setSortByField] = useState("Percent_Profits")
+  const [sortType, setSortType] = useState("asc")
   const [activePage, setActivePage] = useState(0)
   const [itemsPerPage, setItemsPerPage] = useState(20)
 
@@ -294,7 +294,7 @@ export const query = graphql`
           Gross_Profit__millions_: { gt: 0 }
         }
       }
-      sort: { fields: data___Donation__thousands_, order: ASC }
+      sort: { fields: data___Percent_Profits, order: ASC }
     ) {
       nodes {
         data {
