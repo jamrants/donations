@@ -27,8 +27,8 @@ const DonationCard = ({
     >
       <Box display="flex" flexDirection="row" alignItems="center">
         <PseudoBox
-          w={["50px", null, "60px", "70px", "80px"]}
-          h={["50px", null, "60px", "70px", "80px"]}
+          w={["45px", null, "60px", "70px", "80px"]}
+          h={["45px", null, "60px", "70px", "80px"]}
           overflow="hidden"
           display="flex"
           alignItems="center"
@@ -41,7 +41,7 @@ const DonationCard = ({
             mb={["2px", null, null, "4px", "8px"]}
             mt="2px"
             fontWeight="900"
-            fontSize={["20px", null, "24px", "28px", "32px"]}
+            fontSize={["18px", "20px", "24px", "28px", "32px"]}
             lineHeight={["20px", null, "24px", "28px", "32px"]}
             isTruncated
             maxWidth={["300px", null, null, null, "390px"]}
@@ -51,7 +51,7 @@ const DonationCard = ({
           <Text
             fontWeight="600"
             color="smoke"
-            fontSize={["16px", null, "20px", "22px", "24px"]}
+            fontSize={["14px", "16px", "20px", "22px", "24px"]}
             lineHeight={["16px", null, "20px", "22px", "24px"]}
           >
             <Tooltip label="Lorem ipsum" placement="bottom" backgroundColor="dark" color="smoke" px="16px" py="8px" borderRadius="6px" fontSize="16px">
