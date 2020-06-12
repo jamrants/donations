@@ -44,7 +44,7 @@
     <a href="https://github.com/jamrants/donations"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/jamrants/donations">View Demo</a>
+    <a href="https://donations-exposed.netlify.app/">View Demo</a>
     ·
     <a href="https://github.com/jamrants/donations/issues">Report Bug</a>
     ·
