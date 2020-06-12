@@ -71,7 +71,7 @@ const Footer = ({ padding }) => (
       >
         GunFunded.com
       </PseudoBox>
-      {" and "}
+      {" & "}
       <PseudoBox
         color="primary.green"
         fontSize="16px"
