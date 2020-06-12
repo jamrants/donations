@@ -74,6 +74,7 @@ const Home = ({ data }) => {
     filteredCorporations.sort((x,y) => {
       var a = x
       var b = y
+      console.log(a,b)
       if (a.data[field] < b.data[field]) {
         return sortType === "ASC" ? -1 : 1
       }
@@ -184,7 +185,7 @@ const Home = ({ data }) => {
 export const query = graphql`
   query corporationsQuery {
     allAirtable(
-      filter: { table: { eq: "Corporations" } }
+      filter: { table: { eq: "Corporations" } data: {Donation__thousands_: {gt: 0}, Gross_Profit__millions_: {gt: 0}} }
       sort: { fields: data___Donation__thousands_, order: DESC }
     ) {
       nodes {
