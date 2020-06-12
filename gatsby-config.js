@@ -7,6 +7,7 @@ module.exports = {
     title: "Donations Exposed",
     description:
       "Corporations have made headlines with big pledges recently — how much would they be to the average person?",
+    author: "jamrants",
   },
   plugins: [
     {
@@ -46,5 +47,19 @@ module.exports = {
     },
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Donations Exposed`,
+        short_name: `Donations`,
+        start_url: `/`,
+        background_color: `#17171d`,
+        theme_color: `#32d6a6`,
+        display: `standalone`,
+        icon: `src/assets/icon.svg`,
+      },
+    },
+    `gatsby-plugin-offline`,
+    `gatsby-plugin-react-helmet`,
   ],
 }
