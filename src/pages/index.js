@@ -56,7 +56,7 @@ const Home = ({ data }) => {
     if (locale.includes("-")) {
       parts = [locale.substring(0, 2), locale.slice(-2)]
     }
-    console.log('Using locale:', parts)
+    console.log("Using locale:", parts)
     let inLocaleList = localeList.find(l => l.Language === parts[0])
     // overwrite locale by country
     if (parts[1]) {
