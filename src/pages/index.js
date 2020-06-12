@@ -51,16 +51,22 @@ const Home = ({ data }) => {
       navigator.browserLanguage ||
       (navigator.languages || ["en"])[0]
 
-    if (locale) {
-      let inLocaleList = localeList.filter(l =>
-        l.Locales.split(",").includes(locale)
-      )[0]
-      inLocaleList
-        ? setActiveLocale(inLocaleList)
-        : setActiveLocale(
-            localeList.filter(l => l.Locales.split(",").includes("en-US"))[0]
-          )
+    let parts = [locale]
+    // 'en-US' -> ['en', 'US'] and account for zh-Hans_CN
+    if (locale.includes("-")) {
+      parts = [locale.substring(0, 2), locale.slice(-2)]
     }
+    console.log('Using locale:', parts)
+    let inLocaleList = localeList.find(l => l.Language === parts[0])
+    // overwrite locale by country
+    if (parts[1]) {
+      const country = localeList.find(l => l.Code === parts[1])
+      if (country) inLocaleList = country
+    }
+    // default to english if not exist
+    inLocaleList
+      ? setActiveLocale(inLocaleList)
+      : setActiveLocale(localeList.filter(l => l.Language === "en")[0])
   }, [data])
 
   // sorting functions
@@ -329,11 +335,11 @@ export const query = graphql`
       edges {
         node {
           data {
-            Location
-            Median_Household_Income
+            Demonym
             Language
+            Code
+            Median_Household_Income
             Currency
-            Locales
           }
         }
       }

@@ -203,7 +203,7 @@ const DonationCard = ({
             fontSize={["20px", null, "24px", "28px", "32px"]}
             lineHeight={["20px", null, "24px", "28px", "32px"]}
           >
-            {(locale.Median_Household_Income * percent).toLocaleString(locale, {
+            {(locale.Median_Household_Income * percent).toLocaleString(undefined, {
               style: "currency",
               currency: locale.Currency ? locale.Currency : "USD",
             })}
@@ -217,7 +217,7 @@ const DonationCard = ({
             <Tooltip
               label={
                 <Box>
-                  {locale.Location} Median Household Income <br />
+                  {locale.Demonym} Median Household Income <br />
                   {locale.Median_Household_Income.toLocaleString(locale, {
                     style: "currency",
                     currency: locale.Currency ? locale.Currency : "USD",
