@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, Image, Text, PseudoBox } from "@chakra-ui/core"
+import { Box, Image, Text, PseudoBox, Tooltip } from "@chakra-ui/core"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 
@@ -27,8 +27,8 @@ const DonationCard = ({
     >
       <Box display="flex" flexDirection="row" alignItems="center">
         <PseudoBox
-          w={["50px", null, "60px", "70px", "80px"]}
-          h={["50px", null, "60px", "70px", "80px"]}
+          w={["45px", null, "60px", "70px", "80px"]}
+          h={["45px", null, "60px", "70px", "80px"]}
           overflow="hidden"
           display="flex"
           alignItems="center"
@@ -41,7 +41,7 @@ const DonationCard = ({
             mb={["2px", null, null, "4px", "8px"]}
             mt="2px"
             fontWeight="900"
-            fontSize={["20px", null, "24px", "28px", "32px"]}
+            fontSize={["18px", "20px", "24px", "28px", "32px"]}
             lineHeight={["20px", null, "24px", "28px", "32px"]}
             isTruncated
             maxWidth={["300px", null, null, null, "390px"]}
@@ -51,12 +51,23 @@ const DonationCard = ({
           <Text
             fontWeight="600"
             color="smoke"
-            fontSize={["16px", null, "20px", "22px", "24px"]}
+            fontSize={["14px", "16px", "20px", "22px", "24px"]}
             lineHeight={["16px", null, "20px", "22px", "24px"]}
           >
-            <PseudoBox as="span" borderBottom="1px solid #6C6C72">
-              ${(amount * 1000).toLocaleString("en-us")}
-            </PseudoBox>{" "}
+            <Tooltip
+              label="Lorem ipsum"
+              placement="bottom"
+              backgroundColor="dark"
+              color="smoke"
+              px="16px"
+              py="8px"
+              borderRadius="6px"
+              fontSize="16px"
+            >
+              <PseudoBox as="span" borderBottom="1px solid #6C6C72">
+                ${(amount * 1000).toLocaleString("en-us")}
+              </PseudoBox>
+            </Tooltip>{" "}
             <Box as="span" fontSize={["12px", null, "14px", "15px", "16px"]}>
               {donationCurrency}
             </Box>
@@ -82,9 +93,20 @@ const DonationCard = ({
             fontWeight="600"
           >
             of{" "}
-            <PseudoBox as="span" borderBottom="1px solid #6C6C72">
-              profits
-            </PseudoBox>{" "}
+            <Tooltip
+              label="Lorem ipsum"
+              placement="bottom"
+              backgroundColor="dark"
+              color="smoke"
+              px="16px"
+              py="8px"
+              borderRadius="6px"
+              fontSize="16px"
+            >
+              <PseudoBox as="span" borderBottom="1px solid #6C6C72">
+                profits
+              </PseudoBox>
+            </Tooltip>{" "}
             donated
           </Text>
         </Box>
@@ -94,7 +116,6 @@ const DonationCard = ({
             fontSize={["20px", null, "24px", "28px", "32px"]}
             lineHeight={["20px", null, "24px", "28px", "32px"]}
           >
-            {console.log(locale.Currency)}
             {(locale.Median_Household_Income * percent).toLocaleString(locale, {
               style: "currency",
               currency: locale.Currency ? locale.Currency : "USD",
@@ -106,9 +127,20 @@ const DonationCard = ({
             fontWeight="600"
           >
             adjusted to{" "}
-            <PseudoBox as="span" borderBottom="1px solid #6C6C72">
-              avg. income
-            </PseudoBox>
+            <Tooltip
+              label="Lorem ipsum"
+              placement="bottom"
+              backgroundColor="dark"
+              color="smoke"
+              px="16px"
+              py="8px"
+              borderRadius="6px"
+              fontSize="16px"
+            >
+              <PseudoBox as="span" borderBottom="1px solid #6C6C72">
+                avg. income
+              </PseudoBox>
+            </Tooltip>
           </Text>
         </Box>
       </Box>

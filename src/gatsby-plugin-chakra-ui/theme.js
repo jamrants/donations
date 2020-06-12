@@ -1,4 +1,5 @@
 import { theme } from "@chakra-ui/core"
+import customIcons from "../../static/icons/icons"
 
 export default {
   ...theme,
@@ -22,4 +23,8 @@ export default {
   },
   // 460, 768, 992, 1600
   breakpoints: ["30em", "48em", "62em", "107em"],
+  icons: {
+    ...theme.icons,
+    ...customIcons,
+  },
 }
