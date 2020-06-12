@@ -178,17 +178,22 @@ const Home = ({ data }) => {
             </>
           )}
         </Box>
-        <PseudoBox
-          width="100%"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          marginBottom="64px"
-        >
-          <CustomButton onClick={loadMoreItems}>
-            {itemsPerPage >= filteredCorporations.length ? "No Donations Left" : "Load More"}
-          </CustomButton>
-        </PseudoBox>
+        {!searchValue ? 
+          <PseudoBox
+            width="100%"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            marginBottom="64px"
+          >
+            <CustomButton onClick={loadMoreItems}>
+              {itemsPerPage >= filteredCorporations.length ? "No Donations Left" : "Load More"}
+            </CustomButton>
+          </PseudoBox>  
+          :
+          <PseudoBox mb="24px">
+          </PseudoBox>
+        } 
       </Layout>
     </DarkMode>
   )
