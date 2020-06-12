@@ -85,9 +85,12 @@ const DonationCard = ({
             fontWeight="600"
           >
             of{" "}
-            <PseudoBox as="span" borderBottom="1px solid #6C6C72">
-              profits
-            </PseudoBox>{" "}
+            <Tooltip label="Lorem ipsum" placement="bottom" backgroundColor="dark" color="smoke" px="16px" py="8px" borderRadius="6px" fontSize="16px">
+              <PseudoBox as="span" borderBottom="1px solid #6C6C72">
+                profits
+              </PseudoBox>
+            </Tooltip>
+            {" "}
             donated
           </Text>
         </Box>
@@ -108,9 +111,11 @@ const DonationCard = ({
             fontWeight="600"
           >
             adjusted to{" "}
-            <PseudoBox as="span" borderBottom="1px solid #6C6C72">
-              avg. income
-            </PseudoBox>
+            <Tooltip label="Lorem ipsum" placement="bottom" backgroundColor="dark" color="smoke" px="16px" py="8px" borderRadius="6px" fontSize="16px">
+              <PseudoBox as="span" borderBottom="1px solid #6C6C72">
+                avg. income
+              </PseudoBox>
+            </Tooltip>
           </Text>
         </Box>
       </Box>
