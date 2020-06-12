@@ -42,13 +42,16 @@ const Home = ({ data }) => {
       navigator.language ||
       navigator.browserLanguage ||
       (navigator.languages || ["en"])[0]
-    locale
-      ? setActiveLocale(
-          localeList.filter(l => l.Locales.split(",").includes(locale))[0]
-        )
-      : setActiveLocale(
-          localeList.filter(l => l.Locales.split(",").includes("en-US"))[0]
-        )
+
+    if (locale) {
+      let inLocaleList = localeList.filter(l => l.Locales.split(",").includes(locale))[0]
+      inLocaleList ? setActiveLocale(inLocaleList) : setActiveLocale(localeList.filter(l => l.Locales.split(",").includes("en-US"))[0])
+    }
+    // locale
+    //   ? setActiveLocale(
+    //       localeList.filter(l => l.Local es.split(",").includes(locale))[0]
+    //     )
+    //   : 
   }, [data])
 
   // sorting functions
