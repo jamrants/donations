@@ -12,7 +12,6 @@
 
 .card-image > picture > img {
   height: auto !important;
-  position: relative !important;
 }
 
 .card-image > img {
