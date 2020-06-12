@@ -26,15 +26,15 @@ const DonationCard = ({
       key={name + "Donation Stats"}
     >
       <Box display="flex" flexDirection="row" alignItems="center">
-        <PseudoBox 
-          w={['50px', null, '60px', '70px', '80px']} 
-          h={['50px', null, '60px', '70px', '80px']} 
+        <PseudoBox
+          w={["50px", null, "60px", "70px", "80px"]}
+          h={["50px", null, "60px", "70px", "80px"]}
           overflow="hidden"
           display="flex"
           alignItems="center"
           justifyContent="center"
         >
-          <Img fixed={image} className="card-image"/>
+          <Img fixed={image} className="card-image" />
         </PseudoBox>
         <Box ml={("8px", null, null, null, "16px")}>
           <Text
