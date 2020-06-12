@@ -194,6 +194,10 @@ const Home = ({ data }) => {
                           corporation.data.Logo.localFiles[0].childImageSharp
                             .fluid
                         }
+                        profitSources={corporation.data.Profit_Sources}
+                        profitNote={corporation.data.Profit_Note}
+                        donationSources={corporation.data.Sources}
+                        donationNote={corporation.data.Donation_Note}
                         name={corporation.data.Name}
                         percent={corporation.data.Percent_Profits}
                         amount={corporation.data.Donation__thousands_}
