@@ -12,8 +12,7 @@ export const getLocation = async () => {
     })
   )
   const { latitude, longitude } = pos.coords
-  const key = process.env.LOCATIONIQ
-  const url = `https://us1.locationiq.com/v1/reverse.php?key=${key}&lat=${latitude}&lon=${longitude}&format=json`
+  const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&addressdetails=1&format=jsonv2`
   const res = await fetch(url)
   const data = await res.json()
   const country = data.address.country_code
