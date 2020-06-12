@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react"
 
 import { graphql } from "gatsby"
 import Layout from "../components/Layout"
-import { Box, Text, DarkMode, Skeleton } from "@chakra-ui/core"
+import { Box, Text, DarkMode, Skeleton, Icon, MenuButton, Menu, MenuList, MenuItem } from "@chakra-ui/core"
 import SearchField from "../components/Search/Search"
 import "../components/Search/search.css"
 import DonationCard from "../components/donationCard"
+import CustomButton from "../components/Button"
 
 const Home = ({ data }) => {
   const [corporations, setCorporations] = useState(data.allAirtable.nodes)
@@ -19,6 +20,10 @@ const Home = ({ data }) => {
 
   // Search Field
   const [searchValue, setSearchValue] = useState("")
+
+  // Sorting states
+  const [sortBy, setSortBy] = useState("Amount Donated")
+  const [sortType, setSortType] = useState("DESC")
 
   const searchFieldOnChange = e => {
     setSearchValue(e.target.value)
@@ -45,6 +50,39 @@ const Home = ({ data }) => {
           localeList.filter(l => l.Locales.split(",").includes("en-US"))[0]
         )
   }, [data])
+
+  // sorting functions
+  const toggleSortType = () => {
+    if (sortType === "ASC") setSortType("DESC")
+    if (sortType === "DESC") setSortType("ASC")
+    sort(sortBy)
+  }
+
+  const sort = (field) => {
+    if (field === "Name") {
+      setSortBy("Name")
+    } else if (field === "Percent_Profits" || field === "% Profit Donated") {
+      field = "Percent_Profits"
+      setSortBy("% Profit Donated")
+    } else {
+      field = "Donation__thousands_"
+      setSortBy("Amount Donated")
+    }
+
+    console.log(field)
+
+    filteredCorporations.sort((x,y) => {
+      var a = x
+      var b = y
+      if (a.data[field] < b.data[field]) {
+        return sortType === "ASC" ? -1 : 1
+      }
+      if (a.data[field] > b.data[field]) {
+        return sortType === "ASC" ? 1 : -1
+      }
+      return 0 
+    })
+  }
 
   return (
     <DarkMode>
@@ -73,7 +111,28 @@ const Home = ({ data }) => {
               value={searchValue}
               onChange={searchFieldOnChange}
             />
-            
+            <Box mt="16px">
+              <Menu>
+                <MenuButton mr="16px">
+                  <CustomButton>
+                    Sort by {sortBy} <Icon w="12px" ml="8px" name="chevron_down"/>
+                  </CustomButton> 
+                </MenuButton>
+                <MenuList 
+                  placement="bottom-start"
+                  border="none"
+                  backgroundColor="dark"
+                  color="snow"
+                >
+                  <MenuItem onClick={() => {sort("Name")}}>Name</MenuItem>
+                  <MenuItem onClick={() => {sort("Percent_Profits")}}>% Profit Donated</MenuItem>
+                  <MenuItem onClick={() => {sort("Donation__thousands_")}}>Amount Donated</MenuItem>
+                </MenuList>
+              </Menu>
+              <CustomButton onClick={toggleSortType}>
+                <Icon h="16px" name={sortType === "ASC" ? 'up_arrow' : 'down_arrow'}/>
+              </CustomButton>
+            </Box>
           </Box>
         </Box>
         <Box
