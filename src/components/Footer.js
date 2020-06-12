@@ -46,7 +46,7 @@ const Footer = ({ padding }) => (
       >
         Jason Huang
       </PseudoBox>
-      {", & "}
+      {", and "}
       <PseudoBox
         color="primary.green"
         fontSize="16px"
@@ -67,20 +67,20 @@ const Footer = ({ padding }) => (
         fontWeight="700"
         as="a"
         target="_blank"
-        href="https://GunFunded.com"
+        href="https://lachlanjc.me/"
       >
-        GunFunded.com
+        @lachlanjc
       </PseudoBox>
-      {" & "}
+      {"'s "}
       <PseudoBox
         color="primary.green"
         fontSize="16px"
         fontWeight="700"
         as="a"
         target="_blank"
-        href="https://lachlanjc.me/"
+        href="https://GunFunded.com"
       >
-        @lachlanjc
+        GunFunded.com
       </PseudoBox>
       {"."}
     </Text>
@@ -92,8 +92,8 @@ const Footer = ({ padding }) => (
         href="https://github.com/jamrants/donations"
         color="primary.green"
       >
-        Open Source on Github.
-      </Text>{" "}
+        Open Source on Github
+      </Text>{" | "}
       <Text
         fontWeight="700"
         as="a"

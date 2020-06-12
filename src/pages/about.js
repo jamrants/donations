@@ -125,6 +125,14 @@ const About = () => {
               </List>
             </Paragraph>
             <Paragraph>
+              In the case of brands being wholly-owned subsidiaries, we
+              attribute the whole donation to the parent company. For joint
+              donations, we assume an equal split between organizations. If a
+              company pledges to donate over a number of years, the donation
+              value shown is the whole pledge divided by the number of years. If
+              a number of years is not given, we divide by five.
+            </Paragraph>
+            <Paragraph>
               In the personal world, we chose to this metric with total income,
               since there is no cost of revenue in personal finances. The{" "}
               <Link href="https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/prof/details/download-telecharger/comp/page_dl-tc.cfm?Lang=E">
@@ -149,19 +157,24 @@ const About = () => {
             </Paragraph>
           </Box>
           <Box as="section" mb="32px">
-            <Link href="https://airtable.com/shrMnuvCqc5M4J7Ak">
-              <H2>Are we missing a donation? Let us know</H2>
-            </Link>
+            <H2>
+              Are we missing a donation?{" "}
+              <Link href="https://airtable.com/shrMnuvCqc5M4J7Ak">
+                Let us know
+              </Link>{"."}
+            </H2>
           </Box>
           <Box as="section" mb="32px">
-            <Link href="mailto:jamrants@retrocraft.ca">
-              <H2>Want to talk? Email us: jamrants@retrocraft.ca</H2>
-            </Link>
+            <H2>
+              Want to talk?{" "}
+              <Link href="mailto:jamrants@retrocraft.ca">Email us</Link>{"!"}
+            </H2>
           </Box>
           <Box as="section">
-            <Link href="https://airtable.com/shrb6pZwkGX6rLIQa">
-              <H2>View all the raw data here</H2>
-            </Link>
+            <H2>
+              View all the raw data{" "}
+              <Link href="https://airtable.com/shrb6pZwkGX6rLIQa">here</Link>{"."}
+            </H2>
           </Box>
         </Box>
       </Layout>
