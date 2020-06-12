@@ -5,6 +5,14 @@
 .card-image {
   width: 45px !important;
   height: 45px !important;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-image > picture > img {
+  height: auto !important;
+  position: relative !important;
 }
 
 @media screen and (min-width: 48em) {
