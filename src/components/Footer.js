@@ -31,7 +31,7 @@ const Footer = ({ padding }) => (
         fontWeight="700"
         as="a"
         target="_blank"
-        href="https://instagram.com/davidli3100"
+        href="https://github.com/davidli3100"
       >
         David Li
       </PseudoBox>
@@ -53,7 +53,7 @@ const Footer = ({ padding }) => (
         fontWeight="700"
         as="a"
         target="_blank"
-        href="https://instagram.com/james.ahyong"
+        href="https://github.com/retroCraft"
       >
         James Ah Yong
       </PseudoBox>
@@ -71,7 +71,7 @@ const Footer = ({ padding }) => (
       >
         GunFunded.com
       </PseudoBox>
-      {" and "}
+      {" & "}
       <PseudoBox
         color="primary.green"
         fontSize="16px"
