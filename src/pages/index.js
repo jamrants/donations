@@ -2,7 +2,18 @@ import React, { useState, useEffect } from "react"
 
 import { graphql } from "gatsby"
 import Layout from "../components/Layout"
-import { Box, Text, DarkMode, Skeleton, Icon, MenuButton, Menu, MenuList, MenuItem, PseudoBox } from "@chakra-ui/core"
+import {
+  Box,
+  Text,
+  DarkMode,
+  Skeleton,
+  Icon,
+  MenuButton,
+  Menu,
+  MenuList,
+  MenuItem,
+  PseudoBox,
+} from "@chakra-ui/core"
 import SearchField from "../components/Search/Search"
 import "../components/Search/search.css"
 import DonationCard from "../components/donationCard"
@@ -41,8 +52,14 @@ const Home = ({ data }) => {
       (navigator.languages || ["en"])[0]
 
     if (locale) {
-      let inLocaleList = localeList.filter(l => l.Locales.split(",").includes(locale))[0]
-      inLocaleList ? setActiveLocale(inLocaleList) : setActiveLocale(localeList.filter(l => l.Locales.split(",").includes("en-US"))[0])
+      let inLocaleList = localeList.filter(l =>
+        l.Locales.split(",").includes(locale)
+      )[0]
+      inLocaleList
+        ? setActiveLocale(inLocaleList)
+        : setActiveLocale(
+            localeList.filter(l => l.Locales.split(",").includes("en-US"))[0]
+          )
     }
   }, [data])
 
@@ -52,7 +69,7 @@ const Home = ({ data }) => {
   }
 
   // set sortbyfield and text
-  const setSortBy = (field) => {
+  const setSortBy = field => {
     if (field === "Name") {
       setSortByField("data." + field)
       setSortByText("Name")
@@ -104,22 +121,44 @@ const Home = ({ data }) => {
               <Menu>
                 <MenuButton mr="16px">
                   <CustomButton>
-                    Sort by {sortByText} <Icon w="12px" ml="8px" name="chevron_down"/>
-                  </CustomButton> 
+                    Sort by {sortByText}{" "}
+                    <Icon w="12px" ml="8px" name="chevron_down" />
+                  </CustomButton>
                 </MenuButton>
-                <MenuList 
+                <MenuList
                   placement="bottom-start"
                   border="none"
                   backgroundColor="dark"
                   color="snow"
                 >
-                  <MenuItem onClick={() => {setSortBy("Name")}}>Name</MenuItem>
-                  <MenuItem onClick={() => {setSortBy("Percent_Profits")}}>% Profit Donated</MenuItem>
-                  <MenuItem onClick={() => {setSortBy("Donation__thousands_")}}>Amount Donated</MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setSortBy("Name")
+                    }}
+                  >
+                    Name
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setSortBy("Percent_Profits")
+                    }}
+                  >
+                    % Profit Donated
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setSortBy("Donation__thousands_")
+                    }}
+                  >
+                    Amount Donated
+                  </MenuItem>
                 </MenuList>
               </Menu>
               <CustomButton onClick={toggleSortType}>
-                <Icon h="16px" name={sortType === "asc" ? 'up_arrow' : 'down_arrow'}/>
+                <Icon
+                  h="16px"
+                  name={sortType === "asc" ? "up_arrow" : "down_arrow"}
+                />
               </CustomButton>
             </Box>
           </Box>
@@ -140,45 +179,84 @@ const Home = ({ data }) => {
               itemsPerPage={itemsPerPage}
               paginate
               searchInKeys={["data.Name"]}
-              render={({data, pages}) => {
-                return (
-                  data.map(corporation => {
-                    if (
-                      corporation.data.Donation__thousands_ &&
-                      corporation.data.Gross_Profit__millions_
-                    ) {
-                      return (
-                        <DonationCard
-                          locale={activeLocale}
-                          image={
-                            corporation.data.Logo.localFiles[0].childImageSharp.fixed
-                          }
-                          name={corporation.data.Name}
-                          percent={corporation.data.Percent_Profits}
-                          amount={corporation.data.Donation__thousands_}
-                          donationCurrency={corporation.data.Currency}
-                          profits={corporation.data.Gross_Profit__millions_}
-                        />
-                      )
-                    }
-                  })
-                )
+              render={({ data, pages }) => {
+                return data.map(corporation => {
+                  if (
+                    corporation.data.Donation__thousands_ &&
+                    corporation.data.Gross_Profit__millions_
+                  ) {
+                    return (
+                      <DonationCard
+                        locale={activeLocale}
+                        image={
+                          corporation.data.Logo.localFiles[0].childImageSharp
+                            .fixed
+                        }
+                        name={corporation.data.Name}
+                        percent={corporation.data.Percent_Profits}
+                        amount={corporation.data.Donation__thousands_}
+                        donationCurrency={corporation.data.Currency}
+                        profits={corporation.data.Gross_Profit__millions_}
+                      />
+                    )
+                  }
+                })
               }}
-              />
+            />
           ) : (
             <>
-              <Skeleton colorStart="darkless" colorEnd="slate" h="220px" borderRadius="10px" />
-              <Skeleton colorStart="darkless" colorEnd="slate" h="220px" borderRadius="10px" />
-              <Skeleton colorStart="darkless" colorEnd="slate" h="220px" borderRadius="10px" />
-              <Skeleton colorStart="darkless" colorEnd="slate" h="220px" borderRadius="10px" />
-              <Skeleton colorStart="darkless" colorEnd="slate" h="220px" borderRadius="10px" />
-              <Skeleton colorStart="darkless" colorEnd="slate" h="220px" borderRadius="10px" />
-              <Skeleton colorStart="darkless" colorEnd="slate" h="220px" borderRadius="10px" />
-              <Skeleton colorStart="darkless" colorEnd="slate" h="220px" borderRadius="10px" />
+              <Skeleton
+                colorStart="darkless"
+                colorEnd="slate"
+                h="220px"
+                borderRadius="10px"
+              />
+              <Skeleton
+                colorStart="darkless"
+                colorEnd="slate"
+                h="220px"
+                borderRadius="10px"
+              />
+              <Skeleton
+                colorStart="darkless"
+                colorEnd="slate"
+                h="220px"
+                borderRadius="10px"
+              />
+              <Skeleton
+                colorStart="darkless"
+                colorEnd="slate"
+                h="220px"
+                borderRadius="10px"
+              />
+              <Skeleton
+                colorStart="darkless"
+                colorEnd="slate"
+                h="220px"
+                borderRadius="10px"
+              />
+              <Skeleton
+                colorStart="darkless"
+                colorEnd="slate"
+                h="220px"
+                borderRadius="10px"
+              />
+              <Skeleton
+                colorStart="darkless"
+                colorEnd="slate"
+                h="220px"
+                borderRadius="10px"
+              />
+              <Skeleton
+                colorStart="darkless"
+                colorEnd="slate"
+                h="220px"
+                borderRadius="10px"
+              />
             </>
           )}
         </Box>
-        {!searchValue ? 
+        {!searchValue ? (
           <PseudoBox
             width="100%"
             display="flex"
@@ -187,13 +265,14 @@ const Home = ({ data }) => {
             marginBottom="64px"
           >
             <CustomButton onClick={loadMoreItems}>
-              {itemsPerPage >= filteredCorporations.length ? "No Donations Left" : "Load More"}
+              {itemsPerPage >= filteredCorporations.length
+                ? "No Donations Left"
+                : "Load More"}
             </CustomButton>
-          </PseudoBox>  
-          :
-          <PseudoBox mb="24px">
           </PseudoBox>
-        } 
+        ) : (
+          <PseudoBox mb="24px"></PseudoBox>
+        )}
       </Layout>
     </DarkMode>
   )
@@ -202,7 +281,13 @@ const Home = ({ data }) => {
 export const query = graphql`
   query corporationsQuery {
     allAirtable(
-      filter: { table: { eq: "Corporations" } data: {Donation__thousands_: {gt: 0}, Gross_Profit__millions_: {gt: 0}} }
+      filter: {
+        table: { eq: "Corporations" }
+        data: {
+          Donation__thousands_: { gt: 0 }
+          Gross_Profit__millions_: { gt: 0 }
+        }
+      }
       sort: { fields: data___Donation__thousands_, order: ASC }
     ) {
       nodes {
