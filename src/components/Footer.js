@@ -84,16 +84,27 @@ const Footer = ({ padding }) => (
       </PseudoBox>
       {"."}
     </Text>
-    <Text
-      mt="16px"
-      fontWeight="700"
-      as="a"
-      target="_blank"
-      href="https://github.com/jamrants/donations"
-      color="primary.green"
-    >
-      Open Source on Github
-    </Text>
+    <PseudoBox mt="16px">
+      <Text
+        fontWeight="700"
+        as="a"
+        target="_blank"
+        href="https://github.com/jamrants/donations"
+        color="primary.green"
+      >
+        Open Source on Github.
+      </Text>
+      {" "}
+      <Text
+        fontWeight="700"
+        as="a"
+        target="_blank"
+        href="https://netlify.com"
+        color="primary.green"
+      >
+        Hosted on Netlify
+      </Text>
+    </PseudoBox>
   </Box>
 )
 
