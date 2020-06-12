@@ -1,10 +1,9 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Box, PseudoBox } from "@chakra-ui/core"
-import { IsDesktop } from "../utils/mediaQueries"
-import Header from "./Header"
 import Hero from "./Hero"
 import Footer from "./Footer"
+import { Helmet } from "react-helmet"
 
 const breakpoints = ["30em", "48em", "62em", "65.9375em", "75em", "107em"]
 //1200px - 7%
@@ -19,12 +18,19 @@ breakpoints.xxl = breakpoints[5]
 
 const Layout = ({ children, title, subtitle }) => (
   <Box backgroundColor="dark" minHeight="100vh">
+    <Helmet>
+      <script async defer data-domain="donations.exposed" src="https://plausible.io/js/plausible.js"></script>
+    </Helmet>
     <Hero
       title={title}
       subtitle={subtitle}
       padding={["24px", null, null, "17%", "20%"]}
     />
+    {title === "Donations Exposed" ? 
     <PseudoBox className="content-container">{children}</PseudoBox>
+    :
+    <PseudoBox px={["24px", null, null, "17%", "20%"]}>{children}</PseudoBox>
+    }
     <Footer padding={["24px", null, null, "17%", "20%"]} />
   </Box>
 )

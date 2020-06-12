@@ -1,23 +1,159 @@
 import React from "react"
-import { DarkMode } from "@chakra-ui/core"
+import { DarkMode, Box, Text, List, ListItem } from "@chakra-ui/core"
 import Layout from "../components/Layout"
+
+const H1 = ({ children }) => (
+  <Text
+    fontWeight="900"
+    as="h1"
+    fontSize={["24px", "26px", "28px", "30px", "32px"]}
+    lineHeight={["24px", "26px", "28px", "30px", "32px"]}
+    mb="16px"
+  >
+    {children}
+  </Text>
+)
+
+const H2 = ({ children }) => (
+  <Text
+    fontWeight="900"
+    as="h1"
+    fontSize={["20px", "22px", "24px", "26px", "28px"]}
+    lineHeight={["20px", "22px", "24px", "26px", "28px"]}
+    mb="16px"
+  >
+    {children}
+  </Text>
+)
+
+const Paragraph = ({ children }) => (
+  <Text fontSize={["16px", null, null, "18px"]} mb="16px">
+    {children}
+  </Text>
+)
+
+const Link = ({ children, href }) => (
+  <Text
+    fontWeight="600"
+    as="a"
+    textDecoration="underline"
+    color="primary.green"
+    href={href}
+    target="_blank"
+  >
+    {children}
+  </Text>
+)
 
 const About = () => {
   return (
     <DarkMode>
       <Layout
         title="About"
-        subtitle="Why we built this, methodology, other stuff"
+        subtitle="Why we built this, methodology, and sources"
       >
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
+        <Box color="snow" py="64px">
+          <Box as="section" mb="32px">
+            <H1>Why?</H1>
+            <Paragraph>
+              Businesses have made a lot of headlines recently with huge
+              donations. Individuals, like us, who want to help the cause, feel
+              like our $10 is nothing compared to a celebrity or company's $10
+              million. But when scaled down from billion-dollar multinational to
+              average household, many of these donations have a proportionate
+              impact of our donating less than $100.
+            </Paragraph>
+            <Paragraph>
+              A company like Home Depot gets loads of good PR from a million
+              dollar pledge, but they make gross profit of around $40 billion.
+              That's a donation of just 0.003% of their income. 0.003% of the
+              average Canadian's income comes out to less than a toonie. We can
+              all spare a toonie, can't we?
+            </Paragraph>
+            <Paragraph>
+              We made this site to{" "}
+              <Text as="span" color="primary.green" fontWeight="800">
+                expose the hypocrisy inherent in corporate performative
+                activism.
+              </Text>{" "}
+              If they can pledge pocket change and make a difference, so can we.
+            </Paragraph>
+            <Paragraph>
+              <Link href="https://blmsites.carrd.co/">
+                Take action and donate or sign a petition today.
+              </Link>
+            </Paragraph>
+          </Box>
+          <Box as="section" mb="32px">
+            <H1>Methodology</H1>
+            <Paragraph>
+              Corporate and personal finances are two wildly different worlds.
+              Because funny corporate accounting tends to skew taxable income,
+              we chose to compare pre-tax figures that we felt best represented
+              the amount of money that is under the company/person's control to
+              decide spending.
+            </Paragraph>
+            <Paragraph>
+              Many businesses post negative taxable revenues (e.g. Uber) while
+              still clearly generating revenue, so we used a measure of revenue
+              less cost of revenue. Public companies have wide ability to choose
+              exactly what figures to report, so the cost of revenue was not
+              always provided. We used the following list of figures, in order
+              of priority, moving down the list if the previous figure was not
+              available, to calculate "profit".
+            </Paragraph>
+            <Paragraph>
+              <List
+                spacing="8px"
+                fontWeight="600"
+                color="snow"
+                ml="16px"
+                as="ol"
+                styleType="decimal"
+              >
+                <ListItem>Revenue less cost of revenue</ListItem>
+                <ListItem>Gross Profit</ListItem>
+                <ListItem>Operating Income</ListItem>
+                <ListItem>
+                  Third-party estimates (for private companies)
+                </ListItem>
+              </List>
+            </Paragraph>
+            <Paragraph>
+              In the personal world, we chose to this metric with total income,
+              since there is no cost of revenue in personal finances. The{" "}
+              <Link href="https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/prof/details/download-telecharger/comp/page_dl-tc.cfm?Lang=E">
+                Canadian
+              </Link>{" "}
+              and{" "}
+              <Link href="https://data.census.gov/cedsci/table?g=0100000US.860000&text=s1903&tid=ACSST5Y2018.S1903&hidePreview=false&vintage=2018&layer=VT_2018_860_00_PY_D1&cid=S1903_C01_001E">
+                American
+              </Link>{" "}
+              censuses report median household total income. These are further
+              drilled down by{" "}
+              <Link href="https://airtable.com/shrpsRjYtdHVE39DQ">FSA</Link>{" "}
+              (the first three letters of postal codes) and{" "}
+              <Link href="https://airtable.com/shrTF0rwa0j0EgG10">
+                ZIP codes
+              </Link>
+              .
+            </Paragraph>
+            <Paragraph>
+              The adjusted figure shown is calculated by taking the percent of
+              profits donated and multiplying by the local median income.
+            </Paragraph>
+          </Box>
+          <Box as="section" mb="32px">
+            <Link href="https://airtable.com/shrMnuvCqc5M4J7Ak">
+              <H2>Are we missing a donation? Let us know</H2>
+            </Link>
+          </Box>
+          <Box as="section">
+            <Link href="https://airtable.com/shrb6pZwkGX6rLIQa">
+              <H2>View all the raw data here</H2>
+            </Link>
+          </Box>
+        </Box>
       </Layout>
     </DarkMode>
   )
