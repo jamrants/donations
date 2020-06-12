@@ -13,7 +13,7 @@ import {
   MenuList,
   MenuItem,
   PseudoBox,
-} from "@chakra-ui/core"  
+} from "@chakra-ui/core"
 import SearchField from "../components/Search/Search"
 import "../components/Search/search.css"
 import DonationCard from "../components/donationCard"
