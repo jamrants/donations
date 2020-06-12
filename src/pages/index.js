@@ -19,6 +19,7 @@ import "../components/Search/search.css"
 import DonationCard from "../components/donationCard"
 import CustomButton from "../components/Button"
 import DataSort from "react-data-sort"
+import SEO from "../components/seo"
 
 const Home = ({ data }) => {
   const [corporations, setCorporations] = useState(data.allAirtable.nodes)
@@ -96,6 +97,7 @@ const Home = ({ data }) => {
         title="Donations Exposed"
         subtitle="Corporations have made headlines with big pledges recently — how much would they be to the average person?"
       >
+        <SEO title={"Home"} />
         <Box pt="64px" pb={["24px", null, "32px", "48px", "64px"]}>
           <Box
             textAlign="center"
