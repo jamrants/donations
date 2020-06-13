@@ -5,7 +5,12 @@ import ReactCountryFlag from "react-country-flag"
 const renderMenuItems = (locales, onClick) => {
   return locales.map(locale => {
     return (
-      <MenuItem py="4px" marginBottom="4px" width="fit-content" onClick={() => onClick(locale)}>
+      <MenuItem
+        py="4px"
+        marginBottom="4px"
+        width="fit-content"
+        onClick={() => onClick(locale)}
+      >
         <ReactCountryFlag
           style={{ height: "36px", width: "36px" }}
           countryCode={locale.Code}
