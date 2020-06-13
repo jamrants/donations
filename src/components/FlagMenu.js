@@ -77,7 +77,6 @@ const renderMenuItems = (locales, onClick) => {
 
 const FlagMenu = ({ onClick, locales, activeLocale }) => {
   const [mine, setMine] = useState(null)
-  const [useMine, setUseMine] = useState(false)
   const { lang, country } = getLocale()
 
   const onChange = (locale, income = null) => {
@@ -86,22 +85,21 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
         if (mine === null) {
           // initialize to country median income
           const countryLocale = locales.find(l => l.Code === country)
-          income = countryLocale ? countryLocale.Median_Household_Income : 0
+          income = countryLocale ? countryLocale.Income : 0
         } else {
           income = mine
         }
       }
       onClick({
-        Median_Household_Income: income,
+        Income: income,
         Language: lang,
         Code: country,
         Demonym: "my",
         Currency: "CAD",
+        Measure: "income",
       })
       setMine(income)
-      setUseMine(true)
     } else {
-      setUseMine(false)
       onClick(locale)
     }
   }
@@ -114,6 +112,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
   return (
     <>
       <Menu>
+        {activeLocale.Demonym !== "my" && " the average "}
         <MenuButton
           lineHeight="initial"
           pb="2px"
@@ -122,7 +121,6 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
           borderBottom="2.5px solid #F9FAFC"
         >
           <span>
-            {!useMine && " the average "}
             <ReactCountryFlag
               style={{ height: "36px", width: "36px" }}
               countryCode={activeLocale.Code}
@@ -145,30 +143,30 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
           {renderMenuItems(locales, onChange)}
         </MenuList>
       </Menu>
-      {useMine && (
+      {activeLocale.Demonym === "my" && (
         <>
           , with an income of{" "}
-          {
-            Intl.NumberFormat(undefined, {
-              style: "currency",
-              currency: activeLocale.Currency,
-            }).formatToParts(1)[0].value
-          }{" "}
-          <Input
-            value={mine}
-            size={["sm", "md", "lg"]}
-            display="inline"
-            width="fit-content"
-            variant="flushed"
-            color="smoke"
-            borderBottom="2.5px solid #F9FAFC"
-            backgroundColor="transparent"
-            placeholder="income"
-            type="number"
-            onChange={onMineChange}
-            pb="2px"
-            px="4px"
-          />
+          <span style={{ borderBottom: "2.5px solid #F9FAFC" }}>
+            {
+              Intl.NumberFormat(undefined, {
+                style: "currency",
+                currency: activeLocale.Currency,
+              }).formatToParts(1)[0].value
+            }
+            <Input
+              value={mine}
+              width={`${mine.toString().length}ch`}
+              size={["sm", "md", "lg"]}
+              display="inline"
+              variant="flushed"
+              border="none"
+              backgroundColor="transparent"
+              placeholder="income"
+              type="number"
+              onChange={onMineChange}
+              pb="2px"
+            />
+          </span>
           ,{" "}
         </>
       )}

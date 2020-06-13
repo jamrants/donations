@@ -214,7 +214,7 @@ const DonationCard = ({
             fontSize={["20px", null, "24px", "28px", "32px"]}
             lineHeight={["20px", null, "24px", "28px", "32px"]}
           >
-            {(locale.Median_Household_Income * percent).toLocaleString(
+            {(locale.Income * percent).toLocaleString(
               undefined,
               {
                 style: "currency",
@@ -254,8 +254,8 @@ const DonationCard = ({
                 fontSize={["14px", null, null, "16px"]}
               >
                 <Box>
-                  {locale.Demonym} Median Household Income <br />
-                  {locale.Median_Household_Income.toLocaleString(locale, {
+                  {locale.Demonym} {locale.Measure} of{" "}
+                  {locale.Income.toLocaleString(locale, {
                     style: "currency",
                     currency: locale.Currency ? locale.Currency : "USD",
                   })}{" "}

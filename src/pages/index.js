@@ -343,7 +343,8 @@ export const query = graphql`
             Demonym
             Language
             Code
-            Median_Household_Income
+            Income
+            Measure
             Currency
           }
         }
