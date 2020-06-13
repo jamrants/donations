@@ -6,24 +6,25 @@ let locationCache = null
  */
 export const getLocale = () => {
   // get user country, sort through locales + income to adjust
-  const locale = window && (
-    navigator.language ||
-    navigator.browserLanguage ||
-    (navigator.languages || ["en"])[0]
-  )
+  if (typeof window !== "undefined") {
+    const locale =
+      navigator.language ||
+      navigator.browserLanguage ||
+      (navigator.languages || ["en"])[0]
 
-  let lang = locale
-  let country = "US"
-  // 'en-US' -> ['en', 'US'] and account for zh-Hans_CN
-  if (locale.includes("-")) {
-    lang = locale.substring(0, 2)
-    country = locale.slice(-2)
+    let lang = locale
+    let country = "US"
+    // 'en-US' -> ['en', 'US'] and account for zh-Hans_CN
+    if (locale.includes("-")) {
+      lang = locale.substring(0, 2)
+      country = locale.slice(-2)
+    }
+    // if already used geolocation, use that country
+    if (locationCache) {
+      country = locationCache.country
+    }
+    return { lang, country }
   }
-  // if already used geolocation, use that country
-  if (locationCache) {
-    country = locationCache.country
-  }
-  return { lang, country }
 }
 
 /**
