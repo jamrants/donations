@@ -105,13 +105,13 @@ const Home = ({ data }) => {
         subtitle={
           <>
             Corporations have made headlines with big pledges recently — how
-            much would they be to the average{" "}
+            much would an average{" "}
             <FlagMenu
               onClick={setActiveLocale}
               activeLocale={activeLocale}
               locales={localeList}
-            />
-            ?
+            />{" "}
+            need to donate to match their donation?
           </>
         }
       >
