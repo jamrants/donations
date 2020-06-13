@@ -19,7 +19,7 @@ const Footer = ({ padding }) => (
       fontWeight="700"
       as="a"
       target="_blank"
-      href="https://blmsites.carrd.co/"
+      href="https://blacklivesmatter.com/"
     >
       Get Informed about BLM →
     </PseudoBox>
