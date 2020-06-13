@@ -10,7 +10,12 @@ const Hero = ({ padding, title, subtitle }) => {
       backgroundColor="darkless"
     >
       <Header />
-      <Box px={["2%", null, "4%", "5%", "7%"]} textAlign="center" pt="48px" pb="72px">
+      <Box
+        px={["2%", null, "4%", "5%", "7%"]}
+        textAlign="center"
+        pt="48px"
+        pb="72px"
+      >
         <Text
           color="primary.green"
           fontSize={["48px", "56px", "64px", "74px", "96px"]}
