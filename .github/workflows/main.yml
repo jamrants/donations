@@ -6,6 +6,8 @@ on:
   push:
     branches:
     - master
+  repository_dispatch:
+    types: [airtable]
 
 jobs:
   prettier:
