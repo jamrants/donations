@@ -27,26 +27,49 @@ jobs:
         prettier_options: --write **/*.{js,md}
   
   lighthouseci:
-    needs: [prettier]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-      - run: npm install && npm install -g @lhci/cli@0.4.x
-      - run: npm run build
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          # Make sure the actual branch is checked out when running on pull requests
+          ref: ${{ github.head_ref }}
+        
+      - name: Set Up Node.js
+        uses: actions/setup-node@v1
+        
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-lighthouse-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-lighthouse-
+        
+      - name: Install Dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm install && npm install -g @lhci/cli@0.4.x
+        
+      - name: Build Site
+        run: npm run build
         env:
           AIRTABLE_KEY: ${{ secrets.AIRTABLE_KEY }}
           BASE_ID: ${{ secrets.BASE_ID }}
           LOCATIONIQ: ${{ secrets.LOCATIONIQ }}
-      - run: lhci autorun --upload.target=temporary-public-storage
+      
+      - name: Run Lighthouse Tests
+        run: lhci autorun --upload.target=temporary-public-storage
   
   build:
-    needs: [prettier]
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v2
+      with:
+        # Make sure the actual branch is checked out when running on pull requests
+        ref: ${{ github.head_ref }}
 
     - name: Cache node_modules
       id: cache-node-modules
@@ -61,7 +84,7 @@ jobs:
       if: steps.cache-node-modules.outputs.cache-hit != 'true'
       run: npm install
 
-    - name: Build Static Files
+    - name: Build Site
       run: npm run build
       env:
         AIRTABLE_KEY: ${{ secrets.AIRTABLE_KEY }}
