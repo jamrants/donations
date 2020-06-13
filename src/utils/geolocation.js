@@ -6,10 +6,11 @@ let locationCache = null
  */
 export const getLocale = () => {
   // get user country, sort through locales + income to adjust
-  const locale =
+  const locale = window && (
     navigator.language ||
     navigator.browserLanguage ||
     (navigator.languages || ["en"])[0]
+  )
 
   let lang = locale
   let country = "US"
