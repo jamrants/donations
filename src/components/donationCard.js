@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
   Box,
   Image,
@@ -27,6 +27,7 @@ const DonationCard = ({
 }) => {
   amount = parseInt(amount)
   profits = parseFloat(profits)
+  const [zIndex, setZIndex] = useState(0)
   return (
     <PseudoBox
       padding={["12px", null, "16px", "24px", "30px"]}
@@ -37,6 +38,7 @@ const DonationCard = ({
       transition="all .2s ease-in-out"
       _hover={{ transform: "scale(1.05)" }}
       key={name + "Donation Stats"}
+      zIndex={zIndex}
     >
       <Box display="flex" flexDirection="row" alignItems="center">
         <PseudoBox
@@ -143,7 +145,16 @@ const DonationCard = ({
             fontWeight="600"
           >
             of{" "}
-            <Popover trigger="hover" placement="bottom">
+            <Popover
+              trigger="hover"
+              placement="bottom"
+              onOpen={() => {
+                setZIndex(1)
+              }}
+              onClose={() => {
+                setZIndex(0)
+              }}
+            >
               <PopoverTrigger>
                 <PseudoBox as="span" borderBottom="1px solid #6C6C72">
                   profits
@@ -217,8 +228,31 @@ const DonationCard = ({
             fontWeight="600"
           >
             adjusted to{" "}
-            <Tooltip
-              label={
+            <Popover
+              trigger="hover"
+              placement="bottom"
+              onOpen={() => {
+                setZIndex(1)
+              }}
+              onClose={() => {
+                setZIndex(0)
+              }}
+            >
+              <PopoverTrigger>
+                <PseudoBox as="span" borderBottom="1px solid #6C6C72">
+                  avg. income
+                </PseudoBox>
+              </PopoverTrigger>
+              <PopoverContent
+                border="none"
+                backgroundColor="dark"
+                color="smoke"
+                width="fit-content"
+                px="16px"
+                py="8px"
+                borderRadius="6px"
+                fontSize={["14px", null, null, "16px"]}
+              >
                 <Box>
                   {locale.Demonym} Median Household Income <br />
                   {locale.Median_Household_Income.toLocaleString(locale, {
@@ -226,19 +260,8 @@ const DonationCard = ({
                     currency: locale.Currency ? locale.Currency : "USD",
                   })}
                 </Box>
-              }
-              placement="bottom"
-              backgroundColor="dark"
-              color="smoke"
-              px="16px"
-              py="8px"
-              borderRadius="6px"
-              fontSize={["14px", null, null, "16px"]}
-            >
-              <PseudoBox as="span" borderBottom="1px solid #6C6C72">
-                avg. income
-              </PseudoBox>
-            </Tooltip>
+              </PopoverContent>
+            </Popover>
           </Text>
         </Box>
       </Box>
