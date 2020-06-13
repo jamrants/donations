@@ -230,7 +230,7 @@ const DonationCard = ({
             adjusted to{" "}
             <Popover
               trigger="hover"
-              placement="bottom"
+              placement="bottom-end"
               onOpen={() => {
                 setZIndex(1)
               }}

@@ -104,14 +104,14 @@ const Home = ({ data }) => {
         title="Donations Exposed"
         subtitle={
           <>
-            Corporations have made headlines with big pledges recently — how
+            Corporations have made headlines with big donations recently — how
             much would an average{" "}
             <FlagMenu
               onClick={setActiveLocale}
               activeLocale={activeLocale}
               locales={localeList}
             />{" "}
-            need to donate to match their donation?
+            need to match their donation?
           </>
         }
       >
