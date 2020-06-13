@@ -237,7 +237,7 @@ const DonationCard = ({
             >
               <PopoverTrigger>
                 <PseudoBox as="span" borderBottom="1px solid #6C6C72">
-                  avg. income
+                  {locale.Demonym === 'my' ? 'my' : 'avg.'} income
                 </PseudoBox>
               </PopoverTrigger>
               <PopoverContent
