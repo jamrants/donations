@@ -26,46 +26,8 @@ jobs:
           # This part is also where you can pass other options, for example:
           prettier_options: --write **/*.{js,md}
 
-  lighthouseci:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-        with:
-          # Make sure the actual branch is checked out when running on pull requests
-          ref: ${{ github.head_ref }}
-
-      - name: Set Up Node.js
-        uses: actions/setup-node@v1
-
-      - name: Cache node_modules
-        id: cache-node-modules
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-lighthouse-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-lighthouse-
-
-      - name: Install Dependencies
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: npm install && npm install -g @lhci/cli@0.4.x && npm install -g gatsby-cli
-
-      - name: Build Site
-        run: npm run build
-        env:
-          AIRTABLE_KEY: ${{ secrets.AIRTABLE_KEY }}
-          BASE_ID: ${{ secrets.BASE_ID }}
-          LOCATIONIQ: ${{ secrets.LOCATIONIQ }}
-
-      - name: Run Lighthouse Tests
-        run: lhci autorun --upload.target=temporary-public-storage
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -104,3 +66,22 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+  lighthouseci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+
+      - name: Waiting for 200 from the Netlify Preview
+        uses: jakepartusch/wait-for-netlify-action@v1
+        id: waitFor200
+        with:
+          site_name: "donations-exposed"
+        
+      - name: Run Lighthouse Tests
+        run: |
+          npm install -g @lhci/cli@0.4.x
+          lhci autorun --upload.target=temporary-public-storage --collect.url=${{ steps.waitFor200.outputs.url }} || echo "LHCI failed!"
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
