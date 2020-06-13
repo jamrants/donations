@@ -115,7 +115,7 @@ const Home = ({ data }) => {
           </>
         }
       >
-        <SEO title={"Home"} />
+        <SEO title={"Donations Exposed"} />
         <Box pt="64px" pb={["24px", null, "32px", "48px", "64px"]}>
           <Box
             textAlign="center"
