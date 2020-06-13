@@ -258,7 +258,8 @@ const DonationCard = ({
                   {locale.Median_Household_Income.toLocaleString(locale, {
                     style: "currency",
                     currency: locale.Currency ? locale.Currency : "USD",
-                  })} x {(percent*100).toFixed(3)}%
+                  })}{" "}
+                  x {(percent * 100).toFixed(3)}%
                 </Box>
               </PopoverContent>
             </Popover>
