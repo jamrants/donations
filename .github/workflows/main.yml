@@ -34,6 +34,10 @@ jobs:
       - uses: actions/setup-node@v1
       - run: npm install && npm install -g @lhci/cli@0.4.x
       - run: npm run build
+        env:
+          AIRTABLE_KEY: ${{ secrets.AIRTABLE_KEY }}
+          BASE_ID: ${{ secrets.BASE_ID }}
+          LOCATIONIQ: ${{ secrets.LOCATIONIQ }}
       - run: lhci autorun --upload.target=temporary-public-storage
   
   build:
