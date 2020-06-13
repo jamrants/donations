@@ -1,24 +1,53 @@
 import React from "react"
 import { Menu, MenuButton, MenuList, MenuItem, Icon } from "@chakra-ui/core"
 import ReactCountryFlag from "react-country-flag"
+import { getLocale } from "../utils/geolocation"
 
 const renderMenuItems = (locales, onClick) => {
-  return locales.map(locale => {
-    return (
-      <MenuItem
-        py="4px"
-        marginBottom="4px"
-        width="fit-content"
-        onClick={() => onClick(locale)}
-      >
+  const { country } = getLocale()
+  // countries with implemented postal-level data
+  const postalCountries = [] // ["US", "CA"]
+  return [
+    ...locales.map(locale => {
+      return (
+        <MenuItem py="4px" marginBottom="4px" onClick={() => onClick(locale)}>
+          <span>
+            <ReactCountryFlag
+              style={{ height: "36px", width: "36px" }}
+              countryCode={locale.Code}
+              svg
+            />{" "}
+            {locale.Demonym}
+            {" household"}
+          </span>
+        </MenuItem>
+      )
+    }),
+    // TODO: handle geolocation + ZIP/FSA income
+    postalCountries.includes(country) && (
+      <MenuItem py="4px" marginBottom="4px" onClick={() => onClick(0)}>
+        <span>
+          <ReactCountryFlag
+            style={{ height: "36px", width: "36px" }}
+            countryCode={country}
+            svg
+          />
+          {" household near me"}
+        </span>
+      </MenuItem>
+    ),
+    // TODO: handle custom income declaration
+    <MenuItem py="4px" marginBottom="4px" onClick={() => onClick(0)}>
+      <span>
         <ReactCountryFlag
           style={{ height: "36px", width: "36px" }}
-          countryCode={locale.Code}
+          countryCode={country}
           svg
         />
-      </MenuItem>
-    )
-  })
+        {" my household"}
+      </span>
+    </MenuItem>,
+  ]
 }
 
 const FlagMenu = ({ onClick, locales, activeLocale }) => {
@@ -31,12 +60,17 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
         ml="4px"
         borderBottom="2.5px solid #F9FAFC"
       >
-        <ReactCountryFlag
-          style={{ height: "36px", width: "36px" }}
-          countryCode={activeLocale.Code}
-          svg
-        />
-        <Icon ml="6px" name="chevron_down" h="12px" />
+        <span>
+          {" the average "}
+          <ReactCountryFlag
+            style={{ height: "36px", width: "36px" }}
+            countryCode={activeLocale.Code}
+            svg
+          />{" "}
+          {activeLocale.Demonym}
+          {" household"}
+          <Icon ml="6px" name="chevron_down" h="12px" display="inline" />
+        </span>
       </MenuButton>
       <MenuList
         className="flag-menu"

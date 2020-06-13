@@ -259,7 +259,7 @@ const DonationCard = ({
                     style: "currency",
                     currency: locale.Currency ? locale.Currency : "USD",
                   })}{" "}
-                  x {(percent * 100).toFixed(3)}%
+                  &times; {(percent * 100).toFixed(3)}%
                 </Box>
               </PopoverContent>
             </Popover>
