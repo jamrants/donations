@@ -120,7 +120,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
           ml="4px"
           borderBottom="2.5px solid #F9FAFC"
         >
-          <span style={{ whiteSpace: 'nowrap' }}>
+          <span style={{ whiteSpace: "nowrap" }}>
             <ReactCountryFlag
               style={{ height: "36px", width: "36px" }}
               countryCode={activeLocale.Code}
@@ -146,7 +146,12 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
       {activeLocale.Demonym === "my" && (
         <>
           , with an income of{" "}
-          <span style={{ borderBottom: "2.5px solid #F9FAFC", whiteSpace: 'nowrap' }}>
+          <span
+            style={{
+              borderBottom: "2.5px solid #F9FAFC",
+              whiteSpace: "nowrap",
+            }}
+          >
             {
               Intl.NumberFormat(undefined, {
                 style: "currency",
