@@ -69,7 +69,7 @@ const DonationCard = ({
             fontSize={["14px", "16px", "20px", "22px", "24px"]}
             lineHeight={["16px", null, "20px", "22px", "24px"]}
           >
-            <Popover trigger="hover" placement="bottom" >
+            <Popover trigger="hover" placement="bottom">
               <PopoverTrigger>
                 <PseudoBox as="span" borderBottom="1px solid #6C6C72">
                   ${(amount * 1000).toLocaleString("en-us")}
@@ -145,7 +145,16 @@ const DonationCard = ({
             fontWeight="600"
           >
             of{" "}
-            <Popover trigger="hover" placement="bottom" onOpen={() => {setZIndex(1)}} onClose={() =>  {setZIndex(0)}}>
+            <Popover
+              trigger="hover"
+              placement="bottom"
+              onOpen={() => {
+                setZIndex(1)
+              }}
+              onClose={() => {
+                setZIndex(0)
+              }}
+            >
               <PopoverTrigger>
                 <PseudoBox as="span" borderBottom="1px solid #6C6C72">
                   profits
@@ -219,7 +228,16 @@ const DonationCard = ({
             fontWeight="600"
           >
             adjusted to{" "}
-            <Popover trigger="hover" placement="bottom" onOpen={() => {setZIndex(1)}} onClose={() =>  {setZIndex(0)}}>
+            <Popover
+              trigger="hover"
+              placement="bottom"
+              onOpen={() => {
+                setZIndex(1)
+              }}
+              onClose={() => {
+                setZIndex(0)
+              }}
+            >
               <PopoverTrigger>
                 <PseudoBox as="span" borderBottom="1px solid #6C6C72">
                   avg. income
