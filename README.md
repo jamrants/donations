@@ -191,6 +191,6 @@ Project Link: [https://github.com/jamrants/donations](https://github.com/jamrant
 [license-url]: https://github.com/jamrants/donations/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
-[ci-shield]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fjamrants%2Fdonations%2Fbadge%3Fref%3Dmaster&style=flat-square
-[ci-url]: https://actions-badge.atrox.dev/jamrants/donations/goto?ref=master
+[ci-shield]: https://github.com/jamrants/donations/workflows/CI/badge.svg
+[ci-url]: https://github.com/jamrants/donations/actions?query=workflow%3ACI
 [product-screenshot]: images/screenshot.png
