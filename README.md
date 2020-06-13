@@ -27,7 +27,7 @@
 
 <!-- [![LinkedIn][linkedin-shield]][linkedin-url] -->
 
-[![Netlify Status][netlify-shield]][netlify-url]
+![Prettify and Deploy](https://github.com/jamrants/donations/workflows/Prettify%20and%20Deploy/badge.svg)
 
 <!-- PROJECT LOGO -->
 <br />
