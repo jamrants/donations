@@ -9,6 +9,7 @@ import {
   InputGroup,
   InputRightAddon,
   InputLeftAddon,
+  PseudoBox,
 } from "@chakra-ui/core"
 import ReactCountryFlag from "react-country-flag"
 import { getLocale } from "../utils/geolocation"
@@ -64,7 +65,7 @@ const renderMenuItems = (locales, onClick) => {
         >
           <span>
             <ReactCountryFlag
-              style={{ height: "36px", width: "36px", marginRight: "4px" }}
+              style={{ height: "32px", width: "32px", marginRight: "4px" }}
               countryCode={locale.Code}
               svg
             />{" "}
@@ -119,19 +120,38 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
           lineHeight="initial"
           pb="2px"
           px="4px"
-          ml="4px"
+          ml={["6px", null, "4px"]}
           borderBottom="2.5px solid #F9FAFC"
         >
-          <span style={{ whiteSpace: "nowrap" }}>
-            <ReactCountryFlag
-              style={{ height: "36px", width: "36px" }}
-              countryCode={activeLocale.Code}
-              svg
-            />{" "}
+          <PseudoBox
+            as="span"
+            whiteSpace="nowrap"
+            display="flex"
+            flexDirection="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <PseudoBox
+              pb="4px"
+              mr="6px"
+              as="span"
+              w={["24px", "26px", "28px", "31px", "38px"]}
+            >
+              <ReactCountryFlag
+                style={{ height: "100%", width: "100%" }}
+                countryCode={activeLocale.Code}
+                svg
+              />
+            </PseudoBox>{" "}
             {activeLocale.Demonym}
             {" household"}
-            <Icon ml="6px" name="chevron_down" h="12px" display="inline" />
-          </span>
+            <Icon
+              ml="6px"
+              name="chevron_down"
+              h={["10px", null, "12px", "14px"]}
+              display="inline"
+            />
+          </PseudoBox>
         </MenuButton>
         <MenuList
           className="flag-menu"
@@ -172,6 +192,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
               type="number"
               onChange={onMineChange}
               pb="2px"
+              mt={["2px", null, "0px"]}
             />
           </span>
           ,{" "}
