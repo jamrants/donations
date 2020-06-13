@@ -6,6 +6,9 @@ import {
   MenuItem,
   Icon,
   Input,
+  InputGroup,
+  InputRightAddon,
+  InputLeftAddon,
 } from "@chakra-ui/core"
 import ReactCountryFlag from "react-country-flag"
 import { getLocale } from "../utils/geolocation"
@@ -15,6 +18,40 @@ const renderMenuItems = (locales, onClick) => {
   // countries with implemented postal-level data
   const postalCountries = [] // ["US", "CA"]
   return [
+    // TODO: handle custom income declaration
+    <MenuItem
+      py="4px"
+      marginBottom="4px"
+      onClick={() => onClick("mine")}
+      key="mine"
+    >
+      <span>
+        <ReactCountryFlag
+          style={{ height: "36px", width: "36px" }}
+          countryCode={country}
+          svg
+        />
+        {" my household"}
+      </span>
+    </MenuItem>,
+    // TODO: handle geolocation + ZIP/FSA income
+    postalCountries.includes(country) && (
+      <MenuItem
+        py="4px"
+        marginBottom="4px"
+        onClick={() => onClick("geo")}
+        key="geo"
+      >
+        <span>
+          <ReactCountryFlag
+            style={{ height: "36px", width: "36px" }}
+            countryCode={country}
+            svg
+          />
+          {" household near me"}
+        </span>
+      </MenuItem>
+    ),
     ...locales.map(locale => {
       return (
         <MenuItem
@@ -35,40 +72,6 @@ const renderMenuItems = (locales, onClick) => {
         </MenuItem>
       )
     }),
-    // TODO: handle geolocation + ZIP/FSA income
-    postalCountries.includes(country) && (
-      <MenuItem
-        py="4px"
-        marginBottom="4px"
-        onClick={() => onClick("geo")}
-        key="geo"
-      >
-        <span>
-          <ReactCountryFlag
-            style={{ height: "36px", width: "36px" }}
-            countryCode={country}
-            svg
-          />
-          {" household near me"}
-        </span>
-      </MenuItem>
-    ),
-    // TODO: handle custom income declaration
-    <MenuItem
-      py="4px"
-      marginBottom="4px"
-      onClick={() => onClick("mine")}
-      key="mine"
-    >
-      <span>
-        <ReactCountryFlag
-          style={{ height: "36px", width: "36px" }}
-          countryCode={country}
-          svg
-        />
-        {" my household"}
-      </span>
-    </MenuItem>,
   ]
 }
 
@@ -143,21 +146,31 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
         </MenuList>
       </Menu>
       {useMine && (
-        <Input
-          value={mine}
-          placeholder="income"
-          type="number"
-          onChange={onMineChange}
-          size={["sm", "md", "lg"]}
-          width={["100%", "80%", "60%"]}
-          variant="flushed"
-          borderRadius="5px"
-          backgroundColor="dark"
-          color="smoke"
-          border="none"
-          px="16px"
-          py="8px"
-        />
+        <>
+          , with an income of{" "}
+          {
+            Intl.NumberFormat(undefined, {
+              style: "currency",
+              currency: activeLocale.Currency,
+            }).formatToParts(1)[0].value
+          }{" "}
+          <Input
+            value={mine}
+            size={["sm", "md", "lg"]}
+            display="inline"
+            width="fit-content"
+            variant="flushed"
+            color="smoke"
+            borderBottom="2.5px solid #F9FAFC"
+            backgroundColor="transparent"
+            placeholder="income"
+            type="number"
+            onChange={onMineChange}
+            pb="2px"
+            px="4px"
+          />
+          ,{" "}
+        </>
       )}
     </>
   )
