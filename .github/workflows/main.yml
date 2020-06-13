@@ -1,4 +1,4 @@
-name: CI
+name: Prettify and Deploy
 
 # This action works with pull requests and pushes
 on:
@@ -12,13 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
+    - name: Checkout Repo
       uses: actions/checkout@v2
       with:
         # Make sure the actual branch is checked out when running on pull requests
         ref: ${{ github.head_ref }}
 
-    - name: Prettify code
+    - name: Prettify Code
       uses: creyD/prettier_action@v3.0
       with:
         # This part is also where you can pass other options, for example:
@@ -29,8 +29,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout repo
+    - name: Checkout Repo
       uses: actions/checkout@v2
+      with:
+        # Make sure the actual branch is checked out when running on pull requests
+        ref: ${{ github.head_ref }}
 
     - name: Cache node_modules
       id: cache-node-modules
@@ -41,18 +44,18 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-build-npm-
       
-    - name: Install dependencies
+    - name: Install Dependencies
       if: steps.cache-node-modules.outputs.cache-hit != 'true'
       run: npm install
 
-    - name: Build static files
+    - name: Build Static Files
       run: npm run build
       env:
         AIRTABLE_KEY: ${{ secrets.AIRTABLE_KEY }}
         BASE_ID: ${{ secrets.BASE_ID }}
         LOCATIONIQ: ${{ secrets.LOCATIONIQ }}
     
-    - name: Netlify Actions
+    - name: Deploy to Netlify
       uses: nwtgck/actions-netlify@v1.1.2
       with:
         # Publish directory
