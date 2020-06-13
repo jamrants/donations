@@ -24,7 +24,7 @@ const renderMenuItems = (locales, onClick) => {
       marginBottom="4px"
       onClick={() => onClick("mine")}
       key="mine"
-      fontSize={["16px", "18px", "20px", "22px", "24px"]} 
+      fontSize={["16px", "18px", "20px", "22px", "24px"]}
     >
       <span>
         <ReactCountryFlag
@@ -162,7 +162,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
             }
             <Input
               value={mine}
-              width={mine ? `${mine.toString().length}ch` : '6ch'}
+              width={mine ? `${mine.toString().length}ch` : "6ch"}
               size={["sm", "md", "lg"]}
               display="inline"
               variant="flushed"
