@@ -105,17 +105,17 @@ const Home = ({ data }) => {
         subtitle={
           <>
             Corporations have made headlines with big pledges recently — how
-            much would they be to the average{" "}
+            much would an average{" "}
             <FlagMenu
               onClick={setActiveLocale}
               activeLocale={activeLocale}
               locales={localeList}
-            />
-            ?
+            />{" "}
+            need to donate to match their donation?
           </>
         }
       >
-        <SEO title={"Home"} />
+        <SEO title={"Donations Exposed"} />
         <Box pt="64px" pb={["24px", null, "32px", "48px", "64px"]}>
           <Box
             textAlign="center"
