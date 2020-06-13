@@ -1,4 +1,4 @@
-name: Prettify and Deploy
+name: CI
 
 # This action works with pull requests and pushes
 on:
