@@ -343,7 +343,10 @@ export const query = graphql`
       }
     }
 
-    allAirtableCountryIncomes(filter: { data: {} }) {
+    allAirtableCountryIncomes(
+      filter: { data: {} }
+      sort: { fields: data___Code, order: ASC }
+    ) {
       edges {
         node {
           data {
