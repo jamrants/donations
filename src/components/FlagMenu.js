@@ -24,10 +24,11 @@ const renderMenuItems = (locales, onClick) => {
       marginBottom="4px"
       onClick={() => onClick("mine")}
       key="mine"
+      fontSize={["16px", "18px", "20px", "22px", "24px"]} 
     >
       <span>
         <ReactCountryFlag
-          style={{ height: "36px", width: "36px" }}
+          style={{ height: "36px", width: "36px", marginRight: "4px" }}
           countryCode={country}
           svg
         />
@@ -59,10 +60,11 @@ const renderMenuItems = (locales, onClick) => {
           marginBottom="4px"
           onClick={() => onClick(locale)}
           key={locale.Code}
+          fontSize={["16px", "18px", "20px", "22px", "24px"]}
         >
           <span>
             <ReactCountryFlag
-              style={{ height: "36px", width: "36px" }}
+              style={{ height: "36px", width: "36px", marginRight: "4px" }}
               countryCode={locale.Code}
               svg
             />{" "}
@@ -136,7 +138,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
           border="none"
           backgroundColor="dark"
           overflowY="scroll"
-          maxHeight="300px"
+          maxHeight={["180px", null, null, "300px"]}
           minWidth={0}
           width="fit-content"
         >
@@ -160,7 +162,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
             }
             <Input
               value={mine}
-              width={`${mine.toString().length}ch`}
+              width={mine ? `${mine.toString().length}ch` : '6ch'}
               size={["sm", "md", "lg"]}
               display="inline"
               variant="flushed"
