@@ -20,6 +20,7 @@ import DonationCard from "../components/donationCard"
 import CustomButton from "../components/Button"
 import DataSort from "react-data-sort"
 import SEO from "../components/seo"
+import FlagMenu from "../components/FlagMenu"
 
 const Home = ({ data }) => {
   const [filteredCorporations, setFilteredCorporations] = useState(
@@ -101,7 +102,14 @@ const Home = ({ data }) => {
     <DarkMode>
       <Layout
         title="Donations Exposed"
-        subtitle="Corporations have made headlines with big pledges recently — how much would they be to the average person?"
+        subtitle={
+          <>
+            Corporations have made headlines with big pledges recently — how
+            much would they be to the average{" "}
+            <FlagMenu onClick={setActiveLocale} activeLocale={activeLocale} locales={localeList} /> 
+            ?
+          </>
+        }
       >
         <SEO title={"Home"} />
         <Box pt="64px" pb={["24px", null, "32px", "48px", "64px"]}>
