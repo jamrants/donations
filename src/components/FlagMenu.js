@@ -20,6 +20,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
         <Icon ml="6px" name="chevron_down" h="12px" />
       </MenuButton>
       <MenuList
+        className="flag-menu"
         border="none"
         backgroundColor="dark"
         overflowY="scroll"

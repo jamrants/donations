@@ -85,3 +85,31 @@
     padding-right: 10% !important;
   }
 }
+
+/* The emerging W3C standard
+   that is currently Firefox-only */
+   * {
+    scrollbar-width:thin;
+    scrollbar-color: #F9FAFC #121217;
+  }
+  
+  /* Works on Chrome/Edge/Safari */
+  *::-webkit-scrollbar {
+    width: 16px;
+  }
+  *::-webkit-scrollbar-track {
+    background: #121217;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: #F9FAFC;
+    border-radius: 20px;
+    border: 4px solid #121217;
+  }
+
+  .flag-menu::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .flag-menu::-webkit-scrollbar-thumb {
+    border-width: 2px;
+  }
