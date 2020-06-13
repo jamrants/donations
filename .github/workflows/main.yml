@@ -28,6 +28,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    outputs:
+      deploy-url: ${{ steps.netlify-deploy.outputs.deploy-url }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -56,6 +58,7 @@ jobs:
           LOCATIONIQ: ${{ secrets.LOCATIONIQ }}
 
       - name: Deploy to Netlify
+        id: netlify-deploy
         uses: nwtgck/actions-netlify@v1.1.2
         with:
           # Publish directory
@@ -73,16 +76,10 @@ jobs:
     steps:
       - name: Setup Node.js
         uses: actions/setup-node@v1
-
-      - name: Waiting for 200 from the Netlify Preview
-        uses: jakepartusch/wait-for-netlify-action@v1
-        id: waitFor200
-        with:
-          site_name: "donations-exposed"
         
       - name: Run Lighthouse Tests
         run: |
           npm install -g @lhci/cli@0.4.x
-          lhci autorun --upload.target=temporary-public-storage --collect.url=${{ steps.waitFor200.outputs.url }} || echo "LHCI failed!"
+          lhci autorun --upload.target=temporary-public-storage --collect.url=${{ needs.build.outputs.deploy-url }} || echo "LHCI failed!"
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
