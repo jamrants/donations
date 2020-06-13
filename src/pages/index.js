@@ -106,7 +106,11 @@ const Home = ({ data }) => {
           <>
             Corporations have made headlines with big pledges recently — how
             much would they be to the average{" "}
-            <FlagMenu onClick={setActiveLocale} activeLocale={activeLocale} locales={localeList} /> 
+            <FlagMenu
+              onClick={setActiveLocale}
+              activeLocale={activeLocale}
+              locales={localeList}
+            />
             ?
           </>
         }
