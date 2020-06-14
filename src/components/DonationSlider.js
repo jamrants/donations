@@ -115,7 +115,8 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
       const { rates } = await api.json()
       USD = value / rates[locale.Currency]
     }
-    // open new tab
+    // open new tab + log plausible event
+    window.plausible("Donation")
     const target = causes[causeValue].url.replace("%s", USD.toFixed(2))
     window.open(target, "_blank")
   }
