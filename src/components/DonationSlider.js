@@ -66,9 +66,9 @@ const DonationSlider = ({ locale, corporations }) => {
         max={100}
         mb="30px"
       >
-        <SliderTrack />
-        <SliderFilledTrack bg="snow" />
-        <SliderThumb bg="primary.green" />
+        <SliderTrack bg="darkless" height="10px" borderRadius="30px" />
+        <SliderFilledTrack height="10px" borderRadius="30px" backgroundColor="snow" />
+        <SliderThumb size="16px" bg="primary.green" />
         <PseudoBox width="100%" position="absolute">
           {notches.map(notch => {
             const percent = invLogScale(min, max, notch)
@@ -80,9 +80,9 @@ const DonationSlider = ({ locale, corporations }) => {
                 left={`${percent * 100}%`}
                 transform="translate(-50%, 0)"
                 // ramp from 0.25rem to 0.75rem
-                fontSize={`${Math.abs(rawValue / 100 - percent) * -0.5 + 0.6}rem`}
+                fontSize={`${Math.abs(rawValue / 100 - percent) * -0.3 + 1}rem`}
                 transition="color 250ms"
-                color={value >= notch ? "snow" : "darkless"}
+                color={value >= notch ? "snow" : "slate"}
                 // six significant figures for accuracy with KRW/JPY
                 onClick={() => setRawValue(Math.ceil(percent * 1000000) / 10000)}
               >
