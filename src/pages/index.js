@@ -122,7 +122,7 @@ const Home = ({ data }) => {
         }
       >
         <SEO title={"Donations Exposed"} />
-        <Box pt="64px" pb={["24px", null, "32px", "48px", "64px"]}>
+        <Box pt="64px" pb={["32px", null, "40px", "52px", "64px"]}>
           <Box
             textAlign="center"
             display="flex"
@@ -146,7 +146,7 @@ const Home = ({ data }) => {
             />
           </Box>
         </Box>
-        <Box pt="64px" pb={["24px", null, "32px", "48px", "64px"]}>
+        <Box pb={["24px", null, "32px", "48px", "64px"]}>
           <Box
             textAlign="center"
             display="flex"

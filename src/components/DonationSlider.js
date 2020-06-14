@@ -1,12 +1,15 @@
 import React, { useState } from "react"
 import {
-  Radio,
-  RadioGroup,
   Slider,
   SliderFilledTrack,
   SliderTrack,
   SliderThumb,
   PseudoBox,
+  MenuItem,
+  Menu,
+  MenuList,
+  MenuButton,
+  Icon,
 } from "@chakra-ui/core"
 import CustomButton from "./Button"
 import { useMediaQuery } from "react-responsive"
@@ -31,7 +34,7 @@ const causes = {
   },
   coc: {
     name: "Color of Change",
-    url: "https://secure.actblue.com/contribute/page/support-us?amount=",
+    url: "https://secure.actblue.com/contribute/page/support-us?amount=%s",
   },
   eji: {
     name: "Equal Justice Initiative",
@@ -94,6 +97,56 @@ const DonationSlider = ({ locale, corporations }) => {
 
   return (
     <>
+      <Menu>
+        <MenuButton
+          lineHeight="initial"
+          mb="24px"
+          pb="3px"
+          px="4px"
+          ml={["6px", null, "4px"]}
+          borderBottom="2.5px solid #F9FAFC"
+          color="snow"
+          fontWeight="600"
+          fontSize={["16px", "16px", "16px", "18px", "20px"]}
+          whiteSpace="nowrap"
+          display="flex"
+          flexDirection="row"
+          justifyContent="center"
+          alignItems="center"
+        >
+          {causes[causeValue].name}
+          <Icon
+            ml="6px"
+            name="chevron_down"
+            h={["10px", null, "12px", "12px"]}
+            display="inline"
+          />
+        </MenuButton>
+        <MenuList
+          className="flag-menu"
+          border="none"
+          backgroundColor="dark"
+          overflowY="scroll"
+          maxHeight={["180px", null, null, "300px"]}
+          minWidth={0}
+          width="fit-content"
+          zIndex="2"
+        >
+          {Object.entries(causes).map(([id, cause]) => (
+            <MenuItem
+              py="4px"
+              marginBottom="4px"
+              fontSize={["16px", "16px", "16px", "18px", "20px"]}
+              color="snow"
+              onClick={() => {
+                setCauseValue(id)
+              }}
+            >
+              {cause.name}
+            </MenuItem>
+          ))}
+        </MenuList>
+      </Menu>
       <Slider
         value={rawValue}
         onChange={setRawValue}
@@ -102,7 +155,7 @@ const DonationSlider = ({ locale, corporations }) => {
         step={0.1}
         min={0}
         max={100}
-        mb="30px"
+        mb="44px"
       >
         <SliderTrack bg="darkless" height="10px" borderRadius="30px" />
         <SliderFilledTrack
@@ -136,31 +189,24 @@ const DonationSlider = ({ locale, corporations }) => {
           })}
         </PseudoBox>
       </Slider>
-      <RadioGroup
-        value={causeValue}
-        onChange={e => setCauseValue(e.target.value)}
-        mb="20px"
-        isInline
-      >
-        {Object.entries(causes).map(([id, cause]) => (
-          <Radio value={id} variantColor="green" color="snow">
-            {cause.name}
-          </Radio>
-        ))}
-      </RadioGroup>
-      <CustomButton
-        bg="primary.green"
-        display="inline-block"
-        onClick={makeDonation}
-      >
-        Donate {formattedValue}
+      <PseudoBox fontSize={["16px", "16px", "16px", "18px", "20px"]}>
+        <CustomButton
+          display="inline-block"
+          onClick={makeDonation}
+          fontSize={["16px", "16px", "16px", "18px", "20px"]}
+          borderRadius="8px"
+          px="16px"
+        >
+          Donate {formattedValue}
+        </CustomButton>
         {corp && (
-          <>
-            <br />
-            <small>That's more than {corp.Name}!</small>
-          </>
+          <PseudoBox mt="4px">
+            <PseudoBox color="smoke" as="small">
+              That's more than {corp.Name}!
+            </PseudoBox>
+          </PseudoBox>
         )}
-      </CustomButton>
+      </PseudoBox>
     </>
   )
 }
