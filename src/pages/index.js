@@ -161,7 +161,7 @@ const Home = ({ data }) => {
             <Text
               color="snow"
               mb={["16px", null, null, null, "24px"]}
-              fontSize={["16px", null, null, "18px",]}
+              fontSize={["16px", null, null, "18px"]}
               mt={["2px", null, null, "4px"]}
             >
               Select a card to make an equivalent donation.
@@ -208,7 +208,10 @@ const Home = ({ data }) => {
                   </MenuItem>
                 </MenuList>
               </Menu>
-              <CustomButton onClick={toggleSortType}>
+              <CustomButton
+                onClick={toggleSortType}
+                aria-label="Toggle sort order"
+              >
                 <Icon
                   h="16px"
                   name={sortType === "asc" ? "up_arrow" : "down_arrow"}
