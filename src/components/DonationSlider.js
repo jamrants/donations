@@ -76,8 +76,8 @@ const DonationSlider = ({ locale, corporations }) => {
 
   const makeDonation = async () => {
     let USD = value
-    if (locale.Currency !== 'USD') {
-      const api = await fetch('https://api.exchangeratesapi.io/latest?base=USD')
+    if (locale.Currency !== "USD") {
+      const api = await fetch("https://api.exchangeratesapi.io/latest?base=USD")
       const { rates } = await api.json()
       USD = value / rates[locale.Currency]
     }
