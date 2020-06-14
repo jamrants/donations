@@ -21,6 +21,7 @@ import CustomButton from "../components/Button"
 import DataSort from "react-data-sort"
 import SEO from "../components/seo"
 import FlagMenu from "../components/FlagMenu"
+import DonationSlider from "../components/DonationSlider"
 import { getLocale } from "../utils/geolocation"
 
 const Home = ({ data }) => {
@@ -30,7 +31,10 @@ const Home = ({ data }) => {
   const [localeList, setLocaleList] = useState(
     data.allAirtableCountryIncomes.edges.map(node => node.node.data)
   )
-  const [activeLocale, setActiveLocale] = useState({})
+  const [activeLocale, setActiveLocale] = useState({
+    Currency: "USD",
+    Income: 0,
+  })
 
   // Search Field
   const [searchValue, setSearchValue] = useState("")
@@ -118,6 +122,30 @@ const Home = ({ data }) => {
         }
       >
         <SEO title={"Donations Exposed"} />
+        <Box pt="64px" pb={["24px", null, "32px", "48px", "64px"]}>
+          <Box
+            textAlign="center"
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Text
+              color="primary.red"
+              mb={["16px", null, null, null, "24px"]}
+              fontWeight="900"
+              fontSize={["24px", "26px", "28px", "30px", "32px"]}
+            >
+              Make a Donation
+            </Text>
+            <DonationSlider
+              locale={activeLocale}
+              corporations={filteredCorporations
+                .map(_ => _.data)
+                .sort((a, b) => b.Percent_Profits - a.Percent_Profits)}
+            />
+          </Box>
+        </Box>
         <Box pt="64px" pb={["24px", null, "32px", "48px", "64px"]}>
           <Box
             textAlign="center"
