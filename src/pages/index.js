@@ -95,10 +95,10 @@ const Home = ({ data }) => {
   return (
     <DarkMode>
       <Layout
+        page="Home"
         title={
           <>
             Donations Expo
-            {/* fontSize={["48px", "56px", "64px", "74px", "96px"]} */}
             <PseudoBox
               as="span"
               fontSize={["36px", "44px", "48px", "56px", "72px"]}

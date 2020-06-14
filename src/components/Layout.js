@@ -14,19 +14,19 @@ breakpoints.lg = breakpoints[3]
 breakpoints.xl = breakpoints[4]
 breakpoints.xxl = breakpoints[5]
 
-const Layout = ({ children, title, subtitle }) => (
+const Layout = ({ children, title, subtitle, page }) => (
   <Box backgroundColor="dark" minHeight="100vh">
     <Hero
       title={title}
       subtitle={subtitle}
       padding={["24px", null, null, "17%", "20%"]}
     />
-    {title === "Donations Exposed" ? (
+    {page === "Home" ? (
       <PseudoBox className="content-container">{children}</PseudoBox>
     ) : (
       <PseudoBox px={["24px", null, null, "17%", "20%"]}>{children}</PseudoBox>
     )}
-    <Footer padding={["24px", null, null, "17%", "20%"]} />
+    <Footer padding={["32px", null, null, "17%", "20%"]} />
   </Box>
 )
 

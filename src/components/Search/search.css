@@ -91,6 +91,13 @@
   }
 }
 
+@media screen and (max-width: 991px) and (min-width: 33.125em) {
+  .content-container {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+}
+
 /* The emerging W3C standard
    that is currently Firefox-only */
    * {
