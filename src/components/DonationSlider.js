@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import {
-  Button,
+  Radio,
+  RadioGroup,
   Slider,
   SliderFilledTrack,
   SliderTrack,
@@ -27,26 +28,42 @@ const fakeLog = x => {
   else return 20 * x - 1400
 }
 
+const causes = {
+  blm: {
+    name: "Black Lives Matter",
+    url: "https://secure.actblue.com/donate/ms_blm_homepage_2019?amount=%s",
+  },
+  naacpLdf: {
+    name: "NAACP Legal Defense Fund",
+    url:
+      "https://org2.salsalabs.com/o/6857/p/salsa/donation/common/public/?donate_page_KEY=15780&amount=%s",
+  },
+}
+
 const DonationSlider = ({ locale, corporations }) => {
   const [rawValue, setRawValue] = useState(0)
+  const [causeValue, setCauseValue] = useState(Object.keys(causes)[0])
   // it breaks for some reason if this isn't stored in state AND I DONT KNOW WHY
   const [corps] = useState(corporations)
+
   const min = Number(
     (locale.Income * corps[corps.length - 1].Percent_Profits).toPrecision(1)
   )
   const max = Number((locale.Income * corps[0].Percent_Profits).toPrecision(1))
   const value = logScale(min, max, rawValue)
+
+  const currency = locale.Currency || "USD"
   const formatter = new Intl.NumberFormat(undefined, {
     style: "currency",
-    currency: locale.Currency,
+    currency,
   })
   const intFormatter = new Intl.NumberFormat(undefined, {
     style: "currency",
-    currency: locale.Currency,
     minimumFractionDigits: 0,
+    currency,
   })
   const formattedValue = formatter.format(value)
-  const corp = corps.find(_ => value > _.Percent_Profits * locale.Income)
+
   const notches = []
   for (let i = 0; ; i++) {
     const notch =
@@ -55,6 +72,20 @@ const DonationSlider = ({ locale, corporations }) => {
     if (notch > max) break
     if (notch > min) notches.push(notch)
   }
+  const corp = corps.find(_ => value > _.Percent_Profits * locale.Income)
+
+  const makeDonation = async () => {
+    let USD = value
+    if (locale.Currency !== 'USD') {
+      const api = await fetch('https://api.exchangeratesapi.io/latest?base=USD')
+      const { rates } = await api.json()
+      USD = value / rates[locale.Currency]
+    }
+    // open new tab
+    const target = causes[causeValue].url.replace("%s", USD.toFixed(2))
+    window.open(target, "_blank")
+  }
+
   return (
     <>
       <Slider
@@ -68,7 +99,11 @@ const DonationSlider = ({ locale, corporations }) => {
         mb="30px"
       >
         <SliderTrack bg="darkless" height="10px" borderRadius="30px" />
-        <SliderFilledTrack height="10px" borderRadius="30px" backgroundColor="snow" />
+        <SliderFilledTrack
+          height="10px"
+          borderRadius="30px"
+          backgroundColor="snow"
+        />
         <SliderThumb size="16px" bg="primary.green" />
         <PseudoBox width="100%" position="absolute">
           {notches.map(notch => {
@@ -85,7 +120,9 @@ const DonationSlider = ({ locale, corporations }) => {
                 transition="color 250ms"
                 color={value >= notch ? "snow" : "slate"}
                 // six significant figures for accuracy with KRW/JPY
-                onClick={() => setRawValue(Math.ceil(percent * 1000000) / 10000)}
+                onClick={() =>
+                  setRawValue(Math.ceil(percent * 1000000) / 10000)
+                }
               >
                 {intFormatter.format(notch)}
               </PseudoBox>
@@ -93,7 +130,23 @@ const DonationSlider = ({ locale, corporations }) => {
           })}
         </PseudoBox>
       </Slider>
-      <CustomButton bg="primary.green" display="inline-block">
+      <RadioGroup
+        value={causeValue}
+        onChange={e => setCauseValue(e.target.value)}
+        mb="20px"
+        isInline
+      >
+        {Object.entries(causes).map(([id, cause]) => (
+          <Radio value={id} variantColor="green" color="snow">
+            {cause.name}
+          </Radio>
+        ))}
+      </RadioGroup>
+      <CustomButton
+        bg="primary.green"
+        display="inline-block"
+        onClick={makeDonation}
+      >
         Donate {formattedValue}
         {corp && (
           <>
