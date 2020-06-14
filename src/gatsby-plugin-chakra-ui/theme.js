@@ -12,7 +12,7 @@ export default {
     ...theme.colors,
     dark: "#17171D",
     primary: {
-      green: "#33D6A6",
+      green: "#0AD48B",
       red: "#EC3750",
     },
     snow: "#F9FAFC",

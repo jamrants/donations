@@ -91,7 +91,14 @@ const Home = ({ data }) => {
   return (
     <DarkMode>
       <Layout
-        title="Donations Exposed"
+        title={
+          <>
+          Donations Expo
+          {/* fontSize={["48px", "56px", "64px", "74px", "96px"]} */}
+          <PseudoBox as="span" fontSize={["36px", "44px","48px", "56px", "72px"]}>$</PseudoBox>
+          ed
+          </>
+        }
         subtitle={
           <>
             Corporations have made headlines with big donations recently — how
