@@ -24,14 +24,14 @@ const DonationCard = ({
   donationSources,
   profitNote,
   profitSources,
-  onClick
+  onClick,
 }) => {
   amount = parseInt(amount)
   profits = parseFloat(profits)
   const [zIndex, setZIndex] = useState(0)
   const click = () => {
     // scrolling handled in slider
-    onClick(percent*locale.Income)
+    onClick(percent * locale.Income)
   }
   return (
     <PseudoBox
