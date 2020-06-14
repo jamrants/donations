@@ -50,7 +50,7 @@ const DonationSlider = ({ locale, corporations }) => {
   for (let i = 0; ; i++) {
     const notch =
       Math.pow(2, (i - 1) % 2) * 5 * Math.pow(10, Math.floor((i - 1) / 2)) // OEIS A268100 (1/5/10...)
-      // (Math.pow(i % 3, 2) + 1) * Math.pow(10, Math.floor(i / 3)) // OEIS A051109 (1/2/5/10...)
+    // (Math.pow(i % 3, 2) + 1) * Math.pow(10, Math.floor(i / 3)) // OEIS A051109 (1/2/5/10...)
     if (notch > max) break
     if (notch > min) notches.push(notch)
   }
@@ -71,18 +71,20 @@ const DonationSlider = ({ locale, corporations }) => {
         <SliderThumb bg="primary.green" />
         <PseudoBox width="100%" position="absolute">
           {notches.map(notch => {
-            const percent = invLogScale(min, max, notch) * 100
+            const percent = invLogScale(min, max, notch)
             return (
               <PseudoBox
                 as="span"
                 position="absolute"
                 top="10px"
-                left={`${percent}%`}
+                left={`${percent * 100}%`}
                 transform="translate(-50%, 0)"
-                fontSize="xs"
-                transition="all 250ms"
+                // ramp from 0.25rem to 0.75rem
+                fontSize={`${Math.abs(rawValue / 100 - percent) * -0.5 + 0.6}rem`}
+                transition="color 250ms"
                 color={value >= notch ? "snow" : "darkless"}
-                onClick={() => setRawValue(Math.ceil(percent * 1000) / 1000)}
+                // six significant figures for accuracy with KRW/JPY
+                onClick={() => setRawValue(Math.ceil(percent * 1000000) / 10000)}
               >
                 {intFormatter.format(notch)}
               </PseudoBox>
@@ -91,11 +93,11 @@ const DonationSlider = ({ locale, corporations }) => {
         </PseudoBox>
       </Slider>
       <Button bg="primary.green" display="inline-block">
-        Donate {formattedValue}!
+        Donate {formattedValue}
         {corp && (
           <>
             <br />
-            <small>That's as much as {corp.Name}</small>
+            <small>That's more than {corp.Name}!</small>
           </>
         )}
       </Button>
