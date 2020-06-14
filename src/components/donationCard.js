@@ -214,13 +214,10 @@ const DonationCard = ({
             fontSize={["20px", null, "24px", "28px", "32px"]}
             lineHeight={["20px", null, "24px", "28px", "32px"]}
           >
-            {(locale.Median_Household_Income * percent).toLocaleString(
-              undefined,
-              {
-                style: "currency",
-                currency: locale.Currency ? locale.Currency : "USD",
-              }
-            )}
+            {(locale.Income * percent).toLocaleString(undefined, {
+              style: "currency",
+              currency: locale.Currency ? locale.Currency : "USD",
+            })}
           </Text>
           <Text
             color="smoke"
@@ -240,7 +237,7 @@ const DonationCard = ({
             >
               <PopoverTrigger>
                 <PseudoBox as="span" borderBottom="1px solid #6C6C72">
-                  avg. income
+                  {locale.Demonym === "my" ? "my" : "avg."} income
                 </PseudoBox>
               </PopoverTrigger>
               <PopoverContent
@@ -254,12 +251,12 @@ const DonationCard = ({
                 fontSize={["14px", null, null, "16px"]}
               >
                 <Box>
-                  {locale.Demonym} Median Household Income <br />
-                  {locale.Median_Household_Income.toLocaleString(locale, {
+                  {locale.Demonym} {locale.Measure} of{" "}
+                  {locale.Income.toLocaleString(locale, {
                     style: "currency",
                     currency: locale.Currency ? locale.Currency : "USD",
                   })}{" "}
-                  x {(percent * 100).toFixed(3)}%
+                  &times; {(percent * 100).toFixed(3)}%
                 </Box>
               </PopoverContent>
             </Popover>

@@ -21,6 +21,7 @@ import CustomButton from "../components/Button"
 import DataSort from "react-data-sort"
 import SEO from "../components/seo"
 import FlagMenu from "../components/FlagMenu"
+import { getLocale } from "../utils/geolocation"
 
 const Home = ({ data }) => {
   const [filteredCorporations, setFilteredCorporations] = useState(
@@ -46,22 +47,11 @@ const Home = ({ data }) => {
   }
 
   useEffect(() => {
-    // get user country, sort through locales + income to adjust
-    const locale =
-      navigator.language ||
-      navigator.browserLanguage ||
-      (navigator.languages || ["en"])[0]
-
-    let parts = [locale]
-    // 'en-US' -> ['en', 'US'] and account for zh-Hans_CN
-    if (locale.includes("-")) {
-      parts = [locale.substring(0, 2), locale.slice(-2)]
-    }
-    console.log("Using locale:", parts)
-    let inLocaleList = localeList.find(l => l.Language === parts[0])
+    const locale = getLocale()
+    let inLocaleList = localeList.find(l => l.Language === locale.lang)
     // overwrite locale by country
-    if (parts[1]) {
-      const country = localeList.find(l => l.Code === parts[1])
+    if (locale.country) {
+      const country = localeList.find(l => l.Code === locale.country)
       if (country) inLocaleList = country
     }
     // default to english if not exist
@@ -105,7 +95,7 @@ const Home = ({ data }) => {
         subtitle={
           <>
             Corporations have made headlines with big donations recently — how
-            much would an average{" "}
+            much would{" "}
             <FlagMenu
               onClick={setActiveLocale}
               activeLocale={activeLocale}
@@ -353,7 +343,8 @@ export const query = graphql`
             Demonym
             Language
             Code
-            Median_Household_Income
+            Income
+            Measure
             Currency
           }
         }

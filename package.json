@@ -31,6 +31,7 @@
     "gatsby-source-airtable": "^2.1.1",
     "gatsby-source-filesystem": "^2.3.11",
     "gatsby-transformer-sharp": "^2.5.5",
+    "locale-currency": "0.0.2",
     "react": "^16.12.0",
     "react-country-flag": "^2.1.0",
     "react-data-sort": "^1.2.1",
