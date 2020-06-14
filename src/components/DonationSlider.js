@@ -68,7 +68,11 @@ const DonationSlider = ({ locale, corporations }) => {
         mb="30px"
       >
         <SliderTrack bg="darkless" height="10px" borderRadius="30px" />
-        <SliderFilledTrack height="10px" borderRadius="30px" backgroundColor="snow" />
+        <SliderFilledTrack
+          height="10px"
+          borderRadius="30px"
+          backgroundColor="snow"
+        />
         <SliderThumb size="16px" bg="primary.green" />
         <PseudoBox width="100%" position="absolute">
           {notches.map(notch => {
@@ -85,7 +89,9 @@ const DonationSlider = ({ locale, corporations }) => {
                 transition="color 250ms"
                 color={value >= notch ? "snow" : "slate"}
                 // six significant figures for accuracy with KRW/JPY
-                onClick={() => setRawValue(Math.ceil(percent * 1000000) / 10000)}
+                onClick={() =>
+                  setRawValue(Math.ceil(percent * 1000000) / 10000)
+                }
               >
                 {intFormatter.format(notch)}
               </PseudoBox>
