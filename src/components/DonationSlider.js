@@ -7,6 +7,7 @@ import {
   SliderThumb,
   PseudoBox,
 } from "@chakra-ui/core"
+import CustomButton from "./Button"
 
 let formatter = new Intl.NumberFormat(undefined, {
   style: "currency",
@@ -92,7 +93,7 @@ const DonationSlider = ({ locale, corporations }) => {
           })}
         </PseudoBox>
       </Slider>
-      <Button bg="primary.green" display="inline-block">
+      <CustomButton bg="primary.green" display="inline-block">
         Donate {formattedValue}
         {corp && (
           <>
@@ -100,7 +101,7 @@ const DonationSlider = ({ locale, corporations }) => {
             <small>That's more than {corp.Name}!</small>
           </>
         )}
-      </Button>
+      </CustomButton>
     </>
   )
 }

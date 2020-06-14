@@ -10,6 +10,7 @@ const CustomButton = ({ children, onClick }) => (
     px="16px"
     py="12px"
     borderRadius="4px"
+    height="fit-content"
   >
     {children}
   </Button>
