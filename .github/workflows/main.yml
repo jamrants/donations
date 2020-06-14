@@ -28,8 +28,6 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    outputs:
-      deploy-url: ${{ steps.netlify-deploy.outputs.deploy-url }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -69,27 +67,14 @@ jobs:
           publish-dir: "./public"
           production-branch: master
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          # deploy-message: Deploy from ${{ steps.extract_branch.outputs.branch }} # test without deploy-message, see what Netlify does
+          deploy-message: Deploy from ${{ steps.extract_branch.outputs.branch }} | $(git log -1 --pretty=%B) | ${{ github.sha }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-
-  lighthouse:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-        with:
-          # Make sure the actual branch is checked out when running on pull requests
-          ref: ${{ github.head_ref }}
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        
+      
       - name: Run Lighthouse Tests
         run: |
           npm install -g @lhci/cli@0.4.x
-          lhci autorun --upload.target=temporary-public-storage --collect.url=${{ needs.build.outputs.deploy-url }} || echo "LHCI failed!"
+          lhci autorun --upload.target=temporary-public-storage --collect.url=${{ steps.netlify-deploy.outputs.deploy-url }} || echo "LHCI failed!"
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
