@@ -137,12 +137,7 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
           alignItems="center"
         >
           {causes[causeValue].name}
-          <Icon
-            ml="6px"
-            name="chevron_down"
-            h={["10px"]}
-            display="inline"
-          />
+          <Icon ml="6px" name="chevron_down" h={["10px"]} display="inline" />
         </MenuButton>
         <MenuList
           className="flag-menu"
