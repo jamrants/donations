@@ -125,7 +125,7 @@ const Home = ({ data }) => {
         }
       >
         <SEO title={"Donations Exposed"} />
-        <Box pt="64px" pb={["32px", null, "40px", "52px", "64px"]}>
+        <Box pt="64px" pb={["48px", null, null, "52px", "64px"]}>
           <Box
             textAlign="center"
             display="flex"
@@ -154,10 +154,16 @@ const Home = ({ data }) => {
               color="primary.red"
               fontWeight="900"
               fontSize={["24px", "26px", "28px", "30px", "32px"]}
+              lineHeight={["24px", "26px", "28px", "30px", "32px"]}
             >
               Find a Corporation
             </Text>
-            <Text color="snow" mb={["16px", null, null, null, "24px"]}>
+            <Text
+              color="snow"
+              mb={["16px", null, null, null, "24px"]}
+              fontSize={["16px", null, null, "18px",]}
+              mt={["2px", null, null, "4px"]}
+            >
               Select a card to make an equivalent donation.
             </Text>
             <SearchField

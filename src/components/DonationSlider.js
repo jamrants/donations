@@ -112,7 +112,7 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
     <>
       <Text
         color="primary.red"
-        mb={["16px", null, null, null, "24px"]}
+        mb={["12px", null, null, null, "20px"]}
         fontWeight="900"
         fontSize={["24px", "26px", "28px", "30px", "32px"]}
         ref={headerRef}
@@ -224,7 +224,7 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
         {corp && (
           <PseudoBox mt="4px">
             <PseudoBox
-              fontSize={["13px", null, null, "14px", "16px"]}
+              fontSize={["14px", null, null, "14px", "16px"]}
               color="smoke"
               as="small"
             >
