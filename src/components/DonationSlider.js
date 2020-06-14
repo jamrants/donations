@@ -55,10 +55,8 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
   const [corps] = useState(corporations)
   const mobile = useMediaQuery({ maxWidth: 650 })
 
-  const min = Number(
-    (locale.Income * corps[corps.length - 1].Percent_Profits).toPrecision(1)
-  )
-  const max = Number((locale.Income * corps[0].Percent_Profits).toPrecision(1))
+  const [min, setMin] = useState(0)
+  const [max, setMax] = useState(0)
   const value = logScale(min, max, rawValue)
 
   const headerRef = useRef()
@@ -73,16 +71,30 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
     }
   }, [overrideValue])
 
-  const currency = locale.Currency || "USD"
-  const formatter = new Intl.NumberFormat(undefined, {
-    style: "currency",
-    currency,
-  })
-  const intFormatter = new Intl.NumberFormat(undefined, {
-    style: "currency",
-    minimumFractionDigits: 0,
-    currency,
-  })
+  const [formatter, setFormatter] = useState(new Intl.NumberFormat())
+  const [intFormatter, setIntFormatter] = useState(new Intl.NumberFormat())
+  useEffect(() => {
+    const currency = locale.Currency || "USD"
+    setMin(
+      Number(
+        (locale.Income * corps[corps.length - 1].Percent_Profits).toPrecision(1)
+      )
+    )
+    setMax(Number((locale.Income * corps[0].Percent_Profits).toPrecision(1)))
+    setFormatter(
+      new Intl.NumberFormat(undefined, {
+        style: "currency",
+        currency,
+      })
+    )
+    setIntFormatter(
+      new Intl.NumberFormat(undefined, {
+        style: "currency",
+        minimumFractionDigits: 0,
+        currency,
+      })
+    )
+  }, [locale])
   const formattedValue = formatter.format(value)
 
   const notches = []
@@ -137,12 +149,7 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
           alignItems="center"
         >
           {causes[causeValue].name}
-          <Icon
-            ml="6px"
-            name="chevron_down"
-            h={["10px"]}
-            display="inline"
-          />
+          <Icon ml="6px" name="chevron_down" h={["10px"]} display="inline" />
         </MenuButton>
         <MenuList
           className="flag-menu"
@@ -196,9 +203,9 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
                 top="10px"
                 left={`${percent * 100}%`}
                 transform="translate(-50%, 0)"
-                // ramp from 0.25rem to 0.75rem
+                // ramp from 0.7rem to 1rem
                 fontSize={`${Math.abs(rawValue / 100 - percent) * -0.3 + 1}rem`}
-                transition="color 250ms"
+                transition="all 250ms"
                 color={value >= notch ? "snow" : "slate"}
                 // six significant figures for accuracy with KRW/JPY
                 onClick={() =>
