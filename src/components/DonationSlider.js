@@ -9,11 +9,7 @@ import {
   PseudoBox,
 } from "@chakra-ui/core"
 import CustomButton from "./Button"
-
-let formatter = new Intl.NumberFormat(undefined, {
-  style: "currency",
-  currency: "USD",
-})
+import { useMediaQuery } from "react-responsive"
 
 const logScale = (min, max, x) => {
   const n = 1.0 - Math.log(min) / Math.log(max)
@@ -53,6 +49,7 @@ const DonationSlider = ({ locale, corporations }) => {
   const [causeValue, setCauseValue] = useState(Object.keys(causes)[0])
   // it breaks for some reason if this isn't stored in state AND I DONT KNOW WHY
   const [corps] = useState(corporations)
+  const mobile = useMediaQuery({ maxWidth: 650 })
 
   const min = Number(
     (locale.Income * corps[corps.length - 1].Percent_Profits).toPrecision(1)
@@ -74,10 +71,11 @@ const DonationSlider = ({ locale, corporations }) => {
 
   const notches = []
   for (let i = 0; ; i++) {
-    const notch =
-      Math.pow(2, (i - 1) % 2) * 5 * Math.pow(10, Math.floor((i - 1) / 2)) // OEIS A268100 (1/5/10...)
-    // (Math.pow(i % 3, 2) + 1) * Math.pow(10, Math.floor(i / 3)) // OEIS A051109 (1/2/5/10...)
-    if (notch > max) break
+    const notch = !mobile
+      ? Math.pow(2, (i - 1) % 2) * 5 * Math.pow(10, Math.floor((i - 1) / 2)) // OEIS A268100 (1/5/10...)
+      : // ? (Math.pow(i % 3, 2) + 1) * Math.pow(10, Math.floor(i / 3)) // OEIS A051109 (1/2/5/10...)
+        Math.pow(10, i)
+    if (notch >= max) break
     if (notch > min) notches.push(notch)
   }
   const corp = corps.find(_ => value > _.Percent_Profits * locale.Income)
