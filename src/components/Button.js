@@ -1,9 +1,8 @@
 import React from "react"
 import { Button } from "@chakra-ui/core"
 
-const CustomButton = ({ children, onClick }) => (
+const CustomButton = props => (
   <Button
-    onClick={onClick}
     _hover={{ bg: "rgba(37, 36, 41, 0.7);" }}
     backgroundColor="darkless"
     color="snow"
@@ -11,9 +10,8 @@ const CustomButton = ({ children, onClick }) => (
     py="12px"
     borderRadius="4px"
     height="fit-content"
-  >
-    {children}
-  </Button>
+    {...props}
+  />
 )
 
 export default CustomButton
