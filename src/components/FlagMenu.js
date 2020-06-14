@@ -6,12 +6,10 @@ import {
   MenuItem,
   Icon,
   Input,
-  InputGroup,
-  InputRightAddon,
-  InputLeftAddon,
   PseudoBox,
 } from "@chakra-ui/core"
 import ReactCountryFlag from "react-country-flag"
+import LocaleCurrency from "locale-currency"
 import { getLocale } from "../utils/geolocation"
 
 const renderMenuItems = (locales, onClick) => {
@@ -88,7 +86,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
         if (mine === null) {
           // initialize to country median income
           const countryLocale = locales.find(l => l.Code === country)
-          income = countryLocale ? countryLocale.Income : 0
+          income = countryLocale ? countryLocale.Income : null
         } else {
           income = mine
         }
@@ -98,7 +96,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
         Language: lang,
         Code: country,
         Demonym: "my",
-        Currency: "CAD",
+        Currency: LocaleCurrency.getCurrency(country),
         Measure: "income",
       })
       setMine(income)
@@ -111,6 +109,15 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
     setMine(e.target.value)
     onChange("mine", e.target.value)
   }
+
+  const currencyFormat = Intl.NumberFormat(undefined, {
+    style: "currency",
+    currency: activeLocale.Currency || "USD",
+  }).formatToParts(1)
+  const currencySymbol = currencyFormat.find(_ => _.type === "currency").value
+  const symbolAfter =
+    currencyFormat.findIndex(_ => _.type === "currency") >
+    currencyFormat.findIndex(_ => _.type === "integer")
 
   return (
     <>
@@ -174,15 +181,11 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
               whiteSpace: "nowrap",
             }}
           >
-            {
-              Intl.NumberFormat(undefined, {
-                style: "currency",
-                currency: activeLocale.Currency,
-              }).formatToParts(1)[0].value
-            }
+            {!symbolAfter && currencySymbol}
             <Input
               value={mine}
               width={mine ? `${mine.toString().length}ch` : "6ch"}
+              textAlign="center"
               size={["sm", "md", "lg"]}
               display="inline"
               variant="flushed"
@@ -194,6 +197,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
               pb="2px"
               mt={["2px", null, "0px"]}
             />
+            {symbolAfter && currencySymbol}
           </span>
           ,{" "}
         </>
