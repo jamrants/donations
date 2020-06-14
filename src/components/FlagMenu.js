@@ -86,7 +86,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
         if (mine === null) {
           // initialize to country median income
           const countryLocale = locales.find(l => l.Code === country)
-          income = countryLocale ? countryLocale.Income : null
+          income = countryLocale ? countryLocale.Income : 0
         } else {
           income = mine
         }
@@ -183,7 +183,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
           >
             {!symbolAfter && currencySymbol}
             <Input
-              value={mine}
+              value={mine || null}
               width={mine ? `${mine.toString().length}ch` : "6ch"}
               textAlign="center"
               size={["sm", "md", "lg"]}
