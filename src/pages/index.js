@@ -36,6 +36,9 @@ const Home = ({ data }) => {
     Income: 0,
   })
 
+  // Slider
+  const [sliderOverrideValue, setSliderOverrideValue] = useState()
+
   // Search Field
   const [searchValue, setSearchValue] = useState("")
 
@@ -130,19 +133,12 @@ const Home = ({ data }) => {
             alignItems="center"
             justifyContent="center"
           >
-            <Text
-              color="primary.red"
-              mb={["16px", null, null, null, "24px"]}
-              fontWeight="900"
-              fontSize={["24px", "26px", "28px", "30px", "32px"]}
-            >
-              Make a Donation
-            </Text>
             <DonationSlider
               locale={activeLocale}
               corporations={filteredCorporations
                 .map(_ => _.data)
                 .sort((a, b) => b.Percent_Profits - a.Percent_Profits)}
+              overrideValue={sliderOverrideValue}
             />
           </Box>
         </Box>
@@ -156,11 +152,13 @@ const Home = ({ data }) => {
           >
             <Text
               color="primary.red"
-              mb={["16px", null, null, null, "24px"]}
               fontWeight="900"
               fontSize={["24px", "26px", "28px", "30px", "32px"]}
             >
               Find a Corporation
+            </Text>
+            <Text color="snow" mb={["16px", null, null, null, "24px"]}>
+              Select a card to make an equivalent donation.
             </Text>
             <SearchField
               placeholder="Amazon"
@@ -251,6 +249,7 @@ const Home = ({ data }) => {
                         amount={corporation.data.Donation__thousands_}
                         donationCurrency={corporation.data.Currency}
                         profits={corporation.data.Gross_Profit__millions_}
+                        onClick={setSliderOverrideValue}
                       />
                     )
                   }

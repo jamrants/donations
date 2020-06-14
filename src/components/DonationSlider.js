@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import {
   Slider,
   SliderFilledTrack,
@@ -9,6 +9,7 @@ import {
   Menu,
   MenuList,
   MenuButton,
+  Text,
   Icon,
 } from "@chakra-ui/core"
 import CustomButton from "./Button"
@@ -47,7 +48,7 @@ const causes = {
   },
 }
 
-const DonationSlider = ({ locale, corporations }) => {
+const DonationSlider = ({ locale, corporations, overrideValue }) => {
   const [rawValue, setRawValue] = useState(0)
   const [causeValue, setCauseValue] = useState(Object.keys(causes)[0])
   // it breaks for some reason if this isn't stored in state AND I DONT KNOW WHY
@@ -59,6 +60,18 @@ const DonationSlider = ({ locale, corporations }) => {
   )
   const max = Number((locale.Income * corps[0].Percent_Profits).toPrecision(1))
   const value = logScale(min, max, rawValue)
+
+  const headerRef = useRef()
+  useEffect(() => {
+    if (overrideValue > 0) {
+      setRawValue(invLogScale(min, max, overrideValue) * 100)
+      window.scrollTo({
+        left: 0,
+        top: headerRef.current.offsetTop,
+        behavior: "smooth",
+      })
+    }
+  }, [overrideValue])
 
   const currency = locale.Currency || "USD"
   const formatter = new Intl.NumberFormat(undefined, {
@@ -97,6 +110,15 @@ const DonationSlider = ({ locale, corporations }) => {
 
   return (
     <>
+      <Text
+        color="primary.red"
+        mb={["16px", null, null, null, "24px"]}
+        fontWeight="900"
+        fontSize={["24px", "26px", "28px", "30px", "32px"]}
+        ref={headerRef}
+      >
+        Make a Donation
+      </Text>
       <Menu>
         <MenuButton
           lineHeight="initial"
