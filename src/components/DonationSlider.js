@@ -13,7 +13,7 @@ let formatter = new Intl.NumberFormat(undefined, {
 })
 
 const logScale = (min, max, x) => {
-  const n = 1.0 - (Math.log(min) / Math.log(max))
+  const n = 1.0 - Math.log(min) / Math.log(max)
   return min * Math.pow(max, (n * x) / 100)
 }
 const fakeLog = x => {
@@ -26,7 +26,9 @@ const DonationSlider = ({ locale, corporations }) => {
   const [rawValue, setRawValue] = useState(0)
   // it breaks for some reason if this isn't stored in state AND I DONT KNOW WHY
   const [corps, setCorps] = useState(corporations)
-  const min = Number((locale.Income * corps[corps.length-1].Percent_Profits).toPrecision(1))
+  const min = Number(
+    (locale.Income * corps[corps.length - 1].Percent_Profits).toPrecision(1)
+  )
   const max = Number((locale.Income * corps[0].Percent_Profits).toPrecision(1))
   const value = logScale(min, max, rawValue)
   const formattedValue = new Intl.NumberFormat(undefined, {
@@ -34,6 +36,13 @@ const DonationSlider = ({ locale, corporations }) => {
     currency: locale.Currency,
   }).format(value)
   const corp = corps.find(_ => value > _.Percent_Profits * locale.Income)
+  const notches = []
+  for (let i = 1; ; i++) {
+    const notch =
+      Math.pow(2, (i - 1) % 2) * 5 * Math.pow(10, Math.floor((i - 1) / 2)) // OEIS A268100
+    if (notch > max) break
+    if (notch > min) notches.push(notch)
+  }
   return (
     <>
       <Slider
@@ -44,6 +53,7 @@ const DonationSlider = ({ locale, corporations }) => {
         step={0.1}
         min={0}
         max={100}
+        mb="20px"
       >
         <SliderTrack />
         <SliderFilledTrack bg="snow" />
