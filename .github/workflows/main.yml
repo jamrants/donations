@@ -29,6 +29,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v1.4.2
+        
       - name: Checkout Repo
         uses: actions/checkout@v2
         with:
