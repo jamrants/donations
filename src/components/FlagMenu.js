@@ -168,6 +168,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
           maxHeight={["180px", null, null, "300px"]}
           minWidth={0}
           width="fit-content"
+          zIndex="2"
         >
           {renderMenuItems(locales, onChange)}
         </MenuList>
