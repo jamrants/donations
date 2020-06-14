@@ -33,6 +33,14 @@ const causes = {
     name: "Black Lives Matter",
     url: "https://secure.actblue.com/donate/ms_blm_homepage_2019?amount=%s",
   },
+  coc: {
+    name: "Color of Change",
+    url: "https://secure.actblue.com/contribute/page/support-us?amount=",
+  },
+  eji: {
+    name: "Equal Justice Initiative",
+    url: "https://support.eji.org/give/153413/#!/donation/checkout?amount=%s",
+  },
   naacpLdf: {
     name: "NAACP Legal Defense Fund",
     url:
