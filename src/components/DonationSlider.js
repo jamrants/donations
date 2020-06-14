@@ -194,7 +194,8 @@ const DonationSlider = ({ locale, corporations }) => {
           display="inline-block"
           onClick={makeDonation}
           fontSize={["16px", "16px", "16px", "18px", "20px"]}
-          borderRadius="8px"
+          py={["10px", null, null, "12px"]}
+          borderRadius={["4px", null, null, "6px"]}
           px="16px"
         >
           Donate {formattedValue}
