@@ -136,7 +136,7 @@ const DonationSlider = ({ locale, corporations }) => {
             <MenuItem
               py="4px"
               marginBottom="4px"
-              fontSize={["16px", "16px", "16px", "18px", "20px"]}
+              fontSize={["14px", "16px", "16px", "16px", "18px"]}
               color="snow"
               onClick={() => {
                 setCauseValue(id)
@@ -155,7 +155,7 @@ const DonationSlider = ({ locale, corporations }) => {
         step={0.1}
         min={0}
         max={100}
-        mb="44px"
+        mb={["36px", null, "44px"]}
       >
         <SliderTrack bg="darkless" height="10px" borderRadius="30px" />
         <SliderFilledTrack
@@ -201,7 +201,11 @@ const DonationSlider = ({ locale, corporations }) => {
         </CustomButton>
         {corp && (
           <PseudoBox mt="4px">
-            <PseudoBox color="smoke" as="small">
+            <PseudoBox
+              fontSize={["13px", null, null, "14px", "16px"]}
+              color="smoke"
+              as="small"
+            >
               That's more than {corp.Name}!
             </PseudoBox>
           </PseudoBox>
