@@ -140,7 +140,7 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
           <Icon
             ml="6px"
             name="chevron_down"
-            h={["10px", null, "12px", "12px"]}
+            h={["10px"]}
             display="inline"
           />
         </MenuButton>
