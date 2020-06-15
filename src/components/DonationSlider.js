@@ -123,7 +123,7 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
       method: "POST",
       body: JSON.stringify({
         id: causes[causeValue].name,
-        amount: USD.toFixed(2),
+        amount: parseFloat(USD.toFixed(2)),
       }),
       headers: {
         "Content-Type": "application/json; charset=utf-8",
