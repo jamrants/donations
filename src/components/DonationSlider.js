@@ -31,20 +31,20 @@ const fakeLog = x => {
 const causes = {
   blm: {
     name: "Black Lives Matter",
-    url: "https://secure.actblue.com/donate/ms_blm_homepage_2019?amount=%s",
+    url: "https://secure.actblue.com/donate/ms_blm_homepage_2019?amount=%s&ref=donations.exposed",
   },
   coc: {
     name: "Color of Change",
-    url: "https://secure.actblue.com/contribute/page/support-us?amount=%s",
+    url: "https://secure.actblue.com/contribute/page/support-us?amount=%s&ref=donations.exposed",
   },
   eji: {
     name: "Equal Justice Initiative",
-    url: "https://support.eji.org/give/153413/#!/donation/checkout?amount=%s",
+    url: "https://support.eji.org/give/153413/#!/donation/checkout?amount=%s&ref=donations.exposed",
   },
   naacpLdf: {
     name: "NAACP Legal Defense Fund",
     url:
-      "https://org2.salsalabs.com/o/6857/p/salsa/donation/common/public/?donate_page_KEY=15780&amount=%s",
+      "https://org2.salsalabs.com/o/6857/p/salsa/donation/common/public/?donate_page_KEY=15780&amount=%s&ref=donations.exposed",
   },
 }
 
