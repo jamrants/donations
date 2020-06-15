@@ -129,8 +129,7 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
         "Content-Type": "application/json; charset=utf-8",
       },
       credentials: "same-origin",
-    })
-      .catch(err => console.error(err))
+    }).catch(err => console.error(err))
     window.plausible("Donation")
     const target = causes[causeValue].url.replace("%s", USD.toFixed(2))
     window.open(target, "_blank")
