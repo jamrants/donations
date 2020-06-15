@@ -9,13 +9,12 @@ import {
   PseudoBox,
 } from "@chakra-ui/core"
 import ReactCountryFlag from "react-country-flag"
-import LocaleCurrency from "locale-currency"
-import { getLocale } from "../utils/geolocation"
+import { getLocale, getLocation } from "../utils/geolocation"
 
 const renderMenuItems = (locales, onClick) => {
   const { country } = getLocale()
   // countries with implemented postal-level data
-  const postalCountries = [] // ["US", "CA"]
+  const postalCountries = ["US", "CA"]
   return [
     // TODO: handle custom income declaration
     <MenuItem
@@ -41,6 +40,7 @@ const renderMenuItems = (locales, onClick) => {
         marginBottom="4px"
         onClick={() => onClick("geo")}
         key="geo"
+        fontSize={["16px", "18px", "20px", "22px", "24px"]}
       >
         <span>
           <ReactCountryFlag
@@ -97,9 +97,31 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
         Code: country,
         Demonym: "my",
         Currency: currency,
-        Measure: "income",
+        Measure: "household income",
+        Custom: true,
       })
       setMine(income)
+    } else if (locale === "geo") {
+      let newLocale = {
+        Language: lang,
+        Code: country,
+        Currency: currency,
+        Measure: "median household income",
+        Geo: true,
+      }
+      getLocation()
+        .then(({ country, postcode }) =>
+          fetch(
+            `https://us-central1-donations-exposed.cloudfunctions.net/income?country=${country}&postcode=${postcode}`
+          )
+        )
+        .then(res => res.json())
+        .then(data => {
+          newLocale.Income = data.income
+          newLocale.Demonym = "my neighborhood's"
+          newLocale.Postcode = data.code
+          onClick(newLocale)
+        })
     } else {
       onClick(locale)
     }
@@ -122,7 +144,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
   return (
     <>
       <Menu>
-        {activeLocale.Demonym !== "my" && " the average "}
+        {!activeLocale.Custom && " the average "}
         <MenuButton
           lineHeight="initial"
           pb="2px"
@@ -149,9 +171,10 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
                 countryCode={activeLocale.Code}
                 svg
               />
-            </PseudoBox>{" "}
-            {activeLocale.Demonym}
-            {" household"}
+            </PseudoBox>
+            {activeLocale.Geo
+              ? " household near me"
+              : ` ${activeLocale.Demonym} household`}
             <Icon
               ml="6px"
               name="chevron_down"
@@ -203,6 +226,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
           ,{" "}
         </>
       )}
+      {activeLocale.Geo && <>(postcode {activeLocale.Postcode})</>}
     </>
   )
 }

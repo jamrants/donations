@@ -59,21 +59,21 @@ export const getLocale = () => {
   if (locale.includes("-")) {
     lang = locale.substring(0, 2)
     country = locale.slice(-2)
-    const localCurrency = LocaleCurrency.getCurrency(country)
-    if (convertableCurrencies.includes(localCurrency)) {
-      currency = localCurrency
-    }
   }
   // if already used geolocation, use that country
   if (locationCache) {
     country = locationCache.country
+  }
+  const localCurrency = LocaleCurrency.getCurrency(country)
+  if (convertableCurrencies.includes(localCurrency)) {
+    currency = localCurrency
   }
   return { lang, country, currency }
 }
 
 /**
  * Get the user's current location
- * @returns {{ country: string, postcode: string }} ISO country code and postal/ZIP code
+ * @returns {Promise<{ country: string, postcode: string }>} ISO country code and postal/ZIP code
  */
 export const getLocation = async () => {
   if (!navigator.geolocation) {
@@ -95,8 +95,6 @@ export const getLocation = async () => {
   const res = await fetch(url)
   const { address } = await res.json()
   address.country = address.country_code.toUpperCase()
-  if (address.country === "CA")
-    address.postcode = address.postcode.substring(0, 3)
   locationCache = address
   return { country: address.country, postcode: address.postcode }
 }
