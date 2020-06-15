@@ -78,7 +78,7 @@ const renderMenuItems = (locales, onClick) => {
 
 const FlagMenu = ({ onClick, locales, activeLocale }) => {
   const [mine, setMine] = useState(null)
-  const { lang, country } = getLocale()
+  const { lang, country, currency } = getLocale()
 
   const onChange = (locale, income = null) => {
     if (locale === "mine") {
@@ -96,7 +96,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
         Language: lang,
         Code: country,
         Demonym: "my",
-        Currency: LocaleCurrency.getCurrency(country),
+        Currency: currency,
         Measure: "income",
       })
       setMine(income)
@@ -112,7 +112,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
 
   const currencyFormat = Intl.NumberFormat(undefined, {
     style: "currency",
-    currency: activeLocale.Currency || "USD",
+    currency,
   }).formatToParts(1)
   const currencySymbol = currencyFormat.find(_ => _.type === "currency").value
   const symbolAfter =
@@ -168,6 +168,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
           maxHeight={["180px", null, null, "300px"]}
           minWidth={0}
           width="fit-content"
+          zIndex="2"
         >
           {renderMenuItems(locales, onChange)}
         </MenuList>

@@ -21,6 +21,7 @@ import CustomButton from "../components/Button"
 import DataSort from "react-data-sort"
 import SEO from "../components/seo"
 import FlagMenu from "../components/FlagMenu"
+import DonationSlider from "../components/DonationSlider"
 import { getLocale } from "../utils/geolocation"
 
 const Home = ({ data }) => {
@@ -30,7 +31,13 @@ const Home = ({ data }) => {
   const [localeList, setLocaleList] = useState(
     data.allAirtableCountryIncomes.edges.map(node => node.node.data)
   )
-  const [activeLocale, setActiveLocale] = useState({})
+  const [activeLocale, setActiveLocale] = useState({
+    Currency: "USD",
+    Income: 0,
+  })
+
+  // Slider
+  const [sliderOverrideValue, setSliderOverrideValue] = useState()
 
   // Search Field
   const [searchValue, setSearchValue] = useState("")
@@ -91,10 +98,10 @@ const Home = ({ data }) => {
   return (
     <DarkMode>
       <Layout
+        page="Home"
         title={
           <>
             Donations Expo
-            {/* fontSize={["48px", "56px", "64px", "74px", "96px"]} */}
             <PseudoBox
               as="span"
               fontSize={["36px", "44px", "48px", "56px", "72px"]}
@@ -118,7 +125,24 @@ const Home = ({ data }) => {
         }
       >
         <SEO title={"Donations Exposed"} />
-        <Box pt="64px" pb={["24px", null, "32px", "48px", "64px"]}>
+        <Box pt="64px" pb={["48px", null, null, "52px", "64px"]}>
+          <Box
+            textAlign="center"
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <DonationSlider
+              locale={activeLocale}
+              corporations={filteredCorporations
+                .map(_ => _.data)
+                .sort((a, b) => b.Percent_Profits - a.Percent_Profits)}
+              overrideValue={sliderOverrideValue}
+            />
+          </Box>
+        </Box>
+        <Box pb={["24px", null, "32px", "48px", "64px"]}>
           <Box
             textAlign="center"
             display="flex"
@@ -128,11 +152,19 @@ const Home = ({ data }) => {
           >
             <Text
               color="primary.red"
-              mb={["16px", null, null, null, "24px"]}
               fontWeight="900"
               fontSize={["24px", "26px", "28px", "30px", "32px"]}
+              lineHeight={["24px", "26px", "28px", "30px", "32px"]}
             >
               Find a Corporation
+            </Text>
+            <Text
+              color="snow"
+              mb={["16px", null, null, null, "24px"]}
+              fontSize={["16px", null, null, "18px"]}
+              mt={["2px", null, null, "4px"]}
+            >
+              Select a card to make an equivalent donation.
             </Text>
             <SearchField
               placeholder="Amazon"
@@ -176,7 +208,10 @@ const Home = ({ data }) => {
                   </MenuItem>
                 </MenuList>
               </Menu>
-              <CustomButton onClick={toggleSortType}>
+              <CustomButton
+                onClick={toggleSortType}
+                aria-label="Toggle sort order"
+              >
                 <Icon
                   h="16px"
                   name={sortType === "asc" ? "up_arrow" : "down_arrow"}
@@ -223,6 +258,7 @@ const Home = ({ data }) => {
                         amount={corporation.data.Donation__thousands_}
                         donationCurrency={corporation.data.Currency}
                         profits={corporation.data.Gross_Profit__millions_}
+                        onClick={setSliderOverrideValue}
                       />
                     )
                   }

@@ -24,13 +24,21 @@ const DonationCard = ({
   donationSources,
   profitNote,
   profitSources,
+  onClick,
 }) => {
   amount = parseInt(amount)
   profits = parseFloat(profits)
   const [zIndex, setZIndex] = useState(0)
+  const click = () => {
+    // scrolling handled in slider
+    onClick(percent * locale.Income)
+  }
   return (
     <PseudoBox
       padding={["12px", null, "16px", "24px", "30px"]}
+      as="button"
+      onClick={click}
+      textAlign="left"
       backgroundColor="darkless"
       color="snow"
       borderRadius="10px"
