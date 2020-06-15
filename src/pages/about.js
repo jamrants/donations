@@ -89,7 +89,8 @@ const About = () => {
               <Text as="span" color="primary.green" fontWeight="800">
                 demonstrate how every one of us can make the same proportional
                 impact
-              </Text>{". "}
+              </Text>
+              {". "}
               If companies, in their performative activism, can pledge pocket
               change and make a difference, so can we.
             </Paragraph>
