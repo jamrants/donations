@@ -383,7 +383,7 @@ export const query = graphql`
 
     allAirtableCountryIncomes(
       filter: { data: {} }
-      sort: { fields: data___Code, order: ASC }
+      sort: { fields: data___Demonym, order: ASC }
     ) {
       edges {
         node {

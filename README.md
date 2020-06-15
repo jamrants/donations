@@ -40,7 +40,7 @@
   <p align="center">
     Corporations have made headlines with big pledges recently – tracking how much they'd be to the average person.
     <br />
-    <a href="https://donations-exposed.netlify.app/"><strong>View the Website »</strong></a>
+    <a href="https://donations.exposed"><strong>View the Website »</strong></a>
     <br />
     <br />
     <a href="https://airtable.com/shrb6pZwkGX6rLIQa">Explore the dataset</a>
