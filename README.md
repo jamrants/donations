@@ -106,6 +106,14 @@ npm install npm@latest -g
 npm install gatsby-cli -g
 ```
 
+- Airtable
+
+[Make a copy of our base](https://airtable.com/addBaseFromShare/shrb6pZwkGX6rLIQa?utm_source=airtable_shared_application), and make a note of your Airtable API key, and your Base ID.
+
+[You can find your API key under your profile](assets/api_key_instructions.png)
+
+[And you can find your Base ID under **help**](assets/base_id_instructions.png)
+
 ### Installation
 
 1. Clone the repo
@@ -120,7 +128,16 @@ git clone https://github.com/jamrants/donations.git
 npm install
 ```
 
-3. Run Gatsby
+3. Add Environment Variables
+
+Create a file named `.env.development` in the root of the repo, and add the following info:
+
+```
+AIRTABLE_KEY=`yourAirtableKey`
+BASE_ID=`yourBaseId`
+```
+
+4. Run Gatsby
 
 ```sh
 gatsby develop
