@@ -110,6 +110,10 @@ npm install gatsby-cli -g
 
 [Make a copy of our base](https://airtable.com/addBaseFromShare/shrb6pZwkGX6rLIQa?utm_source=airtable_shared_application), and make a note of your Airtable API key, and your Base ID.
 
+[You can find your API key under your profile](assets/api_key_instructions.png)
+
+[And you can find your Base ID under **help**](assets/base_id_instructions.png)
+
 ### Installation
 
 1. Clone the repo
