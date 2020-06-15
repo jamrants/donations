@@ -8,6 +8,7 @@ import {
   Input,
   PseudoBox,
   Skeleton,
+  useToast,
 } from "@chakra-ui/core"
 import ReactCountryFlag from "react-country-flag"
 import { getLocale, getLocation } from "../utils/geolocation"
@@ -81,6 +82,8 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
   const [mine, setMine] = useState(null)
   const [loading, setLoading] = useState(false)
   const [geoCache, setGeoCache] = useState(null)
+  const toast = useToast()
+
   const { lang, country, currency } = getLocale()
 
   const onChange = (locale, income = null) => {
@@ -130,9 +133,21 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
             newLocale.Income = data.income
             newLocale.Postcode = data.code
             onClick(newLocale)
-            setLoading(false)
             setGeoCache(data)
           })
+          .catch(err => {
+            toast({
+              title: "Oops!",
+              description:
+                "Either we couldn't find your location or we don't have regional data for your area. Input your own income data instead.",
+              status: "error",
+              duration: 9000,
+              isClosable: true,
+            })
+            console.error(err)
+            onChange("mine")
+          })
+          .finally(() => setLoading(false))
       }
     } else {
       onClick(locale)
