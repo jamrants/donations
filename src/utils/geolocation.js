@@ -81,8 +81,8 @@ export const getLocation = async () => {
   }
   if (locationCache) {
     return {
-      country: locationCache.country_code,
-      postal: locationCache.postcode,
+      country: locationCache.country,
+      postcode: locationCache.postcode,
     }
   }
   const pos = await new Promise((res, rej) =>

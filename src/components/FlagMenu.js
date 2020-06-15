@@ -7,6 +7,7 @@ import {
   Icon,
   Input,
   PseudoBox,
+  Skeleton,
 } from "@chakra-ui/core"
 import ReactCountryFlag from "react-country-flag"
 import { getLocale, getLocation } from "../utils/geolocation"
@@ -16,7 +17,7 @@ const renderMenuItems = (locales, onClick) => {
   // countries with implemented postal-level data
   const postalCountries = ["US", "CA"]
   return [
-    // TODO: handle custom income declaration
+    // custom income
     <MenuItem
       py="4px"
       marginBottom="4px"
@@ -33,7 +34,7 @@ const renderMenuItems = (locales, onClick) => {
         {" my household"}
       </span>
     </MenuItem>,
-    // TODO: handle geolocation + ZIP/FSA income
+    // geolocation + ZIP/FSA income
     postalCountries.includes(country) && (
       <MenuItem
         py="4px"
@@ -78,6 +79,8 @@ const renderMenuItems = (locales, onClick) => {
 
 const FlagMenu = ({ onClick, locales, activeLocale }) => {
   const [mine, setMine] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [geoCache, setGeoCache] = useState(null)
   const { lang, country, currency } = getLocale()
 
   const onChange = (locale, income = null) => {
@@ -107,21 +110,30 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
         Code: country,
         Currency: currency,
         Measure: "median household income",
+        Demonym: "my neighborhood's",
         Geo: true,
       }
-      getLocation()
-        .then(({ country, postcode }) =>
-          fetch(
-            `https://us-central1-donations-exposed.cloudfunctions.net/income?country=${country}&postcode=${postcode}`
+      if (geoCache) {
+        newLocale.Income = geoCache.income
+        newLocale.Postcode = geoCache.code
+        onClick(newLocale)
+      } else {
+        setLoading(true)
+        getLocation()
+          .then(({ country, postcode }) =>
+            fetch(
+              `https://us-central1-donations-exposed.cloudfunctions.net/income?country=${country}&postcode=${postcode}`
+            )
           )
-        )
-        .then(res => res.json())
-        .then(data => {
-          newLocale.Income = data.income
-          newLocale.Demonym = "my neighborhood's"
-          newLocale.Postcode = data.code
-          onClick(newLocale)
-        })
+          .then(res => res.json())
+          .then(data => {
+            newLocale.Income = data.income
+            newLocale.Postcode = data.code
+            onClick(newLocale)
+            setLoading(false)
+            setGeoCache(data)
+          })
+      }
     } else {
       onClick(locale)
     }
@@ -142,7 +154,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
     currencyFormat.findIndex(_ => _.type === "integer")
 
   return (
-    <>
+    <Skeleton isLoaded={!loading}>
       <Menu>
         {!activeLocale.Custom && " the average "}
         <MenuButton
@@ -226,8 +238,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
           ,{" "}
         </>
       )}
-      {activeLocale.Geo && <>(postcode {activeLocale.Postcode})</>}
-    </>
+    </Skeleton>
   )
 }
 
