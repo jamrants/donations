@@ -62,26 +62,36 @@ const About = () => {
             <H1>Why?</H1>
             <Paragraph>
               Businesses have made a lot of headlines recently with huge
-              donations. Individuals, like us, who want to help the cause, feel
-              like our $10 is nothing compared to a celebrity or company's $10
-              million. But when scaled down from billion-dollar multinational to
-              average household, many of these donations have a proportionate
-              impact of our donating less than $100.
+              donations.{" "}
+              <Text as="span" color="primary.green" fontWeight="800">
+                Have you ever felt as if you just can't make the same level of
+                impact?
+              </Text>{" "}
+              Individuals, like us, who want to help the cause, feel like our
+              $10 is nothing compared to a celebrity or company's $10 million.
+              Why donate if we can only make one-millionth of the impact? But
+              when you scale down these seven-figure donations from
+              billion-dollar multinational to the average household, many of
+              these donations have a proportionate impact of our donating less
+              than $100.
             </Paragraph>
             <Paragraph>
               A company like Home Depot gets loads of good PR from a million
               dollar pledge, but they make gross profit of around $40 billion.
               That's a donation of just 0.003% of their income. 0.003% of the
-              average Canadian's income comes out to less than a toonie. We can
-              all spare a toonie, can't we?
+              average Canadian's income comes out to less than a toonie.{" "}
+              <Text as="span" color="primary.green" fontWeight="800">
+                We can all spare a toonie, can't we?
+              </Text>
             </Paragraph>
             <Paragraph>
               We made this site to{" "}
               <Text as="span" color="primary.green" fontWeight="800">
-                expose the hypocrisy inherent in corporate performative
-                activism.
-              </Text>{" "}
-              If they can pledge pocket change and make a difference, so can we.
+                demonstrate how every one of us can make the same proportional
+                impact
+              </Text>{". "}
+              If companies, in their performative activism, can pledge pocket
+              change and make a difference, so can we.
             </Paragraph>
             <Paragraph>
               <Link href="https://blmsites.carrd.co/">
