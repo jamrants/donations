@@ -104,6 +104,16 @@ const Footer = ({ padding }) => (
       >
         Hosted on Netlify
       </Text>
+      {" | "}
+      <Text
+        fontWeight="700"
+        as="a"
+        target="_blank"
+        href="https://ko-fi.com/donationsexposed"
+        color="primary.green"
+      >
+        Buy us a Coffee
+      </Text>
     </PseudoBox>
   </Box>
 )
