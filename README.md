@@ -129,7 +129,8 @@ npm install
 ```
 
 3. Add Environment Variables
-   Create a file named `.env.development` in the root of the repo, and add the following info:
+
+Create a file named `.env.development` in the root of the repo, and add the following info:
 
 ```
 AIRTABLE_KEY=`yourAirtableKey`
