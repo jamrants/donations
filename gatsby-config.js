@@ -6,7 +6,7 @@ module.exports = {
   siteMetadata: {
     title: "Donations Exposed",
     description:
-      "Corporations have made headlines with big pledges recently — how much would they be to the average person?",
+      "Corporations have made headlines with big donations recently — how much would the average household need to match their donation?",
     author: "jamrants",
   },
   plugins: [
