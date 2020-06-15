@@ -119,6 +119,17 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
       USD = value / rates[locale.Currency]
     }
     // open new tab + log plausible event
+    fetch("https://us-central1-donations-exposed.cloudfunctions.net/donate", {
+      method: "POST",
+      body: JSON.stringify({
+        id: causes[causeValue].name,
+        amount: USD.toFixed(2),
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      credentials: "same-origin",
+    }).catch(err => console.error(err))
     window.plausible("Donation")
     const target = causes[causeValue].url.replace("%s", USD.toFixed(2))
     window.open(target, "_blank")
