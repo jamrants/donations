@@ -267,57 +267,57 @@ const Home = ({ data }) => {
               }}
             />
           ) : (
-              <>
-                <Skeleton
-                  colorStart="darkless"
-                  colorEnd="slate"
-                  h="220px"
-                  borderRadius="10px"
-                />
-                <Skeleton
-                  colorStart="darkless"
-                  colorEnd="slate"
-                  h="220px"
-                  borderRadius="10px"
-                />
-                <Skeleton
-                  colorStart="darkless"
-                  colorEnd="slate"
-                  h="220px"
-                  borderRadius="10px"
-                />
-                <Skeleton
-                  colorStart="darkless"
-                  colorEnd="slate"
-                  h="220px"
-                  borderRadius="10px"
-                />
-                <Skeleton
-                  colorStart="darkless"
-                  colorEnd="slate"
-                  h="220px"
-                  borderRadius="10px"
-                />
-                <Skeleton
-                  colorStart="darkless"
-                  colorEnd="slate"
-                  h="220px"
-                  borderRadius="10px"
-                />
-                <Skeleton
-                  colorStart="darkless"
-                  colorEnd="slate"
-                  h="220px"
-                  borderRadius="10px"
-                />
-                <Skeleton
-                  colorStart="darkless"
-                  colorEnd="slate"
-                  h="220px"
-                  borderRadius="10px"
-                />
-              </>
-            )}
+            <>
+              <Skeleton
+                colorStart="darkless"
+                colorEnd="slate"
+                h="220px"
+                borderRadius="10px"
+              />
+              <Skeleton
+                colorStart="darkless"
+                colorEnd="slate"
+                h="220px"
+                borderRadius="10px"
+              />
+              <Skeleton
+                colorStart="darkless"
+                colorEnd="slate"
+                h="220px"
+                borderRadius="10px"
+              />
+              <Skeleton
+                colorStart="darkless"
+                colorEnd="slate"
+                h="220px"
+                borderRadius="10px"
+              />
+              <Skeleton
+                colorStart="darkless"
+                colorEnd="slate"
+                h="220px"
+                borderRadius="10px"
+              />
+              <Skeleton
+                colorStart="darkless"
+                colorEnd="slate"
+                h="220px"
+                borderRadius="10px"
+              />
+              <Skeleton
+                colorStart="darkless"
+                colorEnd="slate"
+                h="220px"
+                borderRadius="10px"
+              />
+              <Skeleton
+                colorStart="darkless"
+                colorEnd="slate"
+                h="220px"
+                borderRadius="10px"
+              />
+            </>
+          )}
         </Box>
         {!searchValue ? (
           <PseudoBox
@@ -334,8 +334,8 @@ const Home = ({ data }) => {
             </CustomButton>
           </PseudoBox>
         ) : (
-            <PseudoBox mb="24px"></PseudoBox>
-          )}
+          <PseudoBox mb="24px"></PseudoBox>
+        )}
       </Layout>
     </DarkMode>
   )
