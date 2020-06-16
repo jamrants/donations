@@ -77,7 +77,7 @@ let ipLocationCache = null
 export const getIpLocation = async () => {
   if (ipLocationCache) return ipLocationCache
   const url =
-    "http://ip-api.com/json?fields=status,message,countryCode,region,zip"
+    "https://ip-api.com/json?fields=status,message,countryCode,region,zip"
   const res = await fetch(url)
   const data = await res.json()
   if (data.status === "success") {
