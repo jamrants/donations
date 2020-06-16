@@ -165,11 +165,15 @@ See the [open issues](https://github.com/jamrants/donations/issues) for a list o
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
+We're using the [Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
+Because Github Actions doesn't let us run our CI on a fork, please work off of the Develop branch so we can make sure Master doesn't break.
+
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+2. Checkout the Develop Branch (`git checkout develop`)
+3. Create your Feature Branch (`git branch feature/AmazingFeature`)
+4. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+5. Push to the Branch (`git push origin feature/AmazingFeature`)
+6. Open a Pull Request to the Develop Branch
 
 <!-- LICENSE -->
 
