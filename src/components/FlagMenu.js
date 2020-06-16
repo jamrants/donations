@@ -54,9 +54,10 @@ const renderMenuItems = (locales, onClick) => {
         </span>
       </MenuItem>
     ),
-    ...locales.map(locale => {
+    ...locales.map((locale, i) => {
       return (
         <MenuItem
+          key={i}
           py="4px"
           marginBottom="4px"
           onClick={() => onClick(locale)}
@@ -195,7 +196,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
             >
               <ReactCountryFlag
                 style={{ height: "100%", width: "100%" }}
-                countryCode={activeLocale.Code}
+                countryCode={activeLocale.Code ? activeLocale.Code : 'US'}
                 svg
               />
             </PseudoBox>

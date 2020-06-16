@@ -105,7 +105,7 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
     const notch = !mobile
       ? Math.pow(2, (i - 1) % 2) * 5 * Math.pow(10, Math.floor((i - 1) / 2)) // OEIS A268100 (1/5/10...)
       : // ? (Math.pow(i % 3, 2) + 1) * Math.pow(10, Math.floor(i / 3)) // OEIS A051109 (1/2/5/10...)
-        Math.pow(10, i)
+      Math.pow(10, i)
     if (notch >= max) break
     if (notch > min) notches.push(notch)
   }
@@ -178,6 +178,7 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
         >
           {Object.entries(causes).map(([id, cause]) => (
             <MenuItem
+              key={id}
               py="4px"
               marginBottom="4px"
               fontSize={["14px", "16px", "16px", "16px", "18px"]}
@@ -209,10 +210,11 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
         />
         <SliderThumb size="16px" bg="primary.green" />
         <PseudoBox width="100%" position="absolute">
-          {notches.map(notch => {
+          {notches.map((notch, i) => {
             const percent = invLogScale(min, max, notch)
             return (
               <PseudoBox
+                key={i}
                 as="span"
                 position="absolute"
                 top="10px"

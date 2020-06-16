@@ -99,6 +99,7 @@ const DonationCard = ({
                     donationSources.split("\n").map((source, index) => (
                       <>
                         <Text
+                          key={index}
                           textDecoration="underline"
                           mt="4px"
                           as="a"
@@ -115,16 +116,16 @@ const DonationCard = ({
                       </>
                     ))
                   ) : (
-                    <Text
-                      textDecoration="underline"
-                      mt="4px"
-                      as="a"
-                      href={"https://" + donationSources}
-                      target="_blank"
-                    >
-                      Source
-                    </Text>
-                  )}
+                      <Text
+                        textDecoration="underline"
+                        mt="4px"
+                        as="a"
+                        href={"https://" + donationSources}
+                        target="_blank"
+                      >
+                        Source
+                      </Text>
+                    )}
                 </Box>
               </PopoverContent>
             </Popover>
@@ -184,6 +185,7 @@ const DonationCard = ({
                     profitSources.split("\n").map((source, index) => (
                       <>
                         <Text
+                          key={index}
                           textDecoration="underline"
                           mt="4px"
                           as="a"
@@ -200,16 +202,16 @@ const DonationCard = ({
                       </>
                     ))
                   ) : (
-                    <Text
-                      textDecoration="underline"
-                      mt="4px"
-                      as="a"
-                      href={"https://" + profitSources}
-                      target="_blank"
-                    >
-                      Source
-                    </Text>
-                  )}
+                      <Text
+                        textDecoration="underline"
+                        mt="4px"
+                        as="a"
+                        href={"https://" + profitSources}
+                        target="_blank"
+                      >
+                        Source
+                      </Text>
+                    )}
                 </Box>
               </PopoverContent>
             </Popover>
