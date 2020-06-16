@@ -196,7 +196,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
             >
               <ReactCountryFlag
                 style={{ height: "100%", width: "100%" }}
-                countryCode={activeLocale.Code ? activeLocale.Code : 'US'}
+                countryCode={activeLocale.Code ? activeLocale.Code : "US"}
                 svg
               />
             </PseudoBox>

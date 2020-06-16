@@ -105,7 +105,7 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
     const notch = !mobile
       ? Math.pow(2, (i - 1) % 2) * 5 * Math.pow(10, Math.floor((i - 1) / 2)) // OEIS A268100 (1/5/10...)
       : // ? (Math.pow(i % 3, 2) + 1) * Math.pow(10, Math.floor(i / 3)) // OEIS A051109 (1/2/5/10...)
-      Math.pow(10, i)
+        Math.pow(10, i)
     if (notch >= max) break
     if (notch > min) notches.push(notch)
   }
