@@ -102,20 +102,26 @@ let locationCache = null
  * @returns {Promise<{ country: string, postcode: string }>} ISO country code and postal/ZIP code
  */
 export const getLocation = async () => {
-  if (!navigator.geolocation) {
-    throw new Error("Browser does not support geolocation")
+  try {
+    if (!navigator.geolocation) {
+      throw new Error("Browser does not support geolocation")
+    }
+    if (locationCache) return locationCache
+    const pos = await new Promise((res, rej) =>
+      navigator.geolocation.getCurrentPosition(res, rej, {
+        enableHighAccuracy: true,
+      })
+    )
+    const { latitude, longitude } = pos.coords
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&addressdetails=1&format=jsonv2`
+    const res = await fetch(url)
+    const { address } = await res.json()
+    address.country = address.country_code.toUpperCase()
+    locationCache = { country: address.country, postcode: address.postcode }
+    return locationCache
+  } catch (e) {
+    // fallback on IP location if exists
+    if (!ipLocationCache) throw e
+    return ipLocationCache
   }
-  if (locationCache) return locationCache
-  const pos = await new Promise((res, rej) =>
-    navigator.geolocation.getCurrentPosition(res, rej, {
-      enableHighAccuracy: true,
-    })
-  )
-  const { latitude, longitude } = pos.coords
-  const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&addressdetails=1&format=jsonv2`
-  const res = await fetch(url)
-  const { address } = await res.json()
-  address.country = address.country_code.toUpperCase()
-  locationCache = { country: address.country, postcode: address.postcode }
-  return locationCache
 }
