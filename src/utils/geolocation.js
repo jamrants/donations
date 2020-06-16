@@ -1,8 +1,5 @@
 import LocaleCurrency from "locale-currency"
 
-let locationCache = null
-let ipLocationCache = null
-
 export const convertableCurrencies = [
   "CAD",
   "HKD",
@@ -72,30 +69,20 @@ export const getLocale = () => {
   return { lang, country, currency }
 }
 
+let ipLocationCache = null
 /**
  * Get user's locale based on IP location
  * @returns {Promise<{ lang: string, country: string, currency: string, postcode: string }>}
  */
 export const getIpLocation = async () => {
-  if (ipLocationCache) {
-    const localCurrency = LocaleCurrency.getCurrency(ipLocationCache.countryCode)
-    return {
-      lang: getLocale().lang,
-      country: ipLocationCache.countryCode,
-      postcode: ipLocationCache.zip,
-      currency: convertableCurrencies.includes(localCurrency)
-        ? localCurrency
-        : "USD",
-    }
-  }
+  if (ipLocationCache) return ipLocationCache
   const url =
     "http://ip-api.com/json?fields=status,message,countryCode,region,zip"
   const res = await fetch(url)
   const data = await res.json()
   if (data.status === "success") {
     const localCurrency = LocaleCurrency.getCurrency(data.countryCode)
-    ipLocationCache = data
-    return {
+    ipLocationCache = {
       lang: getLocale().lang,
       country: data.countryCode,
       postcode: data.zip,
@@ -103,11 +90,13 @@ export const getIpLocation = async () => {
         ? localCurrency
         : "USD",
     }
+    return ipLocationCache
   } else {
     throw new Error(data.message)
   }
 }
 
+let locationCache = null
 /**
  * Get the user's current location
  * @returns {Promise<{ country: string, postcode: string }>} ISO country code and postal/ZIP code
@@ -116,12 +105,7 @@ export const getLocation = async () => {
   if (!navigator.geolocation) {
     throw new Error("Browser does not support geolocation")
   }
-  if (locationCache) {
-    return {
-      country: locationCache.country,
-      postcode: locationCache.postcode,
-    }
-  }
+  if (locationCache) return locationCache
   const pos = await new Promise((res, rej) =>
     navigator.geolocation.getCurrentPosition(res, rej, {
       enableHighAccuracy: true,
@@ -132,6 +116,6 @@ export const getLocation = async () => {
   const res = await fetch(url)
   const { address } = await res.json()
   address.country = address.country_code.toUpperCase()
-  locationCache = address
-  return { country: address.country, postcode: address.postcode }
+  locationCache = { country: address.country, postcode: address.postcode }
+  return locationCache
 }
