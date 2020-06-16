@@ -88,6 +88,7 @@ const Home = ({ data }) => {
         }
       })
       .finally(() => {
+        console.log(home, selected)
         setHomeLocale(home)
         setActiveLocale(selected)
       })
@@ -144,6 +145,7 @@ const Home = ({ data }) => {
             {activeLocale ? (
               <FlagMenu
                 onClick={setActiveLocale}
+                setHome={setHomeLocale}
                 homeLocale={homeLocale}
                 activeLocale={activeLocale}
                 locales={localeList}

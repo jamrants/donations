@@ -11,12 +11,12 @@ import {
   useToast,
 } from "@chakra-ui/core"
 import ReactCountryFlag from "react-country-flag"
-import { getLocale, getLocation } from "../utils/geolocation"
+import { getLocation } from "../utils/geolocation"
 
 const renderMenuItems = (locales, homeLocale, onClick) => {
   const { country } = homeLocale
   // countries with implemented postal-level data
-  const postalCountries = ["US", "CA"]
+  const postalCountries = ["US", "CA", "GB"]
   return [
     // custom income
     <MenuItem
@@ -79,7 +79,7 @@ const renderMenuItems = (locales, homeLocale, onClick) => {
   ]
 }
 
-const FlagMenu = ({ onClick, locales, activeLocale, homeLocale }) => {
+const FlagMenu = ({ onClick, locales, activeLocale, homeLocale, setHome }) => {
   const [mine, setMine] = useState(null)
   const [loading, setLoading] = useState(true)
   const [geoCache, setGeoCache] = useState(null)
@@ -92,12 +92,11 @@ const FlagMenu = ({ onClick, locales, activeLocale, homeLocale }) => {
   }, [homeLocale])
 
   const onChange = (locale, income = null) => {
-    const { lang, country, currency } = homeLocale
     if (locale === "mine") {
       if (income === null) {
         if (mine === null) {
           // initialize to country median income
-          const countryLocale = locales.find(l => l.Code === country)
+          const countryLocale = locales.find(l => l.Code === homeLocale.country)
           income = countryLocale ? countryLocale.Income : 0
         } else {
           income = mine
@@ -105,19 +104,19 @@ const FlagMenu = ({ onClick, locales, activeLocale, homeLocale }) => {
       }
       onClick({
         Income: income,
-        Language: lang,
-        Code: country,
+        Language: homeLocale.lang,
+        Code: homeLocale.country,
         Demonym: "my",
-        Currency: currency,
+        Currency: homeLocale.currency,
         Measure: "household income",
         Custom: true,
       })
       setMine(income)
     } else if (locale === "geo") {
       let newLocale = {
-        Language: lang,
-        Code: country,
-        Currency: currency,
+        Language: homeLocale.lang,
+        Code: homeLocale.country,
+        Currency: homeLocale.currency,
         Measure: "median household income",
         Demonym: "my neighborhood's",
         Geo: true,
@@ -129,15 +128,19 @@ const FlagMenu = ({ onClick, locales, activeLocale, homeLocale }) => {
       } else {
         setLoading(true)
         getLocation()
-          .then(({ country, postcode }) =>
-            fetch(
+          .then(({ country, currency, postcode }) => {
+            setHome({ lang: homeLocale.lang, country, currency })
+            newLocale.Currency = currency
+            newLocale.Code = country
+            return fetch(
               `https://us-central1-donations-exposed.cloudfunctions.net/income?country=${country}&postcode=${postcode}`
             )
-          )
+          })
           .then(res => res.json())
           .then(data => {
             newLocale.Income = data.income
             newLocale.Postcode = data.code
+            console.log(newLocale)
             onClick(newLocale)
             setGeoCache(data)
           })

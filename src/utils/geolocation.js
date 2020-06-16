@@ -52,7 +52,6 @@ export const getLocale = () => {
 
   let lang = locale
   let country = null
-  let currency = LocaleCurrency.getCurrency(locale)
   // 'en-US' -> ['en', 'US'] and account for zh-Hans_CN
   if (locale.includes("-")) {
     lang = locale.substring(0, 2)
@@ -62,7 +61,7 @@ export const getLocale = () => {
   if (locationCache) {
     country = locationCache.country
   }
-  return { lang, country, currency: getCurrency(currency) }
+  return { lang, country, currency: getCurrency(country) }
 }
 
 /**
@@ -71,7 +70,12 @@ export const getLocale = () => {
  */
 export const getCurrency = country => {
   const currency = LocaleCurrency.getCurrency(country)
-  return convertableCurrencies.includes(currency) ? currency : "USD"
+  console.log(currency)
+  if (convertableCurrencies.includes(currency)) {
+    return currency
+  } else {
+    return "USD"
+  }
 }
 
 let ipLocationCache = null
@@ -82,7 +86,7 @@ let ipLocationCache = null
 export const getIpLocation = async () => {
   if (ipLocationCache) return ipLocationCache
   const url = "https://ipapi.co/json"
-  const res = await fetch(url)
+  const res = await fetch(url, { headers: { "accept-language": "en" } })
   const data = await res.json()
   if (data.error) {
     throw new Error(data.reason)
@@ -91,7 +95,7 @@ export const getIpLocation = async () => {
     lang: getLocale().lang,
     country: data.country_code,
     postcode: data.postal,
-    currency: getCurrency(data.currency),
+    currency: getCurrency(data.country_code),
   }
   return ipLocationCache
 }
@@ -99,7 +103,7 @@ export const getIpLocation = async () => {
 let locationCache = null
 /**
  * Get the user's current location
- * @returns {Promise<{ country: string, postcode: string }>} ISO country code and postal/ZIP code
+ * @returns {Promise<{ country: string, currency: string, postcode: string }>} ISO country/currency codes and postal/ZIP code
  */
 export const getLocation = async () => {
   try {
@@ -116,8 +120,20 @@ export const getLocation = async () => {
     const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&addressdetails=1&format=jsonv2`
     const res = await fetch(url)
     const { address } = await res.json()
-    address.country = address.country_code.toUpperCase()
-    locationCache = { country: address.country, postcode: address.postcode }
+    const country = address.country_code.toUpperCase()
+    let postcode = address.postcode
+    // overwrite with MSOA instead of postcode for UK
+    // income data is provied at the MSOA level, not postcode level
+    if (country === "GB") {
+      const pUrl = `https://api.postcodes.io/postcodes?lat=${latitude}&lon=${longitude}&wideSearch&limit=1`
+      // cors requires accept-language
+      const pRes = await fetch(pUrl, { headers: { "accept-language": "en" } })
+      const data = await pRes.json()
+      if (data.result !== null) {
+        postcode = data.result[0].msoa
+      }
+    }
+    locationCache = { country, postcode, currency: getCurrency(country) }
     return locationCache
   } catch (e) {
     // fallback on IP location if exists
