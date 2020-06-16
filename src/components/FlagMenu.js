@@ -226,7 +226,7 @@ const FlagMenu = ({ onClick, locales, activeLocale, homeLocale }) => {
           width="fit-content"
           zIndex="2"
         >
-          {!loading && renderMenuItems(locales, homeLocale, onChange)}
+          {renderMenuItems(locales, homeLocale, onChange)}
         </MenuList>
       </Menu>
       {activeLocale.Demonym === "my" && (

@@ -22,7 +22,7 @@ import DataSort from "react-data-sort"
 import SEO from "../components/seo"
 import FlagMenu from "../components/FlagMenu"
 import DonationSlider from "../components/DonationSlider"
-import { getLocale, getIpLocation } from "../utils/geolocation"
+import { getIpLocation } from "../utils/geolocation"
 
 const Home = ({ data }) => {
   const [filteredCorporations, setFilteredCorporations] = useState(
@@ -112,12 +112,16 @@ const Home = ({ data }) => {
           <>
             Corporations have made headlines with big donations recently — how
             much would{" "}
-            <FlagMenu
-              onClick={setActiveLocale}
-              homeLocale={homeLocale}
-              activeLocale={activeLocale}
-              locales={localeList}
-            />{" "}
+            {activeLocale ? (
+              <FlagMenu
+                onClick={setActiveLocale}
+                homeLocale={homeLocale}
+                activeLocale={activeLocale}
+                locales={localeList}
+              />
+            ) : (
+              <Skeleton w="250" />
+            )}{" "}
             need to match their donation?
           </>
         }
@@ -131,13 +135,30 @@ const Home = ({ data }) => {
             alignItems="center"
             justifyContent="center"
           >
-            <DonationSlider
-              locale={activeLocale}
-              corporations={filteredCorporations
-                .map(_ => _.data)
-                .sort((a, b) => b.Percent_Profits - a.Percent_Profits)}
-              overrideValue={sliderOverrideValue}
-            />
+            {activeLocale ? (
+              <DonationSlider
+                locale={activeLocale}
+                corporations={filteredCorporations
+                  .map(_ => _.data)
+                  .sort((a, b) => b.Percent_Profits - a.Percent_Profits)}
+                overrideValue={sliderOverrideValue}
+              />
+            ) : (
+              <>
+                <Skeleton
+                  colorStart="darkless"
+                  colorEnd="slate"
+                  h="220px"
+                  borderRadius="10px"
+                />
+                <Skeleton
+                  colorStart="darkless"
+                  colorEnd="slate"
+                  h="220px"
+                  borderRadius="10px"
+                />
+              </>
+            )}
           </Box>
         </Box>
         <Box pb={["24px", null, "32px", "48px", "64px"]}>
@@ -225,7 +246,7 @@ const Home = ({ data }) => {
           gridColumnGap={["20px", "20px", "32px", "40px", "48px"]}
           gridRowGap={["20px", "20px", "32px  ", "40px", "48px"]}
         >
-          {activeLocale.Currency ? (
+          {activeLocale ? (
             <DataSort
               data={filteredCorporations}
               sortBy={sortByField}
