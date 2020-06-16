@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import {
   Menu,
   MenuButton,
@@ -13,8 +13,8 @@ import {
 import ReactCountryFlag from "react-country-flag"
 import { getLocale, getLocation } from "../utils/geolocation"
 
-const renderMenuItems = (locales, onClick) => {
-  const { country } = getLocale()
+const renderMenuItems = (locales, homeLocale, onClick) => {
+  const { country } = homeLocale
   // countries with implemented postal-level data
   const postalCountries = ["US", "CA"]
   return [
@@ -79,15 +79,20 @@ const renderMenuItems = (locales, onClick) => {
   ]
 }
 
-const FlagMenu = ({ onClick, locales, activeLocale }) => {
+const FlagMenu = ({ onClick, locales, activeLocale, homeLocale }) => {
   const [mine, setMine] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [geoCache, setGeoCache] = useState(null)
   const toast = useToast()
 
-  const { lang, country, currency } = getLocale()
+  useEffect(() => {
+    if (homeLocale) {
+      setLoading(false)
+    }
+  }, [homeLocale])
 
   const onChange = (locale, income = null) => {
+    const { lang, country, currency } = homeLocale
     if (locale === "mine") {
       if (income === null) {
         if (mine === null) {
@@ -162,7 +167,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
 
   const currencyFormat = Intl.NumberFormat(undefined, {
     style: "currency",
-    currency,
+    currency: activeLocale.Currency,
   }).formatToParts(1)
   const currencySymbol = currencyFormat.find(_ => _.type === "currency").value
   const symbolAfter =
@@ -221,7 +226,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
           width="fit-content"
           zIndex="2"
         >
-          {renderMenuItems(locales, onChange)}
+          {!loading && renderMenuItems(locales, homeLocale, onChange)}
         </MenuList>
       </Menu>
       {activeLocale.Demonym === "my" && (

@@ -22,7 +22,7 @@ import DataSort from "react-data-sort"
 import SEO from "../components/seo"
 import FlagMenu from "../components/FlagMenu"
 import DonationSlider from "../components/DonationSlider"
-import { getLocale } from "../utils/geolocation"
+import { getLocale, getIpLocation } from "../utils/geolocation"
 
 const Home = ({ data }) => {
   const [filteredCorporations, setFilteredCorporations] = useState(
@@ -31,10 +31,8 @@ const Home = ({ data }) => {
   const [localeList, setLocaleList] = useState(
     data.allAirtableCountryIncomes.edges.map(node => node.node.data)
   )
-  const [activeLocale, setActiveLocale] = useState({
-    Currency: "USD",
-    Income: 0,
-  })
+  const [activeLocale, setActiveLocale] = useState()
+  const [homeLocale, setHomeLocale] = useState()
 
   // Slider
   const [sliderOverrideValue, setSliderOverrideValue] = useState()
@@ -54,17 +52,16 @@ const Home = ({ data }) => {
   }
 
   useEffect(() => {
-    const locale = getLocale()
-    let inLocaleList = localeList.find(l => l.Language === locale.lang)
-    // overwrite locale by country
-    if (locale.country) {
-      const country = localeList.find(l => l.Code === locale.country)
-      if (country) inLocaleList = country
-    }
-    // default to english if not exist
-    inLocaleList
-      ? setActiveLocale(inLocaleList)
-      : setActiveLocale(localeList.filter(l => l.Language === "en")[0])
+    getIpLocation().then(location => {
+      setHomeLocale(location)
+      const locale = localeList.find(l => l.Code === location.country)
+      // default to english if not exist
+      if (locale) {
+        setActiveLocale(locale)
+      } else {
+        setActiveLocale(localeList.filter(l => l.Language === "en")[0])
+      }
+    })
   }, [data])
 
   // sorting functions
@@ -117,6 +114,7 @@ const Home = ({ data }) => {
             much would{" "}
             <FlagMenu
               onClick={setActiveLocale}
+              homeLocale={homeLocale}
               activeLocale={activeLocale}
               locales={localeList}
             />{" "}

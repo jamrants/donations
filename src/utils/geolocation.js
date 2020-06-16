@@ -1,6 +1,7 @@
 import LocaleCurrency from "locale-currency"
 
 let locationCache = null
+let ipLocationCache = null
 
 export const convertableCurrencies = [
   "CAD",
@@ -39,7 +40,7 @@ export const convertableCurrencies = [
 ]
 
 /**
- * Get the user's country and language
+ * Get the user's locale using navigator.language
  * @returns {{ lang: string, country: string, currency: string }} ISO language, country, and currency codes
  */
 export const getLocale = () => {
@@ -69,6 +70,42 @@ export const getLocale = () => {
     currency = localCurrency
   }
   return { lang, country, currency }
+}
+
+/**
+ * Get user's locale based on IP location
+ * @returns {Promise<{ lang: string, country: string, currency: string, postcode: string }>}
+ */
+export const getIpLocation = async () => {
+  if (ipLocationCache) {
+    const localCurrency = LocaleCurrency.getCurrency(ipLocationCache.countryCode)
+    return {
+      lang: getLocale().lang,
+      country: ipLocationCache.countryCode,
+      postcode: ipLocationCache.zip,
+      currency: convertableCurrencies.includes(localCurrency)
+        ? localCurrency
+        : "USD",
+    }
+  }
+  const url =
+    "http://ip-api.com/json?fields=status,message,countryCode,region,zip"
+  const res = await fetch(url)
+  const data = await res.json()
+  if (data.status === "success") {
+    const localCurrency = LocaleCurrency.getCurrency(data.countryCode)
+    ipLocationCache = data
+    return {
+      lang: getLocale().lang,
+      country: data.countryCode,
+      postcode: data.zip,
+      currency: convertableCurrencies.includes(localCurrency)
+        ? localCurrency
+        : "USD",
+    }
+  } else {
+    throw new Error(data.message)
+  }
 }
 
 /**
