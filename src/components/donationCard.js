@@ -31,7 +31,7 @@ const DonationCard = ({
   const [zIndex, setZIndex] = useState(0)
   const click = () => {
     // scrolling handled in slider
-    onClick(percent * locale.Income)
+    onClick((percent * locale.Income) + 0.01)
   }
   return (
     <PseudoBox

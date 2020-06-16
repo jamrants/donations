@@ -149,7 +149,7 @@ const Home = ({ data }) => {
                 locales={localeList}
               />
             ) : (
-              <Skeleton w="250" />
+              <Skeleton margin="auto" w="70%" h={["20px", "24px", "28px", "31px", "38px"]} />
             )}{" "}
             need to match their donation?
           </>
