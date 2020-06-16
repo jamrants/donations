@@ -128,10 +128,10 @@ const About = () => {
                 styleType="decimal"
               >
                 <ListItem>Revenue less cost of revenue</ListItem>
-                <ListItem>Gross Profit</ListItem>
-                <ListItem>Operating Income</ListItem>
+                <ListItem>Gross profit</ListItem>
+                <ListItem>Operating income</ListItem>
                 <ListItem>
-                  Third-party estimates (for private companies)
+                  Third-party estimates of gross revenue (for private companies)
                 </ListItem>
               </List>
             </Paragraph>
