@@ -237,13 +237,14 @@ const Home = ({ data }) => {
               paginate
               searchInKeys={["data.Name"]}
               render={({ data, pages }) => {
-                return data.map(corporation => {
+                return data.map((corporation, i) => {
                   if (
                     corporation.data.Donation__thousands_ &&
                     corporation.data.Gross_Profit__millions_
                   ) {
                     return (
                       <DonationCard
+                        key={i}
                         locale={activeLocale}
                         image={
                           corporation.data.Logo.localFiles[0].childImageSharp
@@ -266,57 +267,57 @@ const Home = ({ data }) => {
               }}
             />
           ) : (
-            <>
-              <Skeleton
-                colorStart="darkless"
-                colorEnd="slate"
-                h="220px"
-                borderRadius="10px"
-              />
-              <Skeleton
-                colorStart="darkless"
-                colorEnd="slate"
-                h="220px"
-                borderRadius="10px"
-              />
-              <Skeleton
-                colorStart="darkless"
-                colorEnd="slate"
-                h="220px"
-                borderRadius="10px"
-              />
-              <Skeleton
-                colorStart="darkless"
-                colorEnd="slate"
-                h="220px"
-                borderRadius="10px"
-              />
-              <Skeleton
-                colorStart="darkless"
-                colorEnd="slate"
-                h="220px"
-                borderRadius="10px"
-              />
-              <Skeleton
-                colorStart="darkless"
-                colorEnd="slate"
-                h="220px"
-                borderRadius="10px"
-              />
-              <Skeleton
-                colorStart="darkless"
-                colorEnd="slate"
-                h="220px"
-                borderRadius="10px"
-              />
-              <Skeleton
-                colorStart="darkless"
-                colorEnd="slate"
-                h="220px"
-                borderRadius="10px"
-              />
-            </>
-          )}
+              <>
+                <Skeleton
+                  colorStart="darkless"
+                  colorEnd="slate"
+                  h="220px"
+                  borderRadius="10px"
+                />
+                <Skeleton
+                  colorStart="darkless"
+                  colorEnd="slate"
+                  h="220px"
+                  borderRadius="10px"
+                />
+                <Skeleton
+                  colorStart="darkless"
+                  colorEnd="slate"
+                  h="220px"
+                  borderRadius="10px"
+                />
+                <Skeleton
+                  colorStart="darkless"
+                  colorEnd="slate"
+                  h="220px"
+                  borderRadius="10px"
+                />
+                <Skeleton
+                  colorStart="darkless"
+                  colorEnd="slate"
+                  h="220px"
+                  borderRadius="10px"
+                />
+                <Skeleton
+                  colorStart="darkless"
+                  colorEnd="slate"
+                  h="220px"
+                  borderRadius="10px"
+                />
+                <Skeleton
+                  colorStart="darkless"
+                  colorEnd="slate"
+                  h="220px"
+                  borderRadius="10px"
+                />
+                <Skeleton
+                  colorStart="darkless"
+                  colorEnd="slate"
+                  h="220px"
+                  borderRadius="10px"
+                />
+              </>
+            )}
         </Box>
         {!searchValue ? (
           <PseudoBox
@@ -333,8 +334,8 @@ const Home = ({ data }) => {
             </CustomButton>
           </PseudoBox>
         ) : (
-          <PseudoBox mb="24px"></PseudoBox>
-        )}
+            <PseudoBox mb="24px"></PseudoBox>
+          )}
       </Layout>
     </DarkMode>
   )
