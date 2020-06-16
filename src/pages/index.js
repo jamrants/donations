@@ -22,7 +22,7 @@ import DataSort from "react-data-sort"
 import SEO from "../components/seo"
 import FlagMenu from "../components/FlagMenu"
 import DonationSlider from "../components/DonationSlider"
-import { getIpLocation } from "../utils/geolocation"
+import { getLocale, getIpLocation } from "../utils/geolocation"
 
 const Home = ({ data }) => {
   const [filteredCorporations, setFilteredCorporations] = useState(
@@ -52,17 +52,46 @@ const Home = ({ data }) => {
   }
 
   useEffect(() => {
-    getIpLocation().then(location => {
-      setHomeLocale(location)
-      const locale = localeList.find(l => l.Code === location.country)
-      // default to english if not exist
-      if (locale) {
-        setActiveLocale(locale)
-      } else {
-        setActiveLocale(localeList.filter(l => l.Language === "en")[0])
-      }
-    })
-  }, [data])
+    // default to english if not exist
+    let selected = localeList.find(l => l.Language === "en")
+    let home = { lang: "en", country: "US", currency: "USD" }
+    // first try IP location
+    getIpLocation()
+      .then(location => {
+        home = location
+        const locale = localeList.find(l => l.Code === location.country)
+        if (locale) {
+          selected = locale
+        } else {
+          throw new Error("Unknown country, falling back on browser")
+        }
+      })
+      .catch(() => {
+        // fallback to browser language
+        const locale = getLocale()
+        if (locale.country) {
+          const byCountry = localeList.find(l => l.Code === locale.country)
+          if (byCountry) {
+            selected = byCountry
+            home = locale
+          } else {
+            const byLang = localeList.find(l => l.Language === locale.lang)
+            if (byLang) {
+              selected = byLang
+              home = {
+                lang: locale.lang,
+                country: byLang.Code,
+                currency: byLang.Currency,
+              }
+            }
+          }
+        }
+      })
+      .finally(() => {
+        setHomeLocale(home)
+        setActiveLocale(selected)
+      })
+  }, [localeList])
 
   // sorting functions
   const toggleSortType = () => {

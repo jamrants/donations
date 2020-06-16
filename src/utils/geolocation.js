@@ -1,3 +1,5 @@
+import LocaleCurrency from "locale-currency"
+
 export const convertableCurrencies = [
   "CAD",
   "HKD",
@@ -36,7 +38,7 @@ export const convertableCurrencies = [
 
 /**
  * Get the user's locale using navigator.language
- * @returns {{ lang: string, country: string, currency: string }} ISO language, country, and currency codes
+ * @returns {{ lang: string, country: string, currency: string }} ISO language/country/currency codes
  */
 export const getLocale = () => {
   // get user country, sort through locales + income to adjust
@@ -49,8 +51,8 @@ export const getLocale = () => {
   }
 
   let lang = locale
-  let country = "US"
-  let currency = "USD"
+  let country = null
+  let currency = LocaleCurrency.getCurrency(locale)
   // 'en-US' -> ['en', 'US'] and account for zh-Hans_CN
   if (locale.includes("-")) {
     lang = locale.substring(0, 2)
@@ -60,7 +62,16 @@ export const getLocale = () => {
   if (locationCache) {
     country = locationCache.country
   }
-  return { lang, country, currency }
+  return { lang, country, currency: getCurrency(currency) }
+}
+
+/**
+ * Get convertable currency of country
+ * @param {string} country ISO country code
+ */
+export const getCurrency = country => {
+  const currency = LocaleCurrency.getCurrency(country)
+  return convertableCurrencies.includes(currency) ? currency : "USD"
 }
 
 let ipLocationCache = null
@@ -80,9 +91,7 @@ export const getIpLocation = async () => {
     lang: getLocale().lang,
     country: data.country_code,
     postcode: data.postal,
-    currency: convertableCurrencies.includes(data.currency)
-      ? data.currency
-      : "USD",
+    currency: getCurrency(data.currency),
   }
   return ipLocationCache
 }
