@@ -1,5 +1,3 @@
-import LocaleCurrency from "locale-currency"
-
 export const convertableCurrencies = [
   "CAD",
   "HKD",
@@ -62,10 +60,6 @@ export const getLocale = () => {
   if (locationCache) {
     country = locationCache.country
   }
-  const localCurrency = LocaleCurrency.getCurrency(country)
-  if (convertableCurrencies.includes(localCurrency)) {
-    currency = localCurrency
-  }
   return { lang, country, currency }
 }
 
@@ -76,24 +70,21 @@ let ipLocationCache = null
  */
 export const getIpLocation = async () => {
   if (ipLocationCache) return ipLocationCache
-  const url =
-    "https://ip-api.com/json?fields=status,message,countryCode,region,zip"
+  const url = "https://ipapi.co/json"
   const res = await fetch(url)
   const data = await res.json()
-  if (data.status === "success") {
-    const localCurrency = LocaleCurrency.getCurrency(data.countryCode)
-    ipLocationCache = {
-      lang: getLocale().lang,
-      country: data.countryCode,
-      postcode: data.zip,
-      currency: convertableCurrencies.includes(localCurrency)
-        ? localCurrency
-        : "USD",
-    }
-    return ipLocationCache
-  } else {
-    throw new Error(data.message)
+  if (data.error) {
+    throw new Error(data.reason)
   }
+  ipLocationCache = {
+    lang: getLocale().lang,
+    country: data.country_code,
+    postcode: data.postal,
+    currency: convertableCurrencies.includes(data.currency)
+      ? data.currency
+      : "USD",
+  }
+  return ipLocationCache
 }
 
 let locationCache = null
