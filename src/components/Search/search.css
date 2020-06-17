@@ -58,17 +58,22 @@
   }
 }
 
-@media screen and (min-width: 107em) {
+@media screen and (min-width: 118em) {
   .content-container {
     padding-left: 20%;
     padding-right: 20%;
   }
 }
 
-@media screen and (min-width: 86.25em) and (max-width: 107em) {
+@media screen and (min-width: 86.25em) and (max-width: 118em) {
   .content-container {
     padding-left: 17%;
     padding-right: 17%;
+  }
+
+  .padding-normal {
+    padding-left: 17% !important;
+    padding-right: 17% !important;
   }
 }
 
