@@ -5,8 +5,8 @@ export default {
   ...theme,
   fonts: {
     ...theme.fonts,
-    heading: "Metropolis",
-    body: "Metropolis",
+    heading: "Metropolis, system-ui, sans-serif",
+    body: "Metropolis, system-ui, sans-serif",
   },
   colors: {
     ...theme.colors,
