@@ -289,7 +289,7 @@ const Home = ({ data }) => {
               searchQuery={searchValue}
               itemsPerPage={itemsPerPage}
               paginate
-              searchInKeys={["data.Name"]}
+              searchInKeys={["data.Name", "data.Brands"]}
               render={({ data, pages }) => {
                 return data.map((corporation, i) => {
                   if (
@@ -432,6 +432,7 @@ export const query = graphql`
             }
           }
           Percent_Profits
+          Brands
         }
       }
     }
