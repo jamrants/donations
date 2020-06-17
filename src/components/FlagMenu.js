@@ -172,8 +172,8 @@ const FlagMenu = ({ onClick, locales, activeLocale, homeLocale, setHome }) => {
     style: "currency",
     currency: activeLocale.Currency,
   })
-  let currencySymbol = ""
-  let symbolAfter = false
+  let currencySymbol = activeLocale.Currency
+  let symbolAfter = true
   // TODO: polyfill
   if (formatter.formatToParts) {
     const currencyFormat = formatter.formatToParts(1)
