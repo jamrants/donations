@@ -224,7 +224,10 @@ const DonationCard = ({
             fontSize={["20px", null, "24px", "28px", "32px"]}
             lineHeight={["20px", null, "24px", "28px", "32px"]}
           >
-            {(locale.Income * percent).toLocaleString(undefined, {
+            {(locale.Income * percent > 0
+              ? locale.Income * percent
+              : 0
+            ).toLocaleString(undefined, {
               style: "currency",
               currency: locale.Currency,
             })}

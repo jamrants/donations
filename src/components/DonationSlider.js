@@ -98,7 +98,7 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
       })
     )
   }, [locale])
-  const formattedValue = formatter.format(value)
+  const formattedValue = formatter.format(value ? value : 0)
 
   const notches = []
   for (let i = 0; ; i++) {
