@@ -81,15 +81,9 @@ const renderMenuItems = (locales, homeLocale, onClick) => {
 
 const FlagMenu = ({ onClick, locales, activeLocale, homeLocale, setHome }) => {
   const [mine, setMine] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [geoCache, setGeoCache] = useState(null)
   const toast = useToast()
-
-  useEffect(() => {
-    if (homeLocale) {
-      setLoading(false)
-    }
-  }, [homeLocale])
 
   const onChange = (locale, income = null) => {
     if (locale === "mine") {
