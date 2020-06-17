@@ -2,6 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
+
 function SEO({ description, lang, meta, title }) {
   const { site } = useStaticQuery(
     graphql`
@@ -23,7 +24,7 @@ function SEO({ description, lang, meta, title }) {
         lang,
       }}
       title={title}
-      titleTemplate={`%s`}
+      titleTemplate="%s"
       meta={[
         {
           name: `description`,
@@ -68,7 +69,7 @@ function SEO({ description, lang, meta, title }) {
         defer
         data-domain="donations.exposed"
         src="https://plausible.io/js/plausible.js"
-      ></script>
+      />
     </Helmet>
   )
 }

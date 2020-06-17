@@ -189,21 +189,19 @@ const About = () => {
               <Link href="https://airtable.com/shrMnuvCqc5M4J7Ak">
                 Let us know
               </Link>
-              {"."}
+              .
             </H2>
           </Box>
           <Box as="section" mb="32px">
             <H2>
               Want to talk?{" "}
-              <Link href="mailto:jamrants@retrocraft.ca">Email us</Link>
-              {"!"}
+              <Link href="mailto:jamrants@retrocraft.ca">Email us</Link>!
             </H2>
           </Box>
           <Box as="section">
             <H2>
               View all the raw data{" "}
-              <Link href="https://airtable.com/shrb6pZwkGX6rLIQa">here</Link>
-              {"."}
+              <Link href="https://airtable.com/shrb6pZwkGX6rLIQa">here</Link>.
             </H2>
           </Box>
         </Box>
