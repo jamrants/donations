@@ -168,14 +168,20 @@ const FlagMenu = ({ onClick, locales, activeLocale, homeLocale, setHome }) => {
     onChange("mine", e.target.value)
   }
 
-  const currencyFormat = Intl.NumberFormat(undefined, {
+  const formatter = new Intl.NumberFormat(undefined, {
     style: "currency",
     currency: activeLocale.Currency,
-  }).formatToParts(1)
-  const currencySymbol = currencyFormat.find(_ => _.type === "currency").value
-  const symbolAfter =
-    currencyFormat.findIndex(_ => _.type === "currency") >
-    currencyFormat.findIndex(_ => _.type === "integer")
+  })
+  let currencySymbol = ""
+  let symbolAfter = false
+  // TODO: polyfill
+  if (formatter.formatToParts) {
+    const currencyFormat = formatter.formatToParts(1)
+    currencySymbol = currencyFormat.find(_ => _.type === "currency").value
+    symbolAfter =
+      currencyFormat.findIndex(_ => _.type === "currency") >
+      currencyFormat.findIndex(_ => _.type === "integer")
+  }
 
   return (
     <Skeleton isLoaded={!loading}>
