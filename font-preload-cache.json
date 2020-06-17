@@ -1,1 +1,14 @@
-{"timestamp":1591989379143,"hash":"16989cee614a1170a234477346bf6dcb","assets":{"/dev-404-page/":{"/fonts/Metropolis-Medium.woff":true},"/":{"/fonts/Metropolis-Black.woff":true,"/fonts/Metropolis-ExtraBold.woff":true,"/fonts/Metropolis-Bold.woff":true,"/fonts/Metropolis-SemiBold.woff":true,"/fonts/Metropolis-Medium.woff":true}}}
+{
+  "timestamp": 1591989379143,
+  "hash": "16989cee614a1170a234477346bf6dcb",
+  "assets": {
+    "/dev-404-page/": { "/fonts/Metropolis-Medium.woff": true },
+    "/": {
+      "/fonts/Metropolis-Black.woff": true,
+      "/fonts/Metropolis-ExtraBold.woff": true,
+      "/fonts/Metropolis-Bold.woff": true,
+      "/fonts/Metropolis-SemiBold.woff": true,
+      "/fonts/Metropolis-Medium.woff": true
+    }
+  }
+}
