@@ -1,9 +1,8 @@
 import React from "react"
 import { Box, PseudoBox, Text } from "@chakra-ui/core"
 
-const Footer = ({ padding }) => (
+const Footer = ({ ...params }) => (
   <Box
-    px={padding}
     backgroundColor="darkless"
     display="flex"
     flexDirection="column"
@@ -12,6 +11,7 @@ const Footer = ({ padding }) => (
     py="32px"
     color="smoke"
     textAlign="center"
+    {...params}
   >
     <PseudoBox
       color="primary.green"
@@ -53,11 +53,11 @@ const Footer = ({ padding }) => (
         fontWeight="700"
         as="a"
         target="_blank"
-        href="https://github.com/retroCraft"
+        href="https://github.com/retrocraft"
       >
         James Ah Yong
       </PseudoBox>
-      {"."}
+      .
     </Text>
     <Text fontWeight="700" mt="4px">
       Design inspired by{" "}
@@ -82,7 +82,7 @@ const Footer = ({ padding }) => (
       >
         GunFunded.com
       </PseudoBox>
-      {"."}
+      .
     </Text>
     <PseudoBox mt="16px">
       <Text

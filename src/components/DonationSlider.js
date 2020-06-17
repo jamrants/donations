@@ -12,8 +12,8 @@ import {
   Text,
   Icon,
 } from "@chakra-ui/core"
-import CustomButton from "./Button"
 import { useMediaQuery } from "react-responsive"
+import CustomButton from "./Button"
 
 const logScale = (min, max, x) => {
   const n = 1.0 - Math.log(min) / Math.log(max)
@@ -23,9 +23,9 @@ const invLogScale = (min, max, x) => {
   return 1.0 - Math.log(x / max) / Math.log(min / max)
 }
 const fakeLog = x => {
-  if (0 <= x && x <= 25) return x
-  else if (25 < x && x <= 75) return 1.5 * x - 12.5
-  else return 20 * x - 1400
+  if (x >= 0 && x <= 25) return x
+  if (x > 25 && x <= 75) return 1.5 * x - 12.5
+  return 20 * x - 1400
 }
 
 const causes = {
@@ -143,6 +143,7 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
         fontWeight="900"
         fontSize={["24px", "26px", "28px", "30px", "32px"]}
         ref={headerRef}
+        as="h2"
       >
         Make a Donation
       </Text>
@@ -208,7 +209,11 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
           borderRadius="30px"
           backgroundColor="snow"
         />
-        <SliderThumb size="16px" bg="primary.green" />
+        <SliderThumb
+          size="16px"
+          bg="primary.green"
+          aria-label="Donations Slider Thumb"
+        />
         <PseudoBox width="100%" position="absolute">
           {notches.map((notch, i) => {
             const percent = invLogScale(min, max, notch)

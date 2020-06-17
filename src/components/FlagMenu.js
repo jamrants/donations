@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import {
   Menu,
   MenuButton,
@@ -7,17 +7,18 @@ import {
   Icon,
   Input,
   PseudoBox,
+  Skeleton,
+  useToast,
 } from "@chakra-ui/core"
 import ReactCountryFlag from "react-country-flag"
-import LocaleCurrency from "locale-currency"
-import { getLocale } from "../utils/geolocation"
+import { getLocation } from "../utils/geolocation"
 
-const renderMenuItems = (locales, onClick) => {
-  const { country } = getLocale()
+const renderMenuItems = (locales, homeLocale, activeLocale, onClick) => {
+  const { country } = homeLocale
   // countries with implemented postal-level data
-  const postalCountries = [] // ["US", "CA"]
+  const postalCountries = ["US", "CA", "GB"]
   return [
-    // TODO: handle custom income declaration
+    // custom income
     <MenuItem
       py="4px"
       marginBottom="4px"
@@ -30,23 +31,28 @@ const renderMenuItems = (locales, onClick) => {
           style={{ height: "36px", width: "36px", marginRight: "4px" }}
           countryCode={country}
           svg
+          alt={`Image of ${activeLocale.Demonym}'s flag`}
+          aria-label={`Image of ${activeLocale.Demonym}'s flag`}
         />
         {" my household"}
       </span>
     </MenuItem>,
-    // TODO: handle geolocation + ZIP/FSA income
+    // geolocation + ZIP/FSA income
     postalCountries.includes(country) && (
       <MenuItem
         py="4px"
         marginBottom="4px"
         onClick={() => onClick("geo")}
         key="geo"
+        fontSize={["16px", "18px", "20px", "22px", "24px"]}
       >
         <span>
           <ReactCountryFlag
             style={{ height: "36px", width: "36px" }}
             countryCode={country}
             svg
+            alt={`Image of a ${activeLocale.Demonym} flag`}
+            aria-label={`Image of a ${activeLocale.Demonym} flag`}
           />
           {" household near me"}
         </span>
@@ -67,6 +73,8 @@ const renderMenuItems = (locales, onClick) => {
               style={{ height: "32px", width: "32px", marginRight: "4px" }}
               countryCode={locale.Code}
               svg
+              alt={`Image of a ${locale.Demonym} flag`}
+              aria-label={`Image of a ${locale.Demonym} flag`}
             />{" "}
             {locale.Demonym}
             {" household"}
@@ -77,16 +85,18 @@ const renderMenuItems = (locales, onClick) => {
   ]
 }
 
-const FlagMenu = ({ onClick, locales, activeLocale }) => {
+const FlagMenu = ({ onClick, locales, activeLocale, homeLocale, setHome }) => {
   const [mine, setMine] = useState(null)
-  const { lang, country, currency } = getLocale()
+  const [loading, setLoading] = useState(false)
+  const [geoCache, setGeoCache] = useState(null)
+  const toast = useToast()
 
   const onChange = (locale, income = null) => {
     if (locale === "mine") {
       if (income === null) {
         if (mine === null) {
           // initialize to country median income
-          const countryLocale = locales.find(l => l.Code === country)
+          const countryLocale = locales.find(l => l.Code === homeLocale.country)
           income = countryLocale ? countryLocale.Income : 0
         } else {
           income = mine
@@ -94,13 +104,60 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
       }
       onClick({
         Income: income,
-        Language: lang,
-        Code: country,
+        Language: homeLocale.lang,
+        Code: homeLocale.country,
         Demonym: "my",
-        Currency: currency,
-        Measure: "income",
+        Currency: homeLocale.currency,
+        Measure: "household income",
+        Custom: true,
       })
       setMine(income)
+    } else if (locale === "geo") {
+      const newLocale = {
+        Language: homeLocale.lang,
+        Code: homeLocale.country,
+        Currency: homeLocale.currency,
+        Measure: "median household income",
+        Demonym: "my neighborhood's",
+        Geo: true,
+      }
+      if (geoCache) {
+        newLocale.Income = geoCache.income
+        newLocale.Postcode = geoCache.code
+        onClick(newLocale)
+      } else {
+        setLoading(true)
+        getLocation()
+          .then(({ country, currency, postcode }) => {
+            setHome({ lang: homeLocale.lang, country, currency })
+            newLocale.Currency = currency
+            newLocale.Code = country
+            return fetch(
+              `https://us-central1-donations-exposed.cloudfunctions.net/income?country=${country}&postcode=${postcode}`
+            )
+          })
+          .then(res => res.json())
+          .then(data => {
+            newLocale.Income = data.income
+            newLocale.Postcode = data.code
+            console.log(newLocale)
+            onClick(newLocale)
+            setGeoCache(data)
+          })
+          .catch(err => {
+            toast({
+              title: "Oops!",
+              description:
+                "Either we couldn't find your location or we don't have regional data for your area. Input your own income data instead.",
+              status: "error",
+              duration: 9000,
+              isClosable: true,
+            })
+            console.error(err)
+            onChange("mine")
+          })
+          .finally(() => setLoading(false))
+      }
     } else {
       onClick(locale)
     }
@@ -111,19 +168,25 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
     onChange("mine", e.target.value)
   }
 
-  const currencyFormat = Intl.NumberFormat(undefined, {
+  const formatter = new Intl.NumberFormat(undefined, {
     style: "currency",
-    currency,
-  }).formatToParts(1)
-  const currencySymbol = currencyFormat.find(_ => _.type === "currency").value
-  const symbolAfter =
-    currencyFormat.findIndex(_ => _.type === "currency") >
-    currencyFormat.findIndex(_ => _.type === "integer")
+    currency: activeLocale.Currency,
+  })
+  let currencySymbol = activeLocale.Currency
+  let symbolAfter = true
+  // TODO: polyfill
+  if (formatter.formatToParts) {
+    const currencyFormat = formatter.formatToParts(1)
+    currencySymbol = currencyFormat.find(_ => _.type === "currency").value
+    symbolAfter =
+      currencyFormat.findIndex(_ => _.type === "currency") >
+      currencyFormat.findIndex(_ => _.type === "integer")
+  }
 
   return (
-    <>
+    <Skeleton isLoaded={!loading}>
       <Menu>
-        {activeLocale.Demonym !== "my" && " the average "}
+        {!activeLocale.Custom && " the average "}
         <MenuButton
           lineHeight="initial"
           pb="2px"
@@ -149,10 +212,13 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
                 style={{ height: "100%", width: "100%" }}
                 countryCode={activeLocale.Code ? activeLocale.Code : "US"}
                 svg
+                alt={`Image of a ${activeLocale.Demonym} flag`}
+                aria-label={`Image of a ${activeLocale.Demonym} flag`}
               />
-            </PseudoBox>{" "}
-            {activeLocale.Demonym}
-            {" household"}
+            </PseudoBox>
+            {activeLocale.Geo
+              ? " household near me"
+              : ` ${activeLocale.Demonym} household`}
             <Icon
               ml="6px"
               name="chevron_down"
@@ -171,7 +237,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
           width="fit-content"
           zIndex="2"
         >
-          {renderMenuItems(locales, onChange)}
+          {renderMenuItems(locales, homeLocale, activeLocale, onChange)}
         </MenuList>
       </Menu>
       {activeLocale.Demonym === "my" && (
@@ -204,7 +270,7 @@ const FlagMenu = ({ onClick, locales, activeLocale }) => {
           ,{" "}
         </>
       )}
-    </>
+    </Skeleton>
   )
 }
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 
 import { graphql } from "gatsby"
-import Layout from "../components/Layout"
 import {
   Box,
   Text,
@@ -14,6 +13,7 @@ import {
   MenuItem,
   PseudoBox,
 } from "@chakra-ui/core"
+import Layout from "../components/Layout"
 import SearchField from "../components/Search/Search"
 import "../components/Search/search.css"
 import DonationCard from "../components/donationCard"
@@ -22,7 +22,7 @@ import DataSort from "react-data-sort"
 import SEO from "../components/seo"
 import FlagMenu from "../components/FlagMenu"
 import DonationSlider from "../components/DonationSlider"
-import { getLocale } from "../utils/geolocation"
+import { getLocale, getIpLocation } from "../utils/geolocation"
 
 const Home = ({ data }) => {
   const [filteredCorporations, setFilteredCorporations] = useState(
@@ -31,10 +31,8 @@ const Home = ({ data }) => {
   const [localeList, setLocaleList] = useState(
     data.allAirtableCountryIncomes.edges.map(node => node.node.data)
   )
-  const [activeLocale, setActiveLocale] = useState({
-    Currency: "USD",
-    Income: 0,
-  })
+  const [activeLocale, setActiveLocale] = useState()
+  const [homeLocale, setHomeLocale] = useState()
 
   // Slider
   const [sliderOverrideValue, setSliderOverrideValue] = useState()
@@ -54,18 +52,47 @@ const Home = ({ data }) => {
   }
 
   useEffect(() => {
-    const locale = getLocale()
-    let inLocaleList = localeList.find(l => l.Language === locale.lang)
-    // overwrite locale by country
-    if (locale.country) {
-      const country = localeList.find(l => l.Code === locale.country)
-      if (country) inLocaleList = country
-    }
     // default to english if not exist
-    inLocaleList
-      ? setActiveLocale(inLocaleList)
-      : setActiveLocale(localeList.filter(l => l.Language === "en")[0])
-  }, [data])
+    let selected = localeList.find(l => l.Language === "en")
+    let home = { lang: "en", country: "US", currency: "USD" }
+    // first try IP location
+    getIpLocation()
+      .then(location => {
+        home = location
+        const locale = localeList.find(l => l.Code === location.country)
+        if (locale) {
+          selected = locale
+        } else {
+          throw new Error("Unknown country, falling back on browser")
+        }
+      })
+      .catch(() => {
+        // fallback to browser language
+        const locale = getLocale()
+        if (locale.country) {
+          const byCountry = localeList.find(l => l.Code === locale.country)
+          if (byCountry) {
+            selected = byCountry
+            home = locale
+          } else {
+            const byLang = localeList.find(l => l.Language === locale.lang)
+            if (byLang) {
+              selected = byLang
+              home = {
+                lang: locale.lang,
+                country: byLang.Code,
+                currency: byLang.Currency,
+              }
+            }
+          }
+        }
+      })
+      .finally(() => {
+        console.log(home, selected)
+        setHomeLocale(home)
+        setActiveLocale(selected)
+      })
+  }, [localeList])
 
   // sorting functions
   const toggleSortType = () => {
@@ -76,17 +103,17 @@ const Home = ({ data }) => {
   const setSortBy = field => {
     setItemsPerPage(20)
     if (field === "Name") {
-      setSortByField("data." + field)
+      setSortByField(`data.${field}`)
       setSortByText("Name")
     }
 
     if (field === "Percent_Profits") {
-      setSortByField("data." + field)
+      setSortByField(`data.${field}`)
       setSortByText("% Profit Donated")
     }
 
     if (field === "Donation__thousands_") {
-      setSortByField("data." + field)
+      setSortByField(`data.${field}`)
       setSortByText("Amount Donated")
     }
   }
@@ -115,16 +142,26 @@ const Home = ({ data }) => {
           <>
             Corporations have made headlines with big donations recently — how
             much would{" "}
-            <FlagMenu
-              onClick={setActiveLocale}
-              activeLocale={activeLocale}
-              locales={localeList}
-            />{" "}
+            {activeLocale ? (
+              <FlagMenu
+                onClick={setActiveLocale}
+                setHome={setHomeLocale}
+                homeLocale={homeLocale}
+                activeLocale={activeLocale}
+                locales={localeList}
+              />
+            ) : (
+              <Skeleton
+                margin="auto"
+                w="70%"
+                h={["20px", "24px", "28px", "31px", "38px"]}
+              />
+            )}{" "}
             need to match their donation?
           </>
         }
       >
-        <SEO title={"Donations Exposed"} />
+        <SEO title="Donations Exposed" />
         <Box pt="64px" pb={["48px", null, null, "52px", "64px"]}>
           <Box
             textAlign="center"
@@ -133,13 +170,30 @@ const Home = ({ data }) => {
             alignItems="center"
             justifyContent="center"
           >
-            <DonationSlider
-              locale={activeLocale}
-              corporations={filteredCorporations
-                .map(_ => _.data)
-                .sort((a, b) => b.Percent_Profits - a.Percent_Profits)}
-              overrideValue={sliderOverrideValue}
-            />
+            {activeLocale ? (
+              <DonationSlider
+                locale={activeLocale}
+                corporations={filteredCorporations
+                  .map(_ => _.data)
+                  .sort((a, b) => b.Percent_Profits - a.Percent_Profits)}
+                overrideValue={sliderOverrideValue}
+              />
+            ) : (
+              <>
+                <Skeleton
+                  colorStart="darkless"
+                  colorEnd="slate"
+                  h="220px"
+                  borderRadius="10px"
+                />
+                <Skeleton
+                  colorStart="darkless"
+                  colorEnd="slate"
+                  h="220px"
+                  borderRadius="10px"
+                />
+              </>
+            )}
           </Box>
         </Box>
         <Box pb={["24px", null, "32px", "48px", "64px"]}>
@@ -155,6 +209,7 @@ const Home = ({ data }) => {
               fontWeight="900"
               fontSize={["24px", "26px", "28px", "30px", "32px"]}
               lineHeight={["24px", "26px", "28px", "30px", "32px"]}
+              as="h2"
             >
               Find a Corporation
             </Text>
@@ -227,7 +282,7 @@ const Home = ({ data }) => {
           gridColumnGap={["20px", "20px", "32px", "40px", "48px"]}
           gridRowGap={["20px", "20px", "32px  ", "40px", "48px"]}
         >
-          {activeLocale.Currency ? (
+          {activeLocale ? (
             <DataSort
               data={filteredCorporations}
               sortBy={sortByField}
@@ -235,7 +290,7 @@ const Home = ({ data }) => {
               searchQuery={searchValue}
               itemsPerPage={itemsPerPage}
               paginate
-              searchInKeys={["data.Name"]}
+              searchInKeys={["data.Name", "data.Brands"]}
               render={({ data, pages }) => {
                 return data.map((corporation, i) => {
                   if (
@@ -334,7 +389,7 @@ const Home = ({ data }) => {
             </CustomButton>
           </PseudoBox>
         ) : (
-          <PseudoBox mb="24px"></PseudoBox>
+          <PseudoBox mb="24px" />
         )}
       </Layout>
     </DarkMode>
@@ -378,6 +433,7 @@ export const query = graphql`
             }
           }
           Percent_Profits
+          Brands
         }
       }
     }

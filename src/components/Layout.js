@@ -4,8 +4,8 @@ import Hero from "./Hero"
 import Footer from "./Footer"
 
 const breakpoints = ["30em", "48em", "62em", "65.9375em", "75em", "107em"]
-//1200px - 7%
-//1055px -  5%
+// 1200px - 7%
+// 1055px -  5%
 // 62em - 20% - hero - 10%
 breakpoints.xs = breakpoints[0]
 breakpoints.sm = breakpoints[1]
@@ -26,7 +26,7 @@ const Layout = ({ children, title, subtitle, page }) => (
     ) : (
       <PseudoBox px={["24px", null, null, "17%", "20%"]}>{children}</PseudoBox>
     )}
-    <Footer padding={["32px", null, null, "17%", "20%"]} />
+    <Footer px={["32px", null, null, "17%", "20%"]} />
   </Box>
 )
 
