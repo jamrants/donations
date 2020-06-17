@@ -10,6 +10,7 @@ on:
   repository_dispatch:
     types: [airtable]
 
+jobs:
   build:
     runs-on: ubuntu-latest
     steps:
