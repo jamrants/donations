@@ -193,6 +193,7 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
         </MenuList>
       </Menu>
       <Slider
+        aria-label="Donations Slider"
         value={rawValue}
         onChange={setRawValue}
         name="donation"
