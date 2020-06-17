@@ -209,6 +209,7 @@ const Home = ({ data }) => {
               fontWeight="900"
               fontSize={["24px", "26px", "28px", "30px", "32px"]}
               lineHeight={["24px", "26px", "28px", "30px", "32px"]}
+              as="h2"
             >
               Find a Corporation
             </Text>
