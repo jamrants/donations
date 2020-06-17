@@ -13,7 +13,7 @@ import {
 import ReactCountryFlag from "react-country-flag"
 import { getLocation } from "../utils/geolocation"
 
-const renderMenuItems = (locales, homeLocale, onClick) => {
+const renderMenuItems = (locales, homeLocale, activeLocale, onClick) => {
   const { country } = homeLocale
   // countries with implemented postal-level data
   const postalCountries = ["US", "CA", "GB"]
@@ -31,6 +31,8 @@ const renderMenuItems = (locales, homeLocale, onClick) => {
           style={{ height: "36px", width: "36px", marginRight: "4px" }}
           countryCode={country}
           svg
+          alt={`Image of ${activeLocale.Demonym}'s flag`}
+          aria-label={`Image of ${activeLocale.Demonym}'s flag`}
         />
         {" my household"}
       </span>
@@ -49,6 +51,8 @@ const renderMenuItems = (locales, homeLocale, onClick) => {
             style={{ height: "36px", width: "36px" }}
             countryCode={country}
             svg
+            alt={`Image of a ${activeLocale.Demonym} flag`}
+            aria-label={`Image of a ${activeLocale.Demonym} flag`}
           />
           {" household near me"}
         </span>
@@ -69,6 +73,8 @@ const renderMenuItems = (locales, homeLocale, onClick) => {
               style={{ height: "32px", width: "32px", marginRight: "4px" }}
               countryCode={locale.Code}
               svg
+              alt={`Image of a ${locale.Demonym} flag`}
+              aria-label={`Image of a ${locale.Demonym} flag`}
             />{" "}
             {locale.Demonym}
             {" household"}
@@ -200,6 +206,8 @@ const FlagMenu = ({ onClick, locales, activeLocale, homeLocale, setHome }) => {
                 style={{ height: "100%", width: "100%" }}
                 countryCode={activeLocale.Code ? activeLocale.Code : "US"}
                 svg
+                alt={`Image of a ${activeLocale.Demonym} flag`}
+                aria-label={`Image of a ${activeLocale.Demonym} flag`}
               />
             </PseudoBox>
             {activeLocale.Geo
@@ -223,7 +231,7 @@ const FlagMenu = ({ onClick, locales, activeLocale, homeLocale, setHome }) => {
           width="fit-content"
           zIndex="2"
         >
-          {renderMenuItems(locales, homeLocale, onChange)}
+          {renderMenuItems(locales, homeLocale, activeLocale, onChange)}
         </MenuList>
       </Menu>
       {activeLocale.Demonym === "my" && (
