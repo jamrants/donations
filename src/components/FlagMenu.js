@@ -113,7 +113,7 @@ const FlagMenu = ({ onClick, locales, activeLocale, homeLocale, setHome }) => {
       })
       setMine(income)
     } else if (locale === "geo") {
-      let newLocale = {
+      const newLocale = {
         Language: homeLocale.lang,
         Code: homeLocale.country,
         Currency: homeLocale.currency,
