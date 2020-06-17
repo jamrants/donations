@@ -128,10 +128,10 @@ const About = () => {
                 styleType="decimal"
               >
                 <ListItem>Revenue less cost of revenue</ListItem>
-                <ListItem>Gross Profit</ListItem>
-                <ListItem>Operating Income</ListItem>
+                <ListItem>Gross profit</ListItem>
+                <ListItem>Operating income</ListItem>
                 <ListItem>
-                  Third-party estimates (for private companies)
+                  Third-party estimates of gross revenue (for private companies)
                 </ListItem>
               </List>
             </Paragraph>
@@ -148,19 +148,35 @@ const About = () => {
               since there is no cost of revenue in personal finances. The{" "}
               <Link href="https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/prof/details/download-telecharger/comp/page_dl-tc.cfm?Lang=E">
                 Canadian
-              </Link>{" "}
-              and{" "}
+              </Link>
+              {", "}
               <Link href="https://data.census.gov/cedsci/table?g=0100000US.860000&text=s1903&tid=ACSST5Y2018.S1903&hidePreview=false&vintage=2018&layer=VT_2018_860_00_PY_D1&cid=S1903_C01_001E">
                 American
+              </Link>
+              {", and "}
+              <Link href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/smallareaincomeestimatesformiddlelayersuperoutputareasenglandandwales">
+                British
               </Link>{" "}
-              censuses report median household total income. These are further
-              drilled down by{" "}
-              <Link href="https://airtable.com/shrpsRjYtdHVE39DQ">FSA</Link>{" "}
-              (the first three letters of postal codes) and{" "}
+              censuses report median household total income by{" "}
+              <Link href="https://airtable.com/shrpsRjYtdHVE39DQ">FSAs</Link>{" "}
+              (the first three letters of postal codes){", "}
               <Link href="https://airtable.com/shrTF0rwa0j0EgG10">
                 ZIP codes
               </Link>
-              .
+              , and{" "}
+              <Link href="https://airtable.com/shrpsRjYtdHVE39DQ">MSOAs</Link>,
+              respectively.
+              <br />
+              <small>
+                This website includes information copyright the Canada Post
+                Corporation (2016). This website uses United States Census
+                Bureau data but is not endorsed or certified by the Census
+                Bureau. This website contains data from the United Kingdom
+                Office for National Statistics licensed under the Open
+                Government Licence v3.0 and Royal Mail data under Royal Mail
+                copyright and database right (2020).
+                <br />
+              </small>
             </Paragraph>
             <Paragraph>
               The adjusted figure shown is calculated by taking the percent of

@@ -31,7 +31,7 @@ const DonationCard = ({
   const [zIndex, setZIndex] = useState(0)
   const click = () => {
     // scrolling handled in slider
-    onClick(percent * locale.Income)
+    onClick(percent * locale.Income + 0.01)
   }
   return (
     <PseudoBox
@@ -226,7 +226,7 @@ const DonationCard = ({
           >
             {(locale.Income * percent).toLocaleString(undefined, {
               style: "currency",
-              currency: locale.Currency ? locale.Currency : "USD",
+              currency: locale.Currency,
             })}
           </Text>
           <Text
@@ -247,7 +247,7 @@ const DonationCard = ({
             >
               <PopoverTrigger>
                 <PseudoBox as="span" borderBottom="1px solid #6C6C72">
-                  {locale.Demonym === "my" ? "my" : "avg."} income
+                  {locale.Custom ? "my" : "avg."} income
                 </PseudoBox>
               </PopoverTrigger>
               <PopoverContent
@@ -262,7 +262,7 @@ const DonationCard = ({
               >
                 <Box>
                   {locale.Demonym} {locale.Measure} of{" "}
-                  {locale.Income.toLocaleString(locale, {
+                  {locale.Income.toLocaleString(undefined, {
                     style: "currency",
                     currency: locale.Currency ? locale.Currency : "USD",
                   })}{" "}

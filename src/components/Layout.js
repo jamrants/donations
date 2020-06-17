@@ -26,7 +26,7 @@ const Layout = ({ children, title, subtitle, page }) => (
     ) : (
       <PseudoBox px={["24px", null, null, "17%", "20%"]}>{children}</PseudoBox>
     )}
-    <Footer padding={["32px", null, null, "17%", "20%"]} />
+    <Footer px={["32px", null, null, "17%", "20%"]} />
   </Box>
 )
 
