@@ -20,7 +20,7 @@ const SearchField = ({ value, onChange, placeholder }) => (
       py="8px"
       className="search-field"
     />
-    <label htmlFor="find-corporation" hidden>
+    <label for="find-corporation" hidden>
       Search for a corporation
     </label>
   </>

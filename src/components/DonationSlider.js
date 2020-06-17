@@ -208,7 +208,11 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
           borderRadius="30px"
           backgroundColor="snow"
         />
-        <SliderThumb size="16px" bg="primary.green" />
+        <SliderThumb
+          size="16px"
+          bg="primary.green"
+          aria-label="Donations Slider Thumb"
+        />
         <PseudoBox width="100%" position="absolute">
           {notches.map((notch, i) => {
             const percent = invLogScale(min, max, notch)
