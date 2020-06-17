@@ -57,7 +57,7 @@ const Footer = ({ ...params }) => (
       >
         James Ah Yong
       </PseudoBox>
-      {"."}
+      .
     </Text>
     <Text fontWeight="700" mt="4px">
       Design inspired by{" "}
@@ -82,7 +82,7 @@ const Footer = ({ ...params }) => (
       >
         GunFunded.com
       </PseudoBox>
-      {"."}
+      .
     </Text>
     <PseudoBox mt="16px">
       <Text

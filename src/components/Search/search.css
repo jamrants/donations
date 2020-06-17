@@ -1,5 +1,5 @@
 .search-field::placeholder {
-  color: #3C4858 !important;
+  color: #3c4858 !important;
 }
 
 .card-image {
@@ -48,10 +48,10 @@
   .content-container {
     padding-left: 7%;
     padding-right: 7%;
-  };
+  }
 }
 
-@media screen and (max-width: 65.9375em) and (max-width: 86.25em){
+@media screen and (max-width: 65.9375em) and (max-width: 86.25em) {
   .content-container {
     padding-left: 5%;
     padding-right: 5%;
@@ -65,14 +65,14 @@
   }
 }
 
-@media screen and (min-width: 86.25em) and (max-width: 107em)  {
+@media screen and (min-width: 86.25em) and (max-width: 107em) {
   .content-container {
     padding-left: 17%;
-    padding-right: 17%
+    padding-right: 17%;
   }
 }
 
-@media screen and (min-width: 75em) and (max-width: 86.25em) { 
+@media screen and (min-width: 75em) and (max-width: 86.25em) {
   .content-container {
     padding-left: 12%;
     padding-right: 12%;
@@ -100,28 +100,28 @@
 
 /* The emerging W3C standard
    that is currently Firefox-only */
-   * {
-    scrollbar-width:thin;
-    scrollbar-color: #F9FAFC #121217;
-  }
-  
-  /* Works on Chrome/Edge/Safari */
-  *::-webkit-scrollbar {
-    width: 16px;
-  }
-  *::-webkit-scrollbar-track {
-    background: #121217;
-  }
-  *::-webkit-scrollbar-thumb {
-    background-color: #F9FAFC;
-    border-radius: 20px;
-    border: 4px solid #121217;
-  }
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #f9fafc #121217;
+}
 
-  .flag-menu::-webkit-scrollbar {
-    width: 10px;
-  }
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 16px;
+}
+*::-webkit-scrollbar-track {
+  background: #121217;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #f9fafc;
+  border-radius: 20px;
+  border: 4px solid #121217;
+}
 
-  .flag-menu::-webkit-scrollbar-thumb {
-    border-width: 2px;
-  }
+.flag-menu::-webkit-scrollbar {
+  width: 10px;
+}
+
+.flag-menu::-webkit-scrollbar-thumb {
+  border-width: 2px;
+}

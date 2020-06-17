@@ -73,9 +73,8 @@ export const getCurrency = country => {
   console.log(currency)
   if (convertableCurrencies.includes(currency)) {
     return currency
-  } else {
-    return "USD"
   }
+  return "USD"
 }
 
 let ipLocationCache = null
@@ -121,7 +120,7 @@ export const getLocation = async () => {
     const res = await fetch(url)
     const { address } = await res.json()
     const country = address.country_code.toUpperCase()
-    let postcode = address.postcode
+    let { postcode } = address
     // overwrite with MSOA instead of postcode for UK
     // income data is provied at the MSOA level, not postcode level
     if (country === "GB") {
