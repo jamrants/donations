@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 
 import { graphql } from "gatsby"
-import Layout from "../components/Layout"
 import {
   Box,
   Text,
@@ -14,6 +13,7 @@ import {
   MenuItem,
   PseudoBox,
 } from "@chakra-ui/core"
+import Layout from "../components/Layout"
 import SearchField from "../components/Search/Search"
 import "../components/Search/search.css"
 import DonationCard from "../components/donationCard"
@@ -103,17 +103,17 @@ const Home = ({ data }) => {
   const setSortBy = field => {
     setItemsPerPage(20)
     if (field === "Name") {
-      setSortByField("data." + field)
+      setSortByField(`data.${field}`)
       setSortByText("Name")
     }
 
     if (field === "Percent_Profits") {
-      setSortByField("data." + field)
+      setSortByField(`data.${field}`)
       setSortByText("% Profit Donated")
     }
 
     if (field === "Donation__thousands_") {
-      setSortByField("data." + field)
+      setSortByField(`data.${field}`)
       setSortByText("Amount Donated")
     }
   }
@@ -161,7 +161,7 @@ const Home = ({ data }) => {
           </>
         }
       >
-        <SEO title={"Donations Exposed"} />
+        <SEO title="Donations Exposed" />
         <Box pt="64px" pb={["48px", null, null, "52px", "64px"]}>
           <Box
             textAlign="center"
@@ -388,7 +388,7 @@ const Home = ({ data }) => {
             </CustomButton>
           </PseudoBox>
         ) : (
-          <PseudoBox mb="24px"></PseudoBox>
+          <PseudoBox mb="24px" />
         )}
       </Layout>
     </DarkMode>

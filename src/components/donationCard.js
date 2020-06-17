@@ -45,7 +45,7 @@ const DonationCard = ({
       boxShadow="rgba(0, 0, 0, 0.125) 0px 4px 8px;"
       transition="all .2s ease-in-out"
       _hover={{ transform: "scale(1.05)" }}
-      key={name + "Donation Stats"}
+      key={`${name}Donation Stats`}
       zIndex={zIndex}
     >
       <Box display="flex" flexDirection="row" alignItems="center">
@@ -106,7 +106,7 @@ const DonationCard = ({
                           href={
                             source.includes("http")
                               ? source
-                              : "https://" + source
+                              : `https://${source}`
                           }
                           target="_blank"
                         >
@@ -120,7 +120,7 @@ const DonationCard = ({
                       textDecoration="underline"
                       mt="4px"
                       as="a"
-                      href={"https://" + donationSources}
+                      href={`https://${donationSources}`}
                       target="_blank"
                     >
                       Source
@@ -130,7 +130,7 @@ const DonationCard = ({
               </PopoverContent>
             </Popover>
             <Box as="span" fontSize={["12px", null, "14px", "15px", "16px"]}>
-              {" " + donationCurrency}
+              {` ${donationCurrency}`}
             </Box>
           </Text>
         </Box>
@@ -192,7 +192,7 @@ const DonationCard = ({
                           href={
                             source.includes("http")
                               ? source
-                              : "https://" + source
+                              : `https://${source}`
                           }
                           target="_blank"
                         >
@@ -206,7 +206,7 @@ const DonationCard = ({
                       textDecoration="underline"
                       mt="4px"
                       as="a"
-                      href={"https://" + profitSources}
+                      href={`https://${profitSources}`}
                       target="_blank"
                     >
                       Source
