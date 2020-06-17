@@ -5,10 +5,11 @@ on:
   pull_request:
   push:
     branches:
+      - production
       - develop
   repository_dispatch:
     types: [airtable]
-    
+
 jobs:
   build:
     runs-on: ubuntu-latest
