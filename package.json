@@ -2,7 +2,7 @@
   "name": "donations-exposed",
   "private": true,
   "description": "Tracking how much corporation donations would be to everyday people",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
