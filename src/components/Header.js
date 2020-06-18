@@ -7,7 +7,7 @@ const Header = () => (
     flexDirection="row"
     justifyContent="space-between"
     alignItems="center"
-    h="60px"
+    h="65px"
     fontSize={["16px", "18px", null, "20px"]}
     color="primary.green"
   >

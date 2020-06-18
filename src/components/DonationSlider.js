@@ -149,17 +149,17 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
       <Menu>
         <Text
           color="snow"
-          mb={["16px", null, null, null, "24px"]}
-          fontSize={["16px", null, null, "18px"]}
-          mt={["2px", null, null, "4px"]}
+          mb={["24px !important", "24px", "24px", "24px", "30px !important"]}
+          mt={["12px !important", "10px !important", "8px !important", "8px"]}
+          fontSize={["16px", "16px", "16px", "18px", "20px"]}
+          maxW="1024px"
+          margin="auto"
         >
           Every dollar counts. We're not trying to shame companies for donating
-          pennies on the dollar.
-          <br />
+          pennies on the dollar. <wbr />
           If you haven't donated yet, donate some pennies on yours to{" "}
           <MenuButton
             lineHeight="initial"
-            mb="24px"
             pb="3px"
             px="4px"
             ml={["6px", null, "4px"]}

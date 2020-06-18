@@ -203,6 +203,8 @@ const Home = ({ data }) => {
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
+            maxW="1024px"
+            margin="auto"
           >
             <Text
               color="primary.red"
@@ -215,33 +217,32 @@ const Home = ({ data }) => {
             </Text>
             <Text
               color="snow"
-              mb={["16px", null, null, null, "24px"]}
-              fontSize={["16px", null, null, "18px"]}
-              mt={["2px", null, null, "4px"]}
-            >
-              When you donate, you choose to spend a percent of your money.
-              <br />
-              When a company donates, it chooses to spend a percent of its
-              money.
-              <br />
-              We can compare these two numbers:
+              mb={["20px !important", "12px  !important", "16px", "12px !important", "16px !important"]}
+              mt={["16px !important", "14px !important", "12px !important", "8px"]}
+              fontSize={["16px", "16px", "16px", "18px", "20px"]}
+              >
+              When you donate, you choose to spend a percent of your money. When
+              a company donates, it chooses to spend a percent of its money. We
+              can compare these two numbers:
             </Text>
             <Text
               color="snow"
-              fontSize={["24px", null, null, "36px"]}
+              fontSize={["20px", "22px", "24px", "26px", "30px"]}
               display="flex"
-              mb={["16px", null, null, null, "24px"]}
+              mb={["8px", "12px", "12px", "12px", "16px"]}
+              className="why-text"
             >
-              <PseudoBox textAlign="left">its donation&nbsp;</PseudoBox>
-              <PseudoBox textAlign="left">&divide; its profit&nbsp;</PseudoBox>
-              <PseudoBox textAlign="left">&times; your income&nbsp;</PseudoBox>
-              <PseudoBox textAlign="left">= your donation&nbsp;</PseudoBox>
+              <PseudoBox textAlign="left">its donation<span className="space">&nbsp;</span></PseudoBox>
+              <PseudoBox textAlign="left">&divide; its profit<span className="space">&nbsp;</span></PseudoBox>
+              <PseudoBox textAlign="left">&times; your income<span className="space">&nbsp;</span></PseudoBox>
+              <PseudoBox textAlign="left">= your donation</PseudoBox>
             </Text>
             <PseudoBox
               color="primary.green"
               fontWeight="700"
               as="a"
               href="/about"
+              fontSize={["16px", "16px", "16px", "18px", "20px"]}
             >
               More on methodology →
             </PseudoBox>
