@@ -7,18 +7,15 @@ const Header = () => (
     flexDirection="row"
     justifyContent="space-between"
     alignItems="center"
-    h="60px"
-    fontSize="16px"
+    h="65px"
+    fontSize={["16px", "18px", null, "20px"]}
     color="primary.green"
   >
     <Box fontWeight="black" as="a" href="/">
-      Donations Exposed
+      Donations Revealed
     </Box>
     <Box>
-      <List fontWeight="800">
-        <ListItem mr={[2, null, null, 4]} as="a" href="/">
-          Home
-        </ListItem>
+      <List as="nav" fontWeight="800" role="navigation">
         <ListItem as="a" href="/about">
           About
         </ListItem>

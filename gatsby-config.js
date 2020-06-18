@@ -4,7 +4,7 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    title: "Donations Exposed",
+    title: "Donations Revealed",
     description:
       "Corporations have made headlines with big donations recently — how much would the average household need to match their donation?",
     author: "jamrants",
@@ -50,7 +50,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Donations Exposed`,
+        name: `Donations Revealed`,
         short_name: `Donations`,
         start_url: `/`,
         background_color: `#17171d`,
