@@ -139,7 +139,6 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
     <>
       <Text
         color="primary.red"
-        mb={["12px", null, null, null, "20px"]}
         fontWeight="900"
         fontSize={["24px", "26px", "28px", "30px", "32px"]}
         ref={headerRef}

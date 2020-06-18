@@ -4,7 +4,7 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    title: "Donations Exposed",
+    title: "Donations Revealed",
     description:
       "Corporations have made headlines with big donations recently — how much would the average household need to match their donation?",
     author: "jamrants",

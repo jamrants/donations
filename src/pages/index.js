@@ -140,7 +140,7 @@ const Home = ({ data }) => {
         }
         subtitle={
           <>
-            Corporations have made headlines with big donations recently — how
+            Corporations have made headlines with big donations recently. How
             much would{" "}
             {activeLocale ? (
               <FlagMenu
@@ -161,7 +161,7 @@ const Home = ({ data }) => {
           </>
         }
       >
-        <SEO title="Donations Exposed" />
+        <SEO title="Donations Revealed" />
         <Box pt="64px" pb={["48px", null, null, "52px", "64px"]}>
           <Box
             textAlign="center"
@@ -194,6 +194,57 @@ const Home = ({ data }) => {
                 />
               </>
             )}
+          </Box>
+        </Box>
+        <Box pb={["48px", null, null, "52px", "64px"]}>
+          <Box
+            textAlign="center"
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Text
+              color="primary.red"
+              fontWeight="900"
+              fontSize={["24px", "26px", "28px", "30px", "32px"]}
+              lineHeight={["24px", "26px", "28px", "30px", "32px"]}
+              as="h2"
+            >
+              What?
+            </Text>
+            <Text
+              color="snow"
+              mb={["16px", null, null, null, "24px"]}
+              fontSize={["16px", null, null, "18px"]}
+              mt={["2px", null, null, "4px"]}
+            >
+              When you donate, you choose to spend a percent of your money.
+              <br />
+              When a company donates, it chooses to spend a percent of its
+              money.
+              <br />
+              We can compare these two numbers:
+            </Text>
+            <Text
+              color="snow"
+              fontSize={["24px", null, null, "36px"]}
+              display="flex"
+              mb={["16px", null, null, null, "24px"]}
+            >
+              <PseudoBox textAlign="left">its donation&nbsp;</PseudoBox>
+              <PseudoBox textAlign="left">&divide; its profit&nbsp;</PseudoBox>
+              <PseudoBox textAlign="left">&times; your income&nbsp;</PseudoBox>
+              <PseudoBox textAlign="left">= your donation&nbsp;</PseudoBox>
+            </Text>
+            <PseudoBox
+              color="primary.green"
+              fontWeight="700"
+              as="a"
+              href="/about"
+            >
+              More on methodology →
+            </PseudoBox>
           </Box>
         </Box>
         <Box pb={["24px", null, "32px", "48px", "64px"]}>
