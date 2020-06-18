@@ -50,7 +50,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Donations Exposed`,
+        name: `Donations Revealed`,
         short_name: `Donations`,
         start_url: `/`,
         background_color: `#17171d`,
