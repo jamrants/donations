@@ -217,10 +217,21 @@ const Home = ({ data }) => {
             </Text>
             <Text
               color="snow"
-              mb={["20px !important", "12px  !important", "16px", "12px !important", "16px !important"]}
-              mt={["16px !important", "14px !important", "12px !important", "8px"]}
+              mb={[
+                "20px !important",
+                "12px  !important",
+                "16px",
+                "12px !important",
+                "16px !important",
+              ]}
+              mt={[
+                "16px !important",
+                "14px !important",
+                "12px !important",
+                "8px",
+              ]}
               fontSize={["16px", "16px", "16px", "18px", "20px"]}
-              >
+            >
               When you donate, you choose to spend a percent of your money. When
               a company donates, it chooses to spend a percent of its money. We
               can compare these two numbers:
@@ -232,9 +243,15 @@ const Home = ({ data }) => {
               mb={["10px", "12px", "12px", "12px", "16px"]}
               className="why-text"
             >
-              <PseudoBox textAlign="left">its donation<span className="space">&nbsp;</span></PseudoBox>
-              <PseudoBox textAlign="left">&divide; its profit<span className="space">&nbsp;</span></PseudoBox>
-              <PseudoBox textAlign="left">&times; your income<span className="space">&nbsp;</span></PseudoBox>
+              <PseudoBox textAlign="left">
+                its donation<span className="space">&nbsp;</span>
+              </PseudoBox>
+              <PseudoBox textAlign="left">
+                &divide; its profit<span className="space">&nbsp;</span>
+              </PseudoBox>
+              <PseudoBox textAlign="left">
+                &times; your income<span className="space">&nbsp;</span>
+              </PseudoBox>
               <PseudoBox textAlign="left">= your donation</PseudoBox>
             </Text>
             <PseudoBox
