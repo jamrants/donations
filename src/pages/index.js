@@ -128,14 +128,14 @@ const Home = ({ data }) => {
         page="Home"
         title={
           <>
-            Donations Expo
+            Donation
             <PseudoBox
               as="span"
               fontSize={["36px", "44px", "48px", "56px", "72px"]}
             >
               $
-            </PseudoBox>
-            ed
+            </PseudoBox>{" "}
+            Revealed
           </>
         }
         subtitle={

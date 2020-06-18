@@ -40,12 +40,12 @@ const causes = {
       "https://secure.actblue.com/contribute/page/support-us?amount=%s&ref=donations.exposed",
   },
   eji: {
-    name: "Equal Justice Initiative",
+    name: "the Equal Justice Initiative",
     url:
       "https://support.eji.org/give/153413/#!/donation/checkout?amount=%s&ref=donations.exposed",
   },
   naacpLdf: {
-    name: "NAACP Legal Defense Fund",
+    name: "the NAACP Legal Defense Fund",
     url:
       "https://org2.salsalabs.com/o/6857/p/salsa/donation/common/public/?donate_page_KEY=15780&amount=%s&ref=donations.exposed",
   },
@@ -148,25 +148,33 @@ const DonationSlider = ({ locale, corporations, overrideValue }) => {
         Make a Donation
       </Text>
       <Menu>
-        <MenuButton
-          lineHeight="initial"
-          mb="24px"
-          pb="3px"
-          px="4px"
-          ml={["6px", null, "4px"]}
-          borderBottom="2.5px solid #F9FAFC"
+        <Text
           color="snow"
-          fontWeight="600"
-          fontSize={["16px", "16px", "16px", "18px", "20px"]}
-          whiteSpace="nowrap"
-          display="flex"
-          flexDirection="row"
-          justifyContent="center"
-          alignItems="center"
+          mb={["16px", null, null, null, "24px"]}
+          fontSize={["16px", null, null, "18px"]}
+          mt={["2px", null, null, "4px"]}
         >
-          {causes[causeValue].name}
-          <Icon ml="6px" name="chevron_down" h={["10px"]} display="inline" />
-        </MenuButton>
+          Every dollar counts. We're not trying to shame companies for donating
+          pennies on the dollar.
+          <br />
+          If you haven't donated yet, donate some pennies on yours to{" "}
+          <MenuButton
+            lineHeight="initial"
+            mb="24px"
+            pb="3px"
+            px="4px"
+            ml={["6px", null, "4px"]}
+            borderBottom="2.5px solid #F9FAFC"
+            color="snow"
+            fontWeight="600"
+            fontSize={["16px", "16px", "16px", "18px", "20px"]}
+            whiteSpace="nowrap"
+            display="inline"
+          >
+            {causes[causeValue].name}
+            <Icon ml="6px" name="chevron_down" h={["10px"]} display="inline" />
+          </MenuButton>
+        </Text>
         <MenuList
           className="flag-menu"
           border="none"

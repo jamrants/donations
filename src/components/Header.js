@@ -12,7 +12,7 @@ const Header = () => (
     color="primary.green"
   >
     <Box fontWeight="black" as="a" href="/">
-      Donations Exposed
+      Donations Revealed
     </Box>
     <Box>
       <List fontWeight="800">
