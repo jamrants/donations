@@ -229,7 +229,7 @@ const Home = ({ data }) => {
               color="snow"
               fontSize={["20px", "22px", "24px", "26px", "30px"]}
               display="flex"
-              mb={["8px", "12px", "12px", "12px", "16px"]}
+              mb={["10px", "12px", "12px", "12px", "16px"]}
               className="why-text"
             >
               <PseudoBox textAlign="left">its donation<span className="space">&nbsp;</span></PseudoBox>
