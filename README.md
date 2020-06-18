@@ -35,7 +35,7 @@
     <img src="src/assets/icon.svg" alt="Logo" height="80" width="80">
   </a>
 
-  <h3 align="center">Donations Exposed</h3>
+  <h3 align="center">Donations Revealed</h3>
 
   <p align="center">
     Corporations have made headlines with big pledges recently – tracking how much they'd be to the average person.
