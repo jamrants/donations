@@ -130,3 +130,14 @@
 .flag-menu::-webkit-scrollbar-thumb {
   border-width: 2px;
 }
+
+/** why section **/
+@media screen and (max-width: 748px) {
+  .why-text {
+    flex-direction: column;
+  }
+
+  .space {
+    display: none;
+  }
+}
