@@ -55,7 +55,7 @@ jobs:
 
       - name: Deploy to Netlify
         id: netlify-deploy
-        uses: nwtgck/actions-netlify@v1.1.3
+        uses: nwtgck/actions-netlify@v1.1.5
         with:
           # Publish directory
           publish-dir: "./public"
