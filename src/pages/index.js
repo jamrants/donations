@@ -236,7 +236,7 @@ const Home = ({ data }) => {
               a company donates, it chooses to spend a percent of its money. We
               can compare these two numbers:
             </Text>
-            <Text
+            <Box
               color="snow"
               fontSize={["20px", "22px", "24px", "26px", "30px"]}
               display="flex"
@@ -253,7 +253,7 @@ const Home = ({ data }) => {
                 &times; your income<span className="space">&nbsp;</span>
               </PseudoBox>
               <PseudoBox textAlign="left">= your donation</PseudoBox>
-            </Text>
+            </Box>
             <PseudoBox
               color="primary.green"
               fontWeight="700"

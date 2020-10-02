@@ -25,13 +25,13 @@ const Hero = ({ padding, title, subtitle }) => {
         >
           {title}
         </Text>
-        <Text
+        <Box
           color="snow"
           mt={["16px", "12px"]}
           fontSize={["20px", "24px", "28px", "31px", "38px"]}
         >
           {subtitle}
-        </Text>
+        </Box>
       </Box>
     </PseudoBox>
   )
