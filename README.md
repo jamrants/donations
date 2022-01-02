@@ -195,7 +195,7 @@ Project Link: [https://github.com/jamrants/donations](https://github.com/jamrant
 
 - [David Li](https://github.com/davidli3100)
 - [James Ah Yong](https://github.com/RetroCraft)
-- [Jason Huang](https://github.com/jhthenerd)
+- [Jason Huang](https://github.com/err53)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
